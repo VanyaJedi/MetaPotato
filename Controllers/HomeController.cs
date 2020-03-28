@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using MetaPotato.Models;
 
@@ -18,10 +19,18 @@ namespace MetaPotato.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
+            //return Content(User.Identity.Name);
         }
+
+        public IActionResult StartPage()
+        {
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {
