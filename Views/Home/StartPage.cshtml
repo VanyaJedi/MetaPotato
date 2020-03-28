@@ -15,19 +15,12 @@
         <h1 class="start-auth__title">
             MetaPotato
         </h1>
-        <div class="start-auth__buttons">
-            <button type="button" class="start-auth__button button-shadow">
-                <span>Регистрация</span>
-            </button>
-            <div class="registration">
-
-            </div>
-            <button type="button" class="start-auth__button button-shadow">
-                <span>Вход</span>
-            </button>
-            <div>
-          
-            </div>
+        @Html.Partial("/Views/Account/_LoginPartial.cshtml");
+        <button type="button" class="start-auth__button button-shadow">
+            <span>Регистрация</span>
+        </button>
+        <div class="start-auth__registration">
+            @Html.Partial("/Views/Account/_RegisterPartial.cshtml");
         </div>
     </section>
 </body>

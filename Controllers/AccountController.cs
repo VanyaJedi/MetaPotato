@@ -8,7 +8,7 @@ using MetaPotato.Models; // пространство имен UserContext и к�
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace AuthApp.Controllers
+namespace MetaPotato.Controllers
 {
     public class AccountController : Controller
     {
@@ -83,7 +83,7 @@ namespace AuthApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("StartPage", "Home");
         }
     }
 }
