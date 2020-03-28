@@ -22,13 +22,15 @@ namespace MetaPotato.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return Content(User.Identity.Name);
+            return View();
+            //return Content(User.Identity.Name);
         }
 
         public IActionResult StartPage()
         {
             return View();
         }
+
 
         public IActionResult Privacy()
         {
