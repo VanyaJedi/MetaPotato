@@ -37,7 +37,8 @@ namespace MetaPotato.Controllers
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
-            return View(model);
+            //return View(model);
+            return View("~/Views/Home/StartPage.cshtml", model);
         }
         [HttpGet]
         public IActionResult Register()
@@ -64,7 +65,7 @@ namespace MetaPotato.Controllers
                 else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
-            return View(model);
+            return View("~/Views/Home/StartPage.cshtml", model);
         }
 
         private async Task Authenticate(string userName)

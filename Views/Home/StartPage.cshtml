@@ -15,13 +15,17 @@
         <h1 class="start-auth__title">
             MetaPotato
         </h1>
-        @Html.Partial("/Views/Account/_LoginPartial.cshtml");
-        <button type="button" class="start-auth__button button-shadow">
-            <span>Регистрация</span>
-        </button>
-        <div class="start-auth__registration">
-            @Html.Partial("/Views/Account/_RegisterPartial.cshtml");
+        <div class="start-auth__auth-block">
+            @Html.Partial("/Views/Account/_LoginPartial.cshtml", new MetaPotato.ViewModels.LoginModel())
+            <button type="button" class="start-auth__button start-auth__register-btn button-shadow">Регистрация</button>
         </div>
+        <div class="start-auth__regist-block hidden">
+            @Html.Partial("/Views/Account/_RegisterPartial.cshtml", new MetaPotato.ViewModels.RegisterModel())
+            <button type="button" class="start-auth__back-btn button-shadow">Назад</button>
+        </div>
+        
+        
     </section>
+    <script src="~/js/auth.js"></script>
 </body>
 </html>
