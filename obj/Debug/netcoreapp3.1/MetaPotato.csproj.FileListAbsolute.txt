@@ -140,3 +140,5 @@ D:\VisualStudioApps\Repos\MetaPotato\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.C
 D:\VisualStudioApps\Repos\MetaPotato\obj\Debug\netcoreapp3.1\MetaPotato.MvcApplicationPartsAssemblyInfo.cache
 D:\VisualStudioApps\Repos\MetaPotato\obj\Debug\netcoreapp3.1\Razor\Views\Account\_LoginPartial.cshtml.g.cs
 D:\VisualStudioApps\Repos\MetaPotato\obj\Debug\netcoreapp3.1\Razor\Views\Account\_RegisterPartial.cshtml.g.cs
+D:\VisualStudioApps\Repos\MetaPotato\obj\Debug\netcoreapp3.1\Razor\Views\Home\UserList.cshtml.g.cs
+D:\VisualStudioApps\Repos\MetaPotato\bin\Debug\netcoreapp3.1\package-lock.json

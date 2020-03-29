@@ -114,5 +114,32 @@ body {
     width: 223px;
     height: 31px; }
 
+.master-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #0D0C14;
+  height: 41px;
+  padding: 13px 15px; }
+
+.master-header__title {
+  font-size: 18px;
+  line-height: 21px;
+  color: #fff;
+  text-shadow: 0 0 5px #6F6B8A, 0 0 10px #6F6B8A, 0 0 20px #0D0C14, 0 0 30px #0D0C14, 0 0 40px #0D0C14, 0 0 55px #0D0C14, 0 0 75px #0D0C14; }
+
+.master-header__icon {
+  fill: #6F6B8A; }
+
+.master-main {
+  height: calc(100vh - 41px); }
+
+.user-list {
+  display: flex;
+  height: 100%; }
+  .user-list--no-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+
 .hidden {
   display: none; }

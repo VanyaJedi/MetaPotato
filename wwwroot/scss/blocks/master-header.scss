@@ -1,0 +1,18 @@
+﻿.master-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: $background-dark;
+    height: 41px;
+    padding: 13px 15px;
+}
+
+.master-header__title {
+    font-size: 18px;
+    line-height: 21px;
+    color: #fff;
+    text-shadow: 0 0 5px $text-purple-dark, 0 0 10px $text-purple-dark, 0 0 20px $background-dark, 0 0 30px $background-dark, 0 0 40px $background-dark, 0 0 55px $background-dark, 0 0 75px $background-dark;
+}
+
+.master-header__icon {
+    fill: #6F6B8A;
+}
