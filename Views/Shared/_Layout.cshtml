@@ -21,11 +21,15 @@
                     </svg>
                     <span>Настройки</span>
                 </li>
-                <li class="menu__nav-item">
-                    <svg class="menu__icon" width="17" height="22">
-                        <use xlink:href="img/symbol/sprite.svg#logout"></use>
-                    </svg>
-                    <span>Выйти</span>
+                <li class="menu__nav-item" asp-action="logout">
+                    <form asp-action="Logout" asp-controller="Account">
+                        <button class="menu__logout">
+                            <svg class="menu__icon" width="17" height="22">
+                                <use xlink:href="img/symbol/sprite.svg#logout"></use>
+                            </svg>
+                            <span>Выйти</span>
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>

@@ -174,7 +174,7 @@ body {
 .menu__user {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 20px; }
+  margin-bottom: 30px; }
 
 .menu__avatar {
   width: 50px;
@@ -190,14 +190,20 @@ body {
 .menu__nav {
   list-style: none; }
 
-.menu__nav-item {
+.menu__nav-item, .menu__logout {
   display: flex;
+  align-items: center;
   margin-bottom: 15px;
   font-size: 14px; }
 
 .menu__icon {
   fill: #8E866A;
   margin-right: 10px; }
+
+.menu__logout {
+  border: none;
+  background: none;
+  color: #8E866A; }
 
 .hidden {
   display: none; }
