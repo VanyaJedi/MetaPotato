@@ -32,7 +32,6 @@ namespace MetaPotato.Controllers
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
-
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");

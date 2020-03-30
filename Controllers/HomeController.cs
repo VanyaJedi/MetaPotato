@@ -22,8 +22,9 @@ namespace MetaPotato.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View();
-            //return Content(User.Identity.Name);
+           ViewBag.Username = User.Identity.Name;
+           return View();
+           //return Content(User.Identity.Name);
         }
 
         public IActionResult StartPage()
