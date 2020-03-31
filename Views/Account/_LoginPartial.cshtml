@@ -1,0 +1,9 @@
+﻿
+@model MetaPotato.ViewModels.LoginModel
+
+    <form class="start-auth__login" asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+        <div class="validation" asp-validation-summary="ModelOnly" />
+        <input class="start-auth__input" type="text" placeholder="login" asp-for="Email" />
+        <input class="start-auth__input start-auth__input--last" type="password" placeholder="password" asp-for="Password" />
+        <button class="start-auth__button button-shadow">Войти</button>
+    </form>

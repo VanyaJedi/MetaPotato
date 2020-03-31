@@ -1,0 +1,11 @@
+﻿.user-list {
+    display: flex;
+    height: 100%;
+
+    &--no-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
