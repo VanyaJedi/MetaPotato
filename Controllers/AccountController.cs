@@ -28,7 +28,7 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                tblUser user = await db.tblUsers.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
@@ -50,11 +50,11 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                tblUser user = await db.tblUsers.FirstOrDefaultAsync(u => u.Email == model.Email);
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    db.Users.Add(new User { Email = model.Email, Password = model.Password });
+                    db.tblUsers.Add(new tblUser { Email = model.Email, Password = model.Password });
                     await db.SaveChangesAsync();
 
                     await Authenticate(model.Email); // аутентификация

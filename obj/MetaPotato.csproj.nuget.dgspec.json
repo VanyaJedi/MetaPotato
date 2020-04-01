@@ -1,21 +1,18 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VisualStudioApps\\Repos\\MetaPotato\\MetaPotato.csproj": {}
+    "c:\\MetaPotato\\MetaPotato.csproj": {}
   },
   "projects": {
-    "D:\\VisualStudioApps\\Repos\\MetaPotato\\MetaPotato.csproj": {
+    "c:\\MetaPotato\\MetaPotato.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VisualStudioApps\\Repos\\MetaPotato\\MetaPotato.csproj",
+        "projectUniqueName": "c:\\MetaPotato\\MetaPotato.csproj",
         "projectName": "MetaPotato",
-        "projectPath": "D:\\VisualStudioApps\\Repos\\MetaPotato\\MetaPotato.csproj",
+        "projectPath": "c:\\MetaPotato\\MetaPotato.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\VisualStudioApps\\Repos\\MetaPotato\\obj\\",
+        "outputPath": "c:\\MetaPotato\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
