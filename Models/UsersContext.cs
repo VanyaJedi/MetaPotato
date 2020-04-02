@@ -15,5 +15,20 @@ namespace MetaPotato.Models
         {
             Database.EnsureCreated();
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<tblChatRoomUser>()
+                .HasKey(t => new { t.ChatRoomId, t.UserId });
+
+            modelBuilder.Entity<tblChatRoomUser>()
+                .HasOne(sc => sc.tblChatRoom)
+                .WithMany(s => s.tblChatRoomUsers)
+                .HasForeignKey(sc => sc.ChatRoomId);
+
+            modelBuilder.Entity<tblChatRoomUser>()
+                .HasOne(sc => sc.tblUser)
+                .WithMany(c => c.tblChatRoomUsers)
+                .HasForeignKey(sc => sc.UserId);
+        }
     }
 }

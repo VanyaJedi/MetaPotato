@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\MetaPotato\\MetaPotato.csproj": {}
+    "C:\\MetaPotato\\MetaPotato.csproj": {}
   },
   "projects": {
-    "c:\\MetaPotato\\MetaPotato.csproj": {
+    "C:\\MetaPotato\\MetaPotato.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\MetaPotato\\MetaPotato.csproj",
+        "projectUniqueName": "C:\\MetaPotato\\MetaPotato.csproj",
         "projectName": "MetaPotato",
-        "projectPath": "c:\\MetaPotato\\MetaPotato.csproj",
+        "projectPath": "C:\\MetaPotato\\MetaPotato.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "c:\\MetaPotato\\obj\\",
+        "outputPath": "C:\\MetaPotato\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -28,7 +28,7 @@ namespace MetaPotato.Models
     public class tblChatRoom
     {
         [Key]
-        public int ChatRoomID { get; set; }
+        public int ChatRoomId { get; set; }
         public string ChatRoomName { get; set; }
         public int MaxUserNumber { get; set; }
         public bool IsLock { get; set; }
@@ -42,9 +42,9 @@ namespace MetaPotato.Models
     }
 
     // Связующая сущность для реализации отношения многие-ко-многим
-    public class tblChatRoomUser
+   public class tblChatRoomUser
     {
-        public int ChatRoomID { get; set; }
+        public int ChatRoomId { get; set; }
         public tblChatRoom tblChatRoom { get; set; }
         public int UserId { get; set; }
         public tblUser tblUser { get; set; }
