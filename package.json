@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
-  "description": "Messanger",
+  "description": "Messónger",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-cheerio": "^1.0.0",
