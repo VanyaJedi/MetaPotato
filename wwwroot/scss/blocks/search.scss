@@ -1,15 +1,126 @@
 ﻿.search {
+    display: none;
     position: absolute;
+    z-index: 1000;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
+
+    &--show {
+        display: block;
+    }
 }
 
 .search__header {
     background-color: $background-dark;
+    display: flex;
+    align-items: center;
+    height: 41px;
+    width: 100%;
 }
 
-.search__wrapper {
-    width: 92%;
+.search__result {
+    display: none;
+    background: #fff;
+    height: calc(100vh - 41px);
+
+    &--open {
+        display: flex;
+        justify-content:center;
+        align-items: center;
+    }
+}
+
+.search__input {
+    border: none;
+    background: transparent;
+    border-radius: 5px;
+    width: 80%;
+    height: 20px;
+    padding: 4px 7px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #fff;
+
+    &::placeholder {
+        color: #fff;
+        opacity: 0.3;
+    }
+}
+
+.search__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    fill: #6F6B8A;
+}
+
+.search__icon-btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 100%;
+    border: none;
+    background: none;
+}
+
+
+@media (min-width: $tablet-width) {
+
+    .search {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+        width: 33%;
+        height: 100%;
+    }
+
+    .search__icon-btn-back {
+        display: none;
+    }
+
+    .search__header {
+        width: 162px;
+        height: 20px;
+    }
+
+    .search__input {
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        color: $background-dark;
+
+        &::placeholder {
+            color: #000;
+            opacity: 0.3;
+        }
+    }
+
+    .search__result {
+        position: absolute;
+        z-index: 1000;
+        width: 162px;
+        height: 140px;
+        border: 1px solid $background-dark;
+        border-radius: 5px;
+        top: 35px;
+        right: 0;
+    }
+}
+
+@media (min-width: $desktop-width) {
+
+    .search__header {
+        width: 270px;
+        height: 34px;
+    }
+
+    .search__result {
+        width: 270px;
+        top: 53px;
+    }
+
 }
