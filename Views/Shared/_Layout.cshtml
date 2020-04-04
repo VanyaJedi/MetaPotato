@@ -14,6 +14,9 @@
                 <div class="menu__user">
                     <img src="img/default_avatar.png" class="menu__avatar" />
                     <span class="menu__username">@ViewBag.Username</span>
+                    <svg class="menu__icon menu__icon--triangle" width="10" height="14">
+                        <use xlink:href="img/symbol/sprite.svg#triangle"></use>
+                    </svg>
                 </div>
                 <ul class="menu__nav">
                     <li class="menu__nav-item">
@@ -34,7 +37,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="master-header__icon-wrapper">
+            <div class="master-header__icon-wrapper master-header__icon-wrapper--left">
                 <button class="master-header__icon-btn master-header__menu-close" type="button">
                     <svg class="master-header__icon " width="13" height="13" aria-label="Закрыть меню">
                         <use xlink:href="img/symbol/sprite.svg#menu-close"></use>
@@ -53,23 +56,21 @@
 
             <div class="search">
                 <div class="search__header">
-                    <div class="search__wrapper">
-                        <button class="search__icon" type="button">
-                            <svg class="master-header__icon master-header__icon--search" width="15" height="16" aria-label="Поиск">
-                                <use xlink:href="img/symbol/sprite.svg#search"></use>
+                        <button class="search__icon-btn-back" type="button">
+                            <svg class="search__icon search__icon--back" widht="16" height="16" aria-label="Назад">
+                                <use xlink:href="img/symbol/sprite.svg#back"></use>
                             </svg>
                         </button>
-                        <input class="master-header__search" type="text" placeholder="поиск..." />
-                    </div>
+                        <input class="search__input" type="text" placeholder="поиск..." />
                 </div>
                 <div class="search__result">
                     <span>Результаты поиска</span>
                 </div>
-            </div>
+             </div>
 
             <div class="master-header__icon-wrapper master-header__icon-wrapper--right">
                 <button class="master-header__icon-btn master-header__show-search" type="button">
-                    <svg class="master-header__icon master-header__icon--search" width="15" height="16" aria-label="Поиск">
+                    <svg class="master-header__icon master-header__icon--search" width="16" height="16" aria-label="Поиск">
                         <use xlink:href="img/symbol/sprite.svg#search"></use>
                     </svg>
                 </button>
