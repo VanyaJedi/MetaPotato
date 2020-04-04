@@ -7,22 +7,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using MetaPotato.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MetaPotato.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        /* private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+         public HomeController(ILogger<HomeController> logger)
+         {
+             _logger = logger;
+         }
+         */
+        private UserContext db;
+        public HomeController(UserContext context)
         {
-            _logger = logger;
+            db = context;
         }
+
 
         [Authorize]
         public IActionResult Index()
         {
-           ViewBag.Username = User.Identity.Name;
+
+            var xContacts = db.tblUsers.Include(c => c.tblUserChatRoom).ThenInclude(sc => sc.tblChatRoom).ToList();
+            var u = xContacts.FirstOrDefault(t => User.Identity.Name == t.Login);
+            var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
+            string xToView = "Ваши контакты: ";
+            foreach (tblChatRoom s in cr)
+                xToView = xToView + ($"{s.ChatRoomName}" + " ,");
+            ViewBag.ListContacts = xToView;
+            ViewBag.Username = "Вы - " + User.Identity.Name;
            return View();
            //return Content(User.Identity.Name);
         }
