@@ -52,6 +52,12 @@
     color: $text-gold;
 }
 
+@media (min-width: $tablet-width) { 
+    .menu {
+        width:  65.23%;
+    }
+}
+
 @media (min-width: $desktop-width) {
 
     .menu {
@@ -113,5 +119,6 @@
         margin-left: 18px;
         font-size: 20px;
         font-weight: 500;
+        margin-top: 0;
     }
 }

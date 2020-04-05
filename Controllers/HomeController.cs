@@ -34,10 +34,10 @@ namespace MetaPotato.Controllers
             var xContacts = db.tblUsers.Include(c => c.tblUserChatRoom).ThenInclude(sc => sc.tblChatRoom).ToList();
             var u = xContacts.FirstOrDefault(t => User.Identity.Name == t.Login);
             var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
-            string xToView = "Ваши контакты: ";
-            foreach (tblChatRoom s in cr)
-                xToView = xToView + ($"{s.ChatRoomName}" + " ,");
-            ViewBag.ListContacts = xToView;
+            //string xToView = "Ваши контакты: ";
+            //foreach (tblChatRoom s in cr)
+            //    xToView = xToView + ($"{s.ChatRoomName}" + " ,");
+            ViewBag.ListContacts = cr;
             ViewBag.Username = "Вы - " + User.Identity.Name;
            return View();
            //return Content(User.Identity.Name);
