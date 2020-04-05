@@ -93,6 +93,10 @@
             width: 162px;
         }
     }
+
+    .master-header__title {
+        font-size: 24px;
+    }
 }
 
 
@@ -123,5 +127,9 @@
                 display: block;
             }
         }
+    }
+
+    .master-header__title {
+        font-size: 30px;
     }
 }
