@@ -2,6 +2,50 @@
     ViewData["Title"] = "Home Page";
 }
 
-<section class="user-list user-list--no-dialog">
-    <span class="user-list__no-dialog">@ViewBag.Username  @ViewBag.ListContacts</span>
-</section>
+    <section class="users">
+        @if (ViewBag.ListContacts.Count == 0)
+        {
+            <span class="user-list__no-dialog">У вас пока нет диалогов</span>
+        }
+        else
+        {
+            <ul class="users__list">
+                @foreach (var contact in ViewBag.ListContacts)
+                {
+                    <li class="users__item">
+                        <div class="users__item-wrapper wrapper">
+                            <img class="users__avatar" src="~/img/default_avatar.png" />
+                            <div class="users__name-message">
+                                <span class="users__name">@contact.ChatRoomName</span>
+                                <div class="users__last-text">
+                                    <span>Какое-то послденее сообщение очень длинное сообщениемммммммммммммммммммммммммммммммммммммммммммммммммммммм</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+    </section>
+    
+    <section class="messages">
+        <div class="messages__header">
+            <button class="messages__icon-btn-back" type="button">
+                <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
+                    <use xlink:href="img/symbol/sprite.svg#back"></use>
+                </svg>
+            </button>
+            <img class="messages__avatar" src="~/img/default_avatar.png" />
+            <span class="messages__username">
+                Имя юзера
+            </span>
+            <button class="messages__icon-btn-set" type="button">
+                <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
+                    <use xlink:href="img/symbol/sprite.svg#dots"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="messages__block">
+
+        </div>
+    </section>
