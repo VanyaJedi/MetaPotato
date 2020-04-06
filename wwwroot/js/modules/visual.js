@@ -30,6 +30,7 @@ const showSearchHandler = function () {
 const hideSearchHandler = function () {
     search.classList.remove('search--show');
     searchInput.blur();
+    console.log(document.activeElement);
 }
 
 const showSearchResultHandler = function () {
@@ -45,11 +46,15 @@ const showMenuDesktop = function () {
 }
 
 const whenTabletSearch = function () {
+    if (document.activeElement === searchInput) {
+        showSearchResultHandler();
+    }
+    searchInput.addEventListener('focus', showSearchResultHandler);
     searchInput.addEventListener('blur', hideSearchResultNotMobile)
 }
 
 const whenNotTabletSearch = function () {
-    searchInput.blur();
+    searchInput.removeEventListener('focus', showSearchResultHandler);
     searchInput.removeEventListener('blur', hideSearchResultNotMobile)
 }
 
@@ -68,14 +73,20 @@ if (mediaService.mqlDesktop.matches) {
     menuUser.addEventListener('click', showMenuDesktop);
 }
 
+
+if (mediaService.mqlTablet.matches) {
+    searchInput.addEventListener('focus', showSearchResultHandler);
+    searchInput.addEventListener('blur', hideSearchResultNotMobile)
+}
+
 openMenuBtn.addEventListener('click', openMenuHandler);
 closeMenuBtn.addEventListener('click', closeMenuHandler);
 
 showSearchBtn.addEventListener('click', showSearchHandler);
 searchBackBtn.addEventListener('click', hideSearchHandler);
 
-searchInput.addEventListener('focus', showSearchResultHandler);
 
 
-mediaService.subscribe('search', 'tablet', whenTabletSearch, whenNotTabletSearch)
-mediaService.subscribe('desktopMenu', 'desktop', whenDesktopMenu, whenNotDesktopMenu)
+
+mediaService.subscribe('search', 'tablet', whenTabletSearch, whenNotTabletSearch);
+mediaService.subscribe('desktopMenu', 'desktop', whenDesktopMenu, whenNotDesktopMenu);
