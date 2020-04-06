@@ -8,7 +8,7 @@ var svgo = require("gulp-svgo");
 gulp.task("sass", function () {
     return gulp.src('./wwwroot/scss/style.scss')
         .pipe(sass())
-        .pipe(gulp.dest("./wwwroot/css"));
+        .pipe(gulp.dest("./wwwroot/build/css"));
 });
 
 gulp.task("svgSprite", function () {
@@ -21,7 +21,7 @@ gulp.task("svgSprite", function () {
                 }
             }
         }))
-        .pipe(gulp.dest("./wwwroot/img"));
+        .pipe(gulp.dest("./wwwroot/build"));
 });
 
 gulp.watch("./wwwroot/scss/**/*.{scss,sass}", gulp.series("sass"));
