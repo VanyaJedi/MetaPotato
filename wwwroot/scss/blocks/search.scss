@@ -21,15 +21,11 @@
 }
 
 .search__result {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #fff;
     height: calc(100vh - 41px);
-
-    &--open {
-        display: flex;
-        justify-content:center;
-        align-items: center;
-    }
 }
 
 .search__input {
@@ -100,6 +96,7 @@
     }
 
     .search__result {
+        display: none;
         position: absolute;
         z-index: 1000;
         width: 162px;
@@ -108,6 +105,10 @@
         border-radius: 5px;
         top: 35px;
         right: 0;
+
+        &--open {
+            display: flex;
+        }
     }
 }
 
