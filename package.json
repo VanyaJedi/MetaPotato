@@ -4,13 +4,20 @@
   "private": true,
   "description": "Messenger",
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "webpack": "webpack"
   },
   "devDependencies": {
     "gulp": "4.0.2",
     "gulp-sass": "4.0.2",
     "gulp-svg-sprite": "1.5.0",
-    "gulp-svgo": "2.1.1"
+    "gulp-svgo": "2.1.1",
+    "webpack": "4.42.1",
+    "webpack-cli": "3.3.11"
+  },
+  "-vs-binding": {
+    "BeforeBuild": [
+      "build"
+    ]
   }
-, "-vs-binding":{"BeforeBuild":["build"]}
 }
