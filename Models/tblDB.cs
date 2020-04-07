@@ -51,7 +51,7 @@ namespace MetaPotato.Models
         
     }
 
-    // Таблица сообщений !!!!!
+    // Таблица сообщений (это должно появиться только в backend)
     public class tblMessage
     {
         [Key]
