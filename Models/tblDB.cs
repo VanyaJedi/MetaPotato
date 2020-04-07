@@ -50,4 +50,15 @@ namespace MetaPotato.Models
         public tblChatRoom tblChatRoom { get; set; }
         
     }
+
+    // Таблица сообщений !!!!!
+    public class tblMessage
+    {
+        [Key]
+        public int messageId { get; set; }
+        public string message { get; set; }
+        public DateTime SendTime { get; set; }
+        public int UserId { get; set; }
+        public virtual tblUser tblUser { get; set; }
+    }
 }

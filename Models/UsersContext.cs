@@ -10,6 +10,7 @@ namespace MetaPotato.Models
     {
         public DbSet<tblUser> tblUsers { get; set; }
         public DbSet<tblChatRoom> tblChatRooms { get; set; }
+        public DbSet<tblMessage> tblMessages { get; set; }
         public UserContext(DbContextOptions<UserContext> options)
             : base(options)
         {

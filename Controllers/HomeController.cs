@@ -21,26 +21,24 @@ namespace MetaPotato.Controllers
          }
          */
         private UserContext db;
+        private ChatManager chatManager;
         public HomeController(UserContext context)
         {
             db = context;
+           chatManager = new ChatManager(context);
         }
 
 
         [Authorize]
         public IActionResult Index()
-        {
+        { 
+            // Построить список tblChatRoom
+            var cr = chatManager.BuildContactList(User.Identity.Name);
+            // Построить список контактов
 
-            var xContacts = db.tblUsers.Include(c => c.tblUserChatRoom).ThenInclude(sc => sc.tblChatRoom).ToList();
-            var u = xContacts.FirstOrDefault(t => User.Identity.Name == t.Login);
-            var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
-            //string xToView = "Ваши контакты: ";
-            //foreach (tblChatRoom s in cr)
-            //    xToView = xToView + ($"{s.ChatRoomName}" + " ,");
             ViewBag.ListContacts = cr;
             ViewBag.Username = "Вы - " + User.Identity.Name;
-           return View();
-           //return Content(User.Identity.Name);
+            return View();
         }
 
         public IActionResult StartPage()
