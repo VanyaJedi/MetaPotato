@@ -32,11 +32,11 @@ namespace MetaPotato.Controllers
         [Authorize]
         public IActionResult Index()
         { 
-            // Построить список tblChatRoom
-            var cr = chatManager.BuildContactList(User.Identity.Name);
+            // Построить список контактов (List<ContactItem>)
+            var xContactList = chatManager.BuildContactList(User.Identity.Name);
             // Построить список контактов
 
-            ViewBag.ListContacts = cr;
+            ViewBag.ListContacts = xContactList;
             ViewBag.Username = "Вы - " + User.Identity.Name;
             return View();
         }
