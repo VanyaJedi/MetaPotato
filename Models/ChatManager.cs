@@ -19,6 +19,13 @@ namespace MetaPotato.Models
         public byte[] FPhoto;
     }
 
+    // Элемент списка сообщений
+    public class MessageItem
+    {
+        //public string FLogin;
+        //public string FLastMessage;
+        //public byte[] FPhoto;
+    }
     // Менеджер чата сообщений
     public class ChatManager
     {
@@ -27,11 +34,17 @@ namespace MetaPotato.Models
         {
            FContext = AContext;
         }
+
+        //Построить список контактов для текущего Login
         public List<ContactItem> BuildContactList(string ALogin)
         {
-            var xContacts = FContext.tblUsers.Include(c => c.tblUserChatRoom).ThenInclude(sc => sc.tblChatRoom).ToList();
-            var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
-            var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
+            // Это классический вариант загрузки связанных данных
+          //  var xContacts = FContext.tblUsers.Include(c => c.tblUserChatRoom).ThenInclude(sc => sc.tblChatRoom).ToList();
+          // var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
+          //  var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
+            // Это моя оптимизация (только для одного пользователя с заданным Login). Надо еще подумать
+            var u = FContext.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblUserChatRoom).ThenInclude(sc => sc.tblChatRoom).ToList();
+            var cr = u[0].tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
             // Формировать список контактов
             List<ContactItem> xContactList = new List<ContactItem>();
             ContactItem xContactItem = null;
@@ -44,6 +57,23 @@ namespace MetaPotato.Models
                 xContactList.Add(xContactItem);
             }
             return xContactList;
+        }
+
+        public  List<MessageItem> RecieveMessages(tblChatRoom room)
+        {
+            try
+            {
+                List<MessageItem> result = new List<MessageItem>();
+                var xMessages = FContext.tblMessages.OrderBy(p => p.messageId);
+            //    List<tblMessage> x = (from messages in xMessages
+            //                              where messages.tblTalker.ChatRoomID == room.ChatRoomID
+            //                              select messages).ToList();
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

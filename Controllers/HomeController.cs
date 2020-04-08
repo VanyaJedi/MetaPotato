@@ -34,10 +34,10 @@ namespace MetaPotato.Controllers
         { 
             // Построить список контактов (List<ContactItem>)
             var xContactList = chatManager.BuildContactList(User.Identity.Name);
-            // Построить список контактов
 
+            // Передать во вьювер
             ViewBag.ListContacts = xContactList;
-            ViewBag.Username = "Вы - " + User.Identity.Name;
+            ViewBag.Username = User.Identity.Name;
             return View();
         }
 
