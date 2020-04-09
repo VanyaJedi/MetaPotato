@@ -54,7 +54,7 @@ namespace MetaPotato.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    db.tblUsers.Add(new tblUser { Email = model.Email, Password = model.Password });
+                    db.tblUsers.Add(new tblUser { Email = model.Email, Password = model.Password, Login = model.Email });
                     await db.SaveChangesAsync();
 
                     await Authenticate(model.Email); // аутентификация
