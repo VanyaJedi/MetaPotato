@@ -7,8 +7,8 @@
         })
     }
 
-    static getListenerNameByKey() {
-        return `mql-${key}`;
+    static getListenerNameByKey(key) {
+        return `mql${key}`;
     }
 
     addMatchMedia(key, matchMedia) {
@@ -59,7 +59,7 @@
         }
     }
 
-    isScreenTypeExist {
+    isScreenTypeExist(key) {
         return !!this.subscriptionsByScreenSize[key];
     }
 
