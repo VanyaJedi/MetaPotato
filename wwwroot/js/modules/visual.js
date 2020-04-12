@@ -60,12 +60,10 @@ const whenNotTabletSearch = function () {
 
 const whenDesktopMenu = function () {
     menuUser.addEventListener('click', showMenuDesktop);
-
 }
 
 const whenNotDesktopMenu = function () {
     menuUser.removeEventListener('click', showMenuDesktop);
-
 }
 
 

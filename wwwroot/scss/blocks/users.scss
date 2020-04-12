@@ -1,6 +1,10 @@
 ﻿.users {
     height: 100%;
-    width: 100%
+    width: 100%;
+
+    &--hide {
+        display: none;
+    }
 }
 
 .users__item {
