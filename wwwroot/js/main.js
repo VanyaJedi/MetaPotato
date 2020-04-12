@@ -31,7 +31,7 @@ const whenNotMobileChat = () => {
     closeChatMobileBtn.removeEventListener('click', hideMessagesHandlerMobile); 
 }
 
-if (mediaService.mqlMobile.matches) {
+if (mediaService.mqlmobile.matches) {
     whenMobileChat()
 }
 mediaService.subscribe('mobileChat', 'mobile', whenMobileChat, whenNotMobileChat);

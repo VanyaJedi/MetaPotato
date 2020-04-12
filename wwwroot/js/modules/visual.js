@@ -11,6 +11,7 @@ const menuUser = document.querySelector('.menu__user');
 
 import { mediaService } from "./mediaService.js";
 
+console.log(mediaService);
 
 const openMenuHandler = function () {
     headerSection.classList.remove('master-header--close-menu');
@@ -67,12 +68,12 @@ const whenNotDesktopMenu = function () {
 }
 
 
-if (mediaService.mqlDesktop.matches) {
+if (mediaService.mqldesktop.matches) {
     menuUser.addEventListener('click', showMenuDesktop);
 }
 
 
-if (mediaService.mqlTablet.matches) {
+if (mediaService.mqltablet.matches) {
     searchInput.addEventListener('focus', showSearchResultHandler);
     searchInput.addEventListener('blur', hideSearchResultNotMobile)
 }
