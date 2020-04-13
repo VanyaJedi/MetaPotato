@@ -48,7 +48,7 @@ namespace MetaPotato
                 context.SaveChanges();
                 xFlag = true;
             };
-          //  if (xFlag)
+            if (xFlag)
             {
                 // Контакты первого пользователя
                 tblUser u1 = context.tblUsers.Find(1);
