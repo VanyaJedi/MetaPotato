@@ -1,80 +1,108 @@
 ﻿class MediaService {
-
-    constructor() {
-        this.mqlMobile = window.matchMedia('(max-width: 767px)');
-        this.mqlTablet = window.matchMedia('(min-width: 768px)');
-        this.mqlDesktop = window.matchMedia('(min-width: 1440px)');
-        this.mqlMobile.addListener(this.mobileListener.bind(this));
-        this.mqlTablet.addListener(this.tabletListener.bind(this));
-        this.mqlDesktop.addListener(this.desktopListener.bind(this));
-        this.subscriptionsByScreenSize = {
-            mobile: [],
-            tablet: [],
-            desktop: []
-        };
+    constructor(settings) {
+        this.subscriptionsByScreenSize = {};
         this.subscriptionsById = {};
+        settings.forEach(({ key, matchMedia }) => {
+            this.addMatchMedia(key, matchMedia)
+        })
     }
 
-    mobileListener(evt) {
-        if (evt.matches) {
-            this.subscriptionsByScreenSize.mobile.forEach(id => {
-                this.subscriptionsById[id].whenHappens()
-            })
-        } else {
-            this.subscriptionsByScreenSize.mobile.forEach(id => {
-                this.subscriptionsById[id].whenNotHappens()
-            })
+    static getListenerNameByKey(key) {
+        return `mql${key}`;
+    }
+
+    addMatchMedia(key, matchMedia) {
+        if (this.isScreenTypeExist(key)) {
+            throw new Error(`The key already exists: ${key}`)
+        }
+        const name = MediaService.getListenerNameByKey(key);
+        this[name] = window.matchMedia(matchMedia)
+        this[name].addListener(this._listener(key).bind(this))
+        this.subscriptionsByScreenSize[key] = []
+    }
+
+    removeMatchMedia() {
+        if (!this.isScreenTypeExist(key)) {
+            return;
+        }
+        const name = MediaService.getListenerNameByKey();
+        delete this[name];
+        const ids = this.subscriptionsByScreenSize[key];
+        ids.forEach(id => {
+            delete this.subscriptionsById[id];
+        });
+        delete this.subscriptionsByScreenSize[key];
+    }
+
+    _listener(key) {
+        return (evt) => {
+            if (evt.matches) {
+                this.subscriptionsByScreenSize[key].forEach(id => {
+                    this.subscriptionsById[id].whenHappens();
+                })
+            } else {
+                this.subscriptionsByScreenSize[key].forEach(id => {
+                    this.subscriptionsById[id].whenNotHappens();
+                })
+            }
         }
     }
 
-    tabletListener(evt) {
-        if (evt.matches) {
-            this.subscriptionsByScreenSize.tablet.forEach(id => {
-                this.subscriptionsById[id].whenHappens()
-            })
-        } else {
-            this.subscriptionsByScreenSize.tablet.forEach(id => {
-                this.subscriptionsById[id].whenNotHappens()
-            })
+    //метод удаления id из массива по размеру экрана
+    _deleteIdByScreenSize(id) {
+        for (const screen of Object.keys(this.subscriptionsByScreenSize)) {
+            const subscription = this.subscriptionsByScreenSize[screen];
+            if (subscription.includes(id)) {
+                subscription.splice(subscription.indexOf(id), 1);
+                break;
+            }
         }
     }
 
-    desktopListener(evt) {
-        if (evt.matches) {
-            this.subscriptionsByScreenSize.desktop.forEach(id => {
-                this.subscriptionsById[id].whenHappens()
-            })
-        } else {
-            this.subscriptionsByScreenSize.desktop.forEach(id => {
-                this.subscriptionsById[id].whenNotHappens()
-            })
-        }
+    isScreenTypeExist(key) {
+        return !!this.subscriptionsByScreenSize[key];
     }
 
+    isSubscribed(id) {
+        return !!this.subscriptionsById[id];
+    }
+
+    //Метод подписки, принимает id, на какое устройство подписываем и функции которые выполняются при совпадения расширения экрана или несовпадении
     subscribe(id, screenType, whenHappens, whenNotHappens) {
-        if (!this.subscriptionsById[id]) {
-            this.subscriptionsByScreenSize[screenType].push(id)
+        if (this.isSubscribed(id)) {
+            this.deleteIdByScreenSize(id, this.subscriptionsByScreenSize);
         }
+
         this.subscriptionsById[id] = {
             whenHappens,
             whenNotHappens
         }
+
+        this.subscriptionsByScreenSize[screenType].push(id);
     }
 
+    //Метод отписки, удаляет id из объектов subscriptionsByScreenSize и subscriptionsById
     unsubscribe(id) {
-        if (!this.subscriptionsById[id]) {
+        if (!this.isSubscribed(id)) {
             return;
         }
 
-        for (let screen in this.subscriptionsByScreenSize) {
-            let idPlace = this.subscriptionsByScreenSize[screen].indexOf(id);
-            if (idPlace >= 0) {
-                this.subscriptionsByScreenSize[screen].splice(idPlace, 1);
-            }
-        }
-
+        this.deleteIdByScreenSize(id);
         delete this.subscriptionsById[id];
     }
 }
 
-export const mediaService = new MediaService();
+export const mediaService = new MediaService([
+    {
+        key: 'mobile',
+        matchMedia: '(max-width: 767px)'
+    },
+    {
+        key: 'tablet',
+        matchMedia: '(min-width: 768px)'
+    },
+    {
+        key: 'desktop',
+        matchMedia: '(min-width: 1440px)'
+    }
+]);
