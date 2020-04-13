@@ -36,7 +36,7 @@ namespace MetaPotato
                        Email = "3"
                    }
                 );
-              //  context.SaveChanges();
+                context.SaveChanges();
                 xFlag = true;
             }
             if (!context.tblChatRooms.Any())
@@ -48,26 +48,31 @@ namespace MetaPotato
                 context.SaveChanges();
                 xFlag = true;
             };
-            if (xFlag)
-            { 
+          //  if (xFlag)
+            {
                 // Контакты первого пользователя
-                tblUser u = context.tblUsers.Find(1);
-                tblChatRoom r = context.tblChatRooms.Find(2);
-                u.tblUserChatRoom.Add(new tblUserChatRoom { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
-                r = context.tblChatRooms.Find(3);
-                u.tblUserChatRoom.Add(new tblUserChatRoom { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
+                tblUser u1 = context.tblUsers.Find(1);
+                tblUser u2 = context.tblUsers.Find(2);
+                tblUser u3 = context.tblUsers.Find(3);
+                tblChatRoom r = context.tblChatRooms.Find(1);
+                r.tblChatRoomUser.Add(new tblChatRoomUser { UserId = u2.Id, ChatRoomId = r.Id});
+                r.tblChatRoomUser.Add(new tblChatRoomUser { UserId = u1.Id, ChatRoomId = r.Id});
+                //   r = context.tblChatRooms.Find(3);
+                //   u.tblChatRoomUser.Add(new tblChatRoomUser { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
+              /*
                 // Контакты второго пользователя
                 u = context.tblUsers.Find(2);
                 r = context.tblChatRooms.Find(1);
-                u.tblUserChatRoom.Add(new tblUserChatRoom { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
+                u.tblChatRoomUser.Add(new tblChatRoomUser { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
                 r = context.tblChatRooms.Find(3);
-                u.tblUserChatRoom.Add(new tblUserChatRoom { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
+                u.tblChatRoomUser.Add(new tblChatRoomUser{ UserId = u.UserId, ChatRoomId = r.ChatRoomId });
                 // Контакты третьего пользователя
                 u = context.tblUsers.Find(3);
                 r = context.tblChatRooms.Find(1);
-                u.tblUserChatRoom.Add(new tblUserChatRoom { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
+                u.tblChatRoomUser.Add(new tblChatRoomUser { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
                 r = context.tblChatRooms.Find(2);
-                u.tblUserChatRoom.Add(new tblUserChatRoom { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
+                u.tblChatRoomUser.Add(new tblChatRoomUser { UserId = u.UserId, ChatRoomId = r.ChatRoomId });
+                */
                 context.SaveChanges();
             }
             
