@@ -30,7 +30,7 @@ namespace MetaPotato.Models
         [Key]
         public int Id { get; set; }
         public string ChatRoomName { get; set; }
-        public int MaxUserNumber { get; set; }
+        public int UserNumber { get; set; }
         public bool IsLock { get; set; }
         public List<tblChatRoomUser> tblChatRoomUser { get; set; }
 

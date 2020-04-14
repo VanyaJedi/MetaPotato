@@ -65,51 +65,39 @@ namespace MetaPotato.Models
 
         public List<ContactItem> BuildContactList(string ALogin)
         {
-            /* var courses = db.Courses.Include(c => c.StudentCourses).ThenInclude(sc => sc.Student).ToList();
-             // выводим все курсы
-             foreach (var c in courses)
-             {
-                 Console.WriteLine($"\n Course: {c.Name}");
-                 // выводим всех студентов для данного курса
-                 var students = c.StudentCourses.Select(sc => sc.Student).ToList();
-                 foreach (Student s in students)
-                     Console.WriteLine($"{s.Name}");
-             }
-             */
-            // Список всех tblChatRoom
-            //  var xChatRooms = FContext.tblChatRooms.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblUser).ToList();
-            //  string xAllUser = "";
-            // Выводим все tbChatRoom
-            //  foreach (var c in xChatRooms)
-            //  { + c.ChatRoomName;
-            // Выводим всех User-ов данного C
-            //      xAllUser = xAllUser + " User: "hatRoom
-            //      var xUsers = c.tblChatRoomUser.Select(sc => sc.tblUser).ToList();
-            //      foreach (tblUser user in xUsers)
-            //////         if (user != null)
-            //              xAllUser = xAllUser + user.Login;
-            //  }
-            //  var xUsers = c.tblChatRoomUser.Select(sc => sc.tblUser).ToList();
-           // var xUsers = FContext.tblUsers;
             // Это классический вариант загрузки связанных данных
             var xContacts = FContext.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выбор пользователя с заданным Login
             var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
-          //  var x = u.tblChatRoomUser;
-            // Получение его ChatRoom - ов
-         //   var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
+            // Список ChatRoom для текущего пользователя
+            var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
 
             // Формировать список контактов
             List<ContactItem> xContactList = new List<ContactItem>();
-            ContactItem xContactItem = null;
-            foreach (tblChatRoomUser s in u.tblChatRoomUser)
+            foreach (tblChatRoom cru in cr)
             {
-                xContactItem = new ContactItem();
-                xContactItem.FLogin = s.tblUser.Login;
-                xContactItem.FLastMessage = "Последнее сообщение от " + s.tblUser.Login;
-                xContactItem.FPhoto = null;
-                xContactList.Add(xContactItem);
-            }
+                if (cru.UserNumber <= 2)
+                    foreach (tblChatRoomUser x in cru.tblChatRoomUser)
+                    {                     
+                        if (x.tblUser.Login != ALogin)
+                        {
+                            ContactItem xContactItem = new ContactItem();
+                            xContactItem.FLogin = x.tblUser.Login;
+                            xContactItem.FLastMessage = "Последнее сообщение от " + x.tblUser.Login + " (ChatRoom = " + cru.ChatRoomName + ")";
+                            xContactItem.FPhoto = null;
+                            xContactList.Add(xContactItem);
+                            break;
+                        }
+                    }
+                else
+                {
+                    ContactItem xContactItem = new ContactItem();
+                    xContactItem.FLogin = cru.ChatRoomName;
+                    xContactItem.FLastMessage = "Последнее сообщение " + " (ChatRoom = " + cru.ChatRoomName + ")";
+                    xContactItem.FPhoto = null;
+                    xContactList.Add(xContactItem);
+                }
+             }
             return xContactList;
         }
 
