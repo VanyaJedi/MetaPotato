@@ -2,9 +2,11 @@
     constructor(settings) {
         this.subscriptionsByScreenSize = {};
         this.subscriptionsById = {};
-        settings.forEach(({ key, matchMedia }) => {
-            this.addMatchMedia(key, matchMedia)
-        })
+        if (settings) {
+            settings.forEach(({ key, matchMedia }) => {
+                this.addMatchMedia(key, matchMedia)
+            });
+        }
     }
 
     static getListenerNameByKey(key) {
@@ -106,3 +108,5 @@ export const mediaService = new MediaService([
         matchMedia: '(min-width: 1440px)'
     }
 ]);
+
+//export const mediaService = new MediaService([]);
