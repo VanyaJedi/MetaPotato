@@ -18,17 +18,17 @@ namespace MetaPotato.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<tblUserChatRoom>()
-                .HasKey(t => new { t.UserId, t.ChatRoomId });
+            modelBuilder.Entity<tblChatRoomUser>()
+                .HasKey(t => new { t.ChatRoomId, t.UserId });
 
-            modelBuilder.Entity<tblUserChatRoom>()
+            modelBuilder.Entity<tblChatRoomUser>()
                 .HasOne(sc => sc.tblChatRoom)
-                .WithMany(s => s.tblUserChatRoom)
+                .WithMany(s => s.tblChatRoomUser)
                 .HasForeignKey(sc => sc.ChatRoomId);
 
-            modelBuilder.Entity<tblUserChatRoom>()
+            modelBuilder.Entity<tblChatRoomUser>()
                 .HasOne(sc => sc.tblUser)
-                .WithMany(c => c.tblUserChatRoom)
+                .WithMany(c => c.tblChatRoomUser)
                 .HasForeignKey(sc => sc.UserId);
         }
     }

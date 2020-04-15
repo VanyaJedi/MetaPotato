@@ -10,17 +10,17 @@ namespace MetaPotato.Models
     public class tblUser
     {
         [Key]
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Login { get; set; }
         public int Status { get; set; }
         public byte[] Photo { get; set; }
-        public List<tblUserChatRoom> tblUserChatRoom { get; set; }
+        public List<tblChatRoomUser> tblChatRoomUser { get; set; }
 
         public tblUser()
         {
-            tblUserChatRoom = new List<tblUserChatRoom>();
+            tblChatRoomUser = new List<tblChatRoomUser>();
         }
     }
 
@@ -28,26 +28,27 @@ namespace MetaPotato.Models
     public class tblChatRoom
     {
         [Key]
-        public int ChatRoomId { get; set; }
+        public int Id { get; set; }
         public string ChatRoomName { get; set; }
-        public int MaxUserNumber { get; set; }
+        public int UserNumber { get; set; }
         public bool IsLock { get; set; }
-        public List<tblUserChatRoom> tblUserChatRoom { get; set; }
+        public List<tblChatRoomUser> tblChatRoomUser { get; set; }
 
         public tblChatRoom()
         {
-            tblUserChatRoom = new List<tblUserChatRoom>();
+            tblChatRoomUser = new List<tblChatRoomUser>();
         }
 
     }
 
     // Связующая сущность для реализации отношения многие-ко-многим
-   public class tblUserChatRoom
+   public class tblChatRoomUser
     {
-        public int UserId { get; set; }
-        public tblUser tblUser { get; set; }
         public int ChatRoomId { get; set; }
         public tblChatRoom tblChatRoom { get; set; }
+        public int UserId { get; set; }
+        public tblUser tblUser { get; set; }
+        
         
     }
 

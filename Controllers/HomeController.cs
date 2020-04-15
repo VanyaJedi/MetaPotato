@@ -31,7 +31,8 @@ namespace MetaPotato.Controllers
 
         [Authorize]
         public IActionResult Index()
-        { 
+        {
+         //   chatManager.AddUserToContacts(User.Identity.Name, "3");
             // Построить список контактов (List<ContactItem>)
             var xContactList = chatManager.BuildContactList(User.Identity.Name);
 
