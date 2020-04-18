@@ -19,49 +19,23 @@ namespace MetaPotato.Models
         public byte[] FPhoto;
     }
 
-    // Элемент списка сообщений
+    // Элемент списка контактов
     public class MessageItem
     {
         //public string FLogin;
         //public string FLastMessage;
         //public byte[] FPhoto;
     }
+
+
     // Менеджер чата сообщений
     public class ChatManager
     {
-        public string FTest { get; set; }
         private UserContext FContext;
         public ChatManager(UserContext AContext)
         {
            FContext = AContext;
         }
-
-        //Построить список контактов для текущего Login
-        /*  public List<ContactItem> BuildContactList(string ALogin)
-          {
-              // Это классический вариант загрузки связанных данных
-            //  var xContacts = FContext.tblUsers.Include(c => c.tblUserChatRoom).ThenInclude(sc => sc.tblChatRoom).ToList();
-              // Выбор пользователя с заданным Login
-            // var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
-              // Получение его ChatRoom - ов
-            //  var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
-              // Это моя оптимизация (Связанные данные грузятся только для одного пользователя с заданным Login). Надо еще подумать
-              var u = FContext.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
-              var cr = u[0].tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
-              // Формировать список контактов
-              List<ContactItem> xContactList = new List<ContactItem>();
-              ContactItem xContactItem = null;
-              foreach (tblChatRoom s in cr)
-              {
-                  xContactItem = new ContactItem();
-                  xContactItem.FLogin = s.ChatRoomName;
-                  xContactItem.FLastMessage = "Последнее сообщение от " + s.ChatRoomName;
-                  xContactItem.FPhoto = null;
-                  xContactList.Add(xContactItem);
-              }
-              return xContactList;
-          }
-          */
 
         public List<ContactItem> BuildContactList(string ALogin)
         {
