@@ -1,0 +1,48 @@
+﻿.users {
+    height: 100%;
+    width: 100%;
+
+    &--hide {
+        display: none;
+    }
+}
+
+.users__item {
+    height: 48px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.19);
+}
+
+.users__item-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.users__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 23px;
+}
+
+.users__name-message {
+    width: calc(100% - 36px - 23px);
+    height: 100%;
+    padding-top: 5px;
+}
+
+.users__name {
+    font-size: 14px;
+    font-weight: 500;
+    color: $background-dark;
+}
+
+.users__last-text {
+    width: 100%;
+    font-size: 12px;
+    color: #000;
+    margin-top: -3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -5,55 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewData["Title"] - MetaPotato</title>
-    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/build/css/style.css" />
 </head>
 <body>
     <header class="master-header master-header--close-menu">
-        <div class="master-header__menu menu">
-            <div class="menu__user">
-                <img src="img/default_avatar.png" class="menu__avatar" />
-                <span class="menu__username">@ViewBag.Username</span>
-            </div>
-            <ul class="menu__nav">
-                <li class="menu__nav-item">
-                    <svg class="menu__icon" width="19" height="20">
-                        <use xlink:href="img/symbol/sprite.svg#settings"></use>
+        <div class="master-header__wrapper wrapper">
+            <div class="master-header__menu menu">
+                <div class="menu__user">
+                    <img src="img/default_avatar.png" class="menu__avatar" />
+                    <span class="menu__username">@ViewBag.Username</span>
+                    <svg class="menu__icon menu__icon--triangle" width="10" height="14">
+                        <use xlink:href="build/symbol/sprite.svg#triangle"></use>
                     </svg>
-                    <span>Настройки</span>
-                </li>
-                <li class="menu__nav-item" asp-action="logout">
-                    <form asp-action="Logout" asp-controller="Account">
-                        <button class="menu__logout">
-                            <svg class="menu__icon" width="17" height="22">
-                                <use xlink:href="img/symbol/sprite.svg#logout"></use>
-                            </svg>
-                            <span>Выйти</span>
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-        <div class="master-header__icon-wrapper">
-            <svg class="master-header__icon master-header__menu-close" width="13" height="13">
-                <use xlink:href="img/symbol/sprite.svg#menu-close"></use>
-            </svg>
-            <svg class="master-header__icon master-header__menu-open" width="17" height="14">
-                <use xlink:href="img/symbol/sprite.svg#menu-btn"></use>
-            </svg>
-        </div>
-        <h2 class="master-header__title">
-            MetaPotato
-        </h2>
-        <div class="master-header__icon-wrapper master-header__icon-wrapper--right">
-            <svg class="master-header__icon" width="15" height="16">
-                <use xlink:href="img/symbol/sprite.svg#search"></use>
-            </svg>
+                </div>
+                <ul class="menu__nav">
+                    <li class="menu__nav-item">
+                        <svg class="menu__icon" width="19" height="20">
+                            <use xlink:href="build/symbol/sprite.svg#settings"></use>
+                        </svg>
+                        <span>Настройки</span>
+                    </li>
+                    <li class="menu__nav-item" asp-action="logout">
+                        <form asp-action="Logout" asp-controller="Account">
+                            <button class="menu__logout">
+                                <svg class="menu__icon" width="17" height="22">
+                                    <use xlink:href="build/symbol/sprite.svg#logout"></use>
+                                </svg>
+                                <span>Выйти</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="master-header__icon-wrapper master-header__icon-wrapper--left">
+                <button class="master-header__icon-btn master-header__menu-close" type="button">
+                    <svg class="master-header__icon " width="13" height="13" aria-label="Закрыть меню">
+                        <use xlink:href="build/symbol/sprite.svg#menu-close"></use>
+                    </svg>
+                </button>
+                <button class="master-header__icon-btn master-header__menu-open" type="button">
+                    <svg class="master-header__icon " width="17" height="14" aria-label="Открыть меню">
+                        <use xlink:href="build/symbol/sprite.svg#menu-btn"></use>
+                    </svg>
+                </button>
+            </div>
+
+            <h2 class="master-header__title">
+                MetaPotato
+            </h2>
+
+            <div class="search">
+                <div class="search__header">
+                    <button class="search__icon-btn-back" type="button">
+                        <svg class="search__icon search__icon--back" widht="16" height="16" aria-label="Назад">
+                            <use xlink:href="build/symbol/sprite.svg#back"></use>
+                        </svg>
+                    </button>
+                    <input class="search__input" type="text" placeholder="поиск..." />
+                </div>
+                <div class="search__result">
+                    <span>Результаты поиска</span>
+                </div>
+            </div>
+
+            <div class="master-header__icon-wrapper master-header__icon-wrapper--right">
+                <button class="master-header__icon-btn master-header__show-search" type="button">
+                    <svg class="master-header__icon master-header__icon--search" width="16" height="16" aria-label="Поиск">
+                        <use xlink:href="build/symbol/sprite.svg#search"></use>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
-        <main class="master-main">
-            @RenderBody()
-        </main>
+    <main class="master-main">
+        @RenderBody()
+    </main>
 
-    <script src="~/js/slider.js"></script>
+    <script src="~/build/bundle.js"></script>
 </body>
 </html>

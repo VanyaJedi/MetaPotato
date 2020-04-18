@@ -1,9 +1,6 @@
 ﻿.master-header {
-    display: flex;
-    justify-content: space-between;
     background-color: $background-dark;
     height: 41px;
-    padding: 13px 15px;
 
     .master-header__menu-open {
         display: none;
@@ -11,6 +8,7 @@
 
     .master-header__menu {
         position: absolute;
+        z-index: 999;
         left: 0;
         top: 41px;
         transition: all 0.2s ease-in-out;
@@ -31,9 +29,23 @@
     }
 }
 
-.master-header__title {
-    width: 33.33%;
+.master-header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.master-header__logo-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 143px;
     text-align: center;
+}
+
+.master-header__title {
     font-size: 18px;
     line-height: 21px;
     color: #fff;
@@ -49,6 +61,75 @@
         justify-content: flex-end;
     }
 }
+
+.master-header__icon-btn {
+    border: none;
+    background: none;
+}
+
 .master-header__icon {
     fill: #6F6B8A;
+}
+
+@media (min-width: $tablet-width) {
+    .master-header {
+        height: 51px;
+    }
+
+    .master-header__icon-wrapper {
+
+        &--right {
+            display: none;
+        }
+    }
+
+    .master-header__logo-search {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .master-header__search {
+            display: block;
+            width: 162px;
+        }
+    }
+
+    .master-header__title {
+        font-size: 24px;
+    }
+}
+
+
+@media (min-width: $desktop-width) {
+
+    .master-header {
+
+        height: 75px;
+
+        .master-header__menu {
+            display: block;
+            position: relative;
+            z-index: 0;
+            left: auto;
+            top: auto;
+        }
+
+        .master-header__icon-wrapper--left {
+            display: none;
+        }
+
+        &--close-menu {
+            .master-header__menu-close {
+                display: block;
+            }
+
+            .master-header__menu-open {
+                display: block;
+            }
+        }
+    }
+
+    .master-header__title {
+        font-size: 30px;
+    }
 }

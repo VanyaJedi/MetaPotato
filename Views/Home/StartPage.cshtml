@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/build/css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <section class="start-auth">
+    <section class="start-auth start-auth--login ">
         <h1 class="start-auth__title">
             MetaPotato
         </h1>
@@ -19,7 +19,7 @@
             @Html.Partial("/Views/Account/_LoginPartial.cshtml", new MetaPotato.ViewModels.LoginModel())
             <button type="button" class="start-auth__button start-auth__register-btn button-shadow">Регистрация</button>
         </div>
-        <div class="start-auth__regist-block hidden">
+        <div class="start-auth__regist-block">
             @Html.Partial("/Views/Account/_RegisterPartial.cshtml", new MetaPotato.ViewModels.RegisterModel())
             <button type="button" class="start-auth__back-btn button-shadow">Назад</button>
         </div>

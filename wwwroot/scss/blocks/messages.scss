@@ -1,0 +1,100 @@
+﻿.messages {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+    &--show {
+        display: block;
+    }
+}
+
+.messages__header {
+    background-color: $background-dark;
+    display: flex;
+    align-items: center;
+    height: 41px;
+    width: 100%;
+}
+
+.messages__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    fill: $text-purple-dark;
+
+    &--dots {
+        transform: rotate(90deg);
+    }
+}
+
+.messages__icon-btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 100%;
+    border: none;
+    background: none;
+}
+
+.messages__username {
+    color: #fff;
+    margin-left: 21px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "mukta";
+}
+
+.messages__avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-left: 11px;
+}
+
+.messages__icon-btn-set {
+    margin-left: auto;
+    margin-right: 22px;
+    border: none;
+    background: none;
+}
+
+.messages__block {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 41px);
+}
+
+.messages__list {
+    flex-grow: 1;
+    max-height: calc(100% - 50px);
+    overflow: scroll;
+}
+
+.messages__send-form {
+    height: 50px;
+    flex-grow: 1;
+    width: 100%;
+    max-height: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: end;
+}
+
+.messages__typeArea {
+    flex-grow: 1;
+    padding: 8px 16px;
+    min-height: 30px;
+    word-wrap: break-word;
+    overflow-y: scroll;
+
+    &:empty::before {
+        content: "Введите текст сообщения";
+        color: $light-color;
+    }
+}

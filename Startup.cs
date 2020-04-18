@@ -35,6 +35,7 @@ namespace MetaPotato
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Home/StartPage");
                 });
+            services.AddSignalR();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -62,6 +63,7 @@ namespace MetaPotato
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/Chat");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
