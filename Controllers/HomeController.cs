@@ -7,32 +7,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using MetaPotato.Models;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MetaPotato.Controllers
 {
     public class HomeController : Controller
     {
-        /* private readonly ILogger<HomeController> _logger;
-
-         public HomeController(ILogger<HomeController> logger)
-         {
-             _logger = logger;
-         }
-         */
         private UserContext db;
+        private IHubContext<ChatHub> hubContext;
         private ChatManager chatManager;
-        public HomeController(UserContext context)
+        public HomeController(IHubContext<ChatHub> hubContext, UserContext context)
         {
+            this.hubContext = hubContext;
             db = context;
-           chatManager = new ChatManager(context);
+            chatManager = new ChatManager(context);
         }
 
 
         [Authorize]
         public IActionResult Index()
         {
-         //   chatManager.AddUserToContacts(User.Identity.Name, "3");
             // Построить список контактов (List<ContactItem>)
             var xContactList = chatManager.BuildContactList(User.Identity.Name);
 
