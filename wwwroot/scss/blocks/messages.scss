@@ -13,11 +13,8 @@
 }
 
 .messages__header {
-    background-color: $background-dark;
     display: flex;
     align-items: center;
-    height: 41px;
-    width: 100%;
 }
 
 .messages__icon {
@@ -46,7 +43,7 @@
     margin-left: 21px;
     font-size: 18px;
     font-weight: 700;
-    font-family: "mukta";
+    font-family: "mukta", "Arial", sans-serif;
 }
 
 .messages__avatar {
@@ -70,20 +67,25 @@
 }
 
 .messages__list {
+    list-style: none;
+    padding: 19px 15px;
     flex-grow: 1;
     max-height: calc(100% - 50px);
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .messages__send-form {
-    height: 50px;
-    flex-grow: 1;
+    overflow: auto;
+    min-height: 50px;
+    flex-grow: 0;
     width: 100%;
     max-height: 250px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-self: end;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
 }
 
 .messages__typeArea {
@@ -96,5 +98,64 @@
     &:empty::before {
         content: "Введите текст сообщения";
         color: $light-color;
+    }
+}
+
+.messages__header {
+
+    &--users {
+        display: none;
+    }
+}
+
+
+@media (min-width: $tablet-width) {
+
+    .messages__list {
+        padding: 54px 30px
+    }
+
+    .messages__block {
+        padding-bottom: 32px;
+    }
+
+    .messages__send-form {
+        width: 707px;
+        margin: 0 auto;
+    }
+
+    .messages__smile-btn {
+        margin-right: 30px;
+    }
+
+    .messages__send-btn {
+        margin-left: 30px;
+    }
+
+}
+
+@media (min-width: $desktop-width) {
+
+    .messages {
+        display: block;
+        position: relative;
+        z-index: 0;
+    }
+
+    .messages__block {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 51px);
+        width: 760px;
+        margin: 0 auto;
+    }
+
+    .messages__header {
+  
+        &--users {
+            color: #fff;
+            padding: 0 20px;
+            display: flex;
+        }
     }
 }

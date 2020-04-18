@@ -96,6 +96,10 @@
 
 export const mediaService = new MediaService([
     {
+        key: 'mobileTablet',
+        matchMedia: '(max-width: 1439px)'
+    },
+    {
         key: 'mobile',
         matchMedia: '(max-width: 767px)'
     },
@@ -108,5 +112,3 @@ export const mediaService = new MediaService([
         matchMedia: '(min-width: 1440px)'
     }
 ]);
-
-//export const mediaService = new MediaService([]);

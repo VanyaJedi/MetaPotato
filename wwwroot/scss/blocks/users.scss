@@ -46,3 +46,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+
+@media (min-width: $desktop-width) {
+
+    .users {
+        width: 375px;
+    }
+}
