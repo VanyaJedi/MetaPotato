@@ -11,6 +11,12 @@ gulp.task("sass", function () {
         .pipe(gulp.dest("./wwwroot/build/css"));
 });
 
+gulp.task("svgo", function () {
+    return gulp.src("./wwwroot/img/icons/*.svg")
+        .pipe(svgo())
+        .pipe(gulp.dest("./wwwroot/build/css"));
+});
+
 gulp.task("svgSprite", function () {
     return gulp.src("./wwwroot/img/icons/*.svg")
         .pipe(svgo())

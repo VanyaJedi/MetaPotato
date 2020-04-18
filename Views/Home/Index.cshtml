@@ -1,32 +1,168 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-    <section class="users">
-        @if (ViewBag.ListContacts.Count == 0)
-        {
-            <span class="user-list__no-dialog">У вас пока нет диалогов</span>
-        }
-        else
-        {
-            <ul class="users__list">
-                @foreach (var contact in ViewBag.ListContacts)
-                {
-                    <li class="users__item">
-                        <div class="users__item-wrapper wrapper">
-                            <img class="users__avatar" src="~/img/default_avatar.png" />
-                            <div class="users__name-message">
-                                <span class="users__name">@contact.FLogin</span>
-                                <div class="users__last-text">
-                                    <span>@contact.FLastMessage</span>
+    <div class="messenger">
+        <section class="users">
+            <div class="messages__header messages__header--users notmaster-header">
+                <span>Чат</span>
+                <button class="messages__icon-btn-set" type="button">
+                    <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
+                        <use xlink:href="build/symbol/sprite.svg#dots"></use>
+                    </svg>
+                </button>
+            </div>
+            @if (ViewBag.ListContacts.Count == 0)
+            {
+                <span class="user-list__no-dialog">У вас пока нет диалогов</span>
+            }
+            else
+            {
+                <ul class="users__list">
+                    @foreach (var contact in ViewBag.ListContacts)
+                    {
+                        <li class="users__item">
+                            <div class="users__item-wrapper wrapper">
+                                <img class="users__avatar" src="~/img/default_avatar.png" />
+                                <div class="users__name-message">
+                                    <span class="users__name">@contact.FLogin</span>
+                                    <div class="users__last-text">
+                                        <span>@contact.FLastMessage</span>
+                                    </div>
                                 </div>
                             </div>
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+    
+        <section class="messages">
+            <div class="messages__header notmaster-header">
+                <button class="messages__icon-btn-back" type="button">
+                    <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
+                        <use xlink:href="build/symbol/sprite.svg#back"></use>
+                    </svg>
+                </button>
+                <img class="messages__avatar" src="~/img/default_avatar.png" />
+                <span class="messages__username">
+                    Имя юзера
+                </span>
+                <button class="messages__icon-btn-set" type="button">
+                    <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
+                        <use xlink:href="build/symbol/sprite.svg#dots"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="messages__block block">
+                <ul data-simplebar class="messages__list">
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
                         </div>
+                        <div class="message__content">gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
                     </li>
-                }
-            </ul>
-        }
 
+                    <li class="message message--my messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name"></span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">gsdgdsgggggjjhgggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
+                    </li>
+
+                    <li class="message message--my messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name"></span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">gsdgdsgggggghkkkjggggggggggggggggggg</div>
+                    </li>
+
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">ponyal</div>
+                    </li>
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">ponyal</div>
+                    </li>
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">ponyal</div>
+                    </li>
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">ponyal</div>
+                    </li>
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">ponyal</div>
+                    </li>
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">ponyal</div>
+                    </li>
+
+                    <li class="message messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name">Boris</span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
+                    </li>
+
+                    <li class="message message--my messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name"></span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">gsdgdsgggggjjhgggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
+                    </li>
+
+                    <li class="message message--my messages__item">
+                        <div class="message__name-time">
+                            <span class="message__name"></span>
+                            <span class="message__datetime">14:29</span>
+                        </div>
+                        <div class="message__content">gsdgdsgggggghkkkjggggggggggggggggggg</div>
+                    </li>
+
+                </ul>
+                <form class="messages__send-form">
+                    <button class="button-icon messages__smile-btn" type="button">
+                        <svg class="button-icon__svg" widht="23" height="23" aria-label="Смайл">
+                            <use xlink:href="build/symbol/sprite.svg#face"></use>
+                        </svg>
+                    </button>
+                    <div class="messages__typeArea" contenteditable="true"></div>
+                    <button class="button-icon messages__send-btn" type="submit">
+                        <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
+                            <use xlink:href="build/symbol/sprite.svg#send"></use>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
         <div id="loginBlock">
             Введите логин:<br />
             <input id="userName" type="text" />
@@ -79,80 +215,5 @@
 
             hubConnection.start();
             </script>
-            </section >
 
-                <section class="messages">
-                    <div class="messages__header">
-                        <button class="messages__icon-btn-back" type="button">
-                            <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
-                                <use xlink: href="build/symbol/sprite.svg#back"></use>
-                    </svg>
-                </button>
-                    <img class="messages__avatar" src="~/img/default_avatar.png" />
-                    <span class="messages__username">
-                        Имя юзера
-                </span>
-                    <button class="messages__icon-btn-set" type="button">
-                        <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
-                            <use xlink: href="build/symbol/sprite.svg#dots"></use>
-                    </svg>
-                </button>
-            </div >
-                <div class="messages__block">
-                    <ul class="messages__list">
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                    </ul>
-                    <form class="messages__send-form">
-                        <button class="button-icon" type="button">
-                            <svg class="button-icon__svg" widht="23" height="23" aria-label="Смайл">
-                                <use xlink: href="build/symbol/sprite.svg#face"></use>
-                        </svg>
-                    </button>
-                    <div class="messages__typeArea" contenteditable="true"></div>
-                    <button class="button-icon" type="submit">
-                        <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
-                            <use xlink: href="build/symbol/sprite.svg#send"></use>
-                        </svg>
-                    </button>
-                </form >
-            </div >
-</section >
+    

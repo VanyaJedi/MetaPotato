@@ -1,4 +1,7 @@
 ﻿
+//import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+//import 'simplebar/dist/simplebar.css';
+
 const users = document.querySelector('.users');
 const userList = document.querySelector('.users__list');
 const messages = document.querySelector('.messages');
@@ -27,13 +30,15 @@ const whenMobileChat = () => {
 }
 
 const whenNotMobileChat = () => {
+    messages.classList.remove('messages--show');
+    users.classList.remove('users--hide');
     users.removeEventListener('click', showMessagesHandlerMobile);
     closeChatMobileBtn.removeEventListener('click', hideMessagesHandlerMobile); 
 }
 
-if (mediaService.mqlmobile.matches) {
+if (mediaService.mqlmobile.matches || mediaService.mqltablet.matches) {
     whenMobileChat()
 }
-mediaService.subscribe('mobileChat', 'mobile', whenMobileChat, whenNotMobileChat);
+mediaService.subscribe('mobileChat', 'mobileTablet', whenMobileChat, whenNotMobileChat);
 
 console.log(mediaService);
