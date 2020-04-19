@@ -1,6 +1,8 @@
 ﻿.master-header {
+    position: relative;
     background-color: $background-dark;
     height: 41px;
+    box-shadow: 0px 1px 4px rgba(118, 26, 26, 0.53);
 
     .master-header__menu-open {
         display: none;
@@ -68,7 +70,7 @@
 }
 
 .master-header__icon {
-    fill: #6F6B8A;
+    fill: $top-menu-icon;
 }
 
 @media (min-width: $tablet-width) {
@@ -104,7 +106,7 @@
 
     .master-header {
 
-        height: 75px;
+        height: 48px;
 
         .master-header__menu {
             display: block;
