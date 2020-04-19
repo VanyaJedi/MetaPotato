@@ -4,12 +4,7 @@
     <div class="messenger">
         <section class="users">
             <div class="messages__header messages__header--users notmaster-header">
-                <span>Чат</span>
-                <button class="messages__icon-btn-set" type="button">
-                    <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
-                        <use xlink:href="build/symbol/sprite.svg#dots"></use>
-                    </svg>
-                </button>
+                <span>Диалоги</span>
             </div>
             @if (ViewBag.ListContacts.Count == 0)
             {
@@ -17,22 +12,40 @@
             }
             else
             {
-                <ul class="users__list">
-                    @foreach (var contact in ViewBag.ListContacts)
-                    {
-                        <li class="users__item">
-                            <div class="users__item-wrapper wrapper">
-                                <img class="users__avatar" src="~/img/default_avatar.png" />
-                                <div class="users__name-message">
-                                    <span class="users__name">@contact.FLogin</span>
-                                    <div class="users__last-text">
-                                        <span>@contact.FLastMessage</span>
-                                    </div>
+            <ul class="users__list">
+            @foreach (var contact in ViewBag.ListContacts)
+            {
+                if (@contact.FLogin == "2")
+                {
+                    <li class="users__item users__item--active">
+                        <div class="users__item-wrapper">
+                            <img class="users__avatar" src="~/img/default_avatar.png" />
+                            <div class="users__name-message">
+                                <span class="users__name">@contact.FLogin</span>
+                                <div class="users__last-text">
+                                    <span>@contact.FLastMessage</span>
                                 </div>
                             </div>
-                        </li>
-                    }
-                </ul>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="users__item">
+                        <div class="users__item-wrapper">
+                            <img class="users__avatar" src="~/img/default_avatar.png" />
+                            <div class="users__name-message">
+                                <span class="users__name">@contact.FLogin</span>
+                                <div class="users__last-text">
+                                    <span>@contact.FLastMessage</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+            }
+        </ul>
             }
         </section>
     
@@ -54,98 +67,30 @@
                 </button>
             </div>
             <div class="messages__block block">
-                <ul data-simplebar class="messages__list">
+                <ul class="messages__list">
                     <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
+                        <div class="message__user">
+                            <img src="~/img/default_avatar.png" />
+                            <span class="message__name">Sasha</span>
                         </div>
-                        <div class="message__content">gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
+                        <div class="message__content">
+                            <span>gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</span>
+                        </div>
                     </li>
 
                     <li class="message message--my messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name"></span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
                         <div class="message__content">gsdgdsgggggjjhgggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
                     </li>
 
-                    <li class="message message--my messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name"></span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">gsdgdsgggggghkkkjggggggggggggggggggg</div>
-                    </li>
-
                     <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
+                        <div class="message__user">
+                            <img src="~/img/default_avatar.png" />
+                            <span class="message__name">Sasha</span>
                         </div>
-                        <div class="message__content">ponyal</div>
-                    </li>
-                    <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
+                        <div class="message__content">
+                            <span>gsdg</span>
                         </div>
-                        <div class="message__content">ponyal</div>
                     </li>
-                    <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">ponyal</div>
-                    </li>
-                    <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">ponyal</div>
-                    </li>
-                    <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">ponyal</div>
-                    </li>
-                    <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">ponyal</div>
-                    </li>
-
-                    <li class="message messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name">Boris</span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
-                    </li>
-
-                    <li class="message message--my messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name"></span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">gsdgdsgggggjjhgggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
-                    </li>
-
-                    <li class="message message--my messages__item">
-                        <div class="message__name-time">
-                            <span class="message__name"></span>
-                            <span class="message__datetime">14:29</span>
-                        </div>
-                        <div class="message__content">gsdgdsgggggghkkkjggggggggggggggggggg</div>
-                    </li>
-
                 </ul>
                 <form class="messages__send-form">
                     <button class="button-icon messages__smile-btn" type="button">
@@ -163,6 +108,8 @@
             </div>
         </section>
     </div>
+
+    <div style="display:none">
         <div id="loginBlock">
             Введите логин:<br />
             <input id="userName" type="text" />
@@ -214,6 +161,7 @@
             });
 
             hubConnection.start();
-            </script>
+        </script>
+    </div>
 
     
