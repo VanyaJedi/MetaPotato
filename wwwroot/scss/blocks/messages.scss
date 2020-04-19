@@ -21,7 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    fill: $text-purple-dark;
+    fill: $top-menu-icon;
 
     &--dots {
         transform: rotate(90deg);
@@ -44,6 +44,7 @@
     font-size: 18px;
     font-weight: 700;
     font-family: "mukta", "Arial", sans-serif;
+    color: $top-menu-icon;
 }
 
 .messages__avatar {
@@ -64,21 +65,23 @@
     display: flex;
     flex-direction: column;
     height: calc(100vh - 41px);
+    padding-bottom: 10px;
 }
 
 .messages__list {
     list-style: none;
-    padding: 19px 15px;
+    padding: 28px 15px;
     flex-grow: 1;
     max-height: calc(100% - 50px);
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .messages__send-form {
     overflow: auto;
     min-height: 50px;
     flex-grow: 0;
-    width: 100%;
+    width: 97.86%;
+    margin: 0 auto;
     max-height: 250px;
     display: flex;
     justify-content: space-between;
@@ -86,6 +89,7 @@
     align-self: end;
     border: 1px solid #e6e6e6;
     border-radius: 4px;
+    background-color: $type-area;
 }
 
 .messages__typeArea {
@@ -93,10 +97,10 @@
     padding: 8px 16px;
     min-height: 30px;
     word-wrap: break-word;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     &:empty::before {
-        content: "Введите текст сообщения";
+        content: "Введите текст сообщения...";
         color: $light-color;
     }
 }
@@ -108,11 +112,18 @@
     }
 }
 
+.messages__send-btn {
+   
+    svg {
+        fill: $background-dark;
+    }
+}
+
 
 @media (min-width: $tablet-width) {
 
     .messages__list {
-        padding: 54px 30px
+        padding: 54px 30px;
     }
 
     .messages__block {
@@ -151,11 +162,38 @@
     }
 
     .messages__header {
-  
+        box-shadow: none;
+        padding: 0px 49px;
+
         &--users {
             color: #fff;
-            padding: 0 20px;
+            padding: 9px 31px;
             display: flex;
+            height: 47px;
+            margin-bottom: 12px;
         }
     }
+
+    .messages__icon-btn-back {
+        display: none;
+    }
+
+    .messages__block {
+        padding-top: 30px;
+        width: 988px;
+    }
+
+    .messages__list {
+        width: 100%;
+        padding: 0;
+    }
+
+    .messages__send-form {
+        width: 830px;
+        min-height: 66px;
+        border-radius: 15px;
+    }
+
+
+
 }

@@ -1,5 +1,7 @@
 ﻿.master-main {
     height: calc(100vh - 41px);
+    background-color: $background-dark;
+    padding-top: 5px;
 }
 
 @media (min-width: $tablet-width) {
@@ -10,6 +12,6 @@
 
 @media (min-width: $desktop-width) {
     .master-main {
-        height: calc(100vh - 75px);
+        height: calc(100vh - 48px);
     }
 }
