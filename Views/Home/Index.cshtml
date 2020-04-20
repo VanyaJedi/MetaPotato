@@ -1,167 +1,170 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-    <div class="messenger">
-        <section class="users">
-            <div class="messages__header messages__header--users notmaster-header">
-                <span>Диалоги</span>
-            </div>
-            @if (ViewBag.ListContacts.Count == 0)
-            {
-                <span class="user-list__no-dialog">У вас пока нет диалогов</span>
-            }
-            else
-            {
-            <ul class="users__list">
-            @foreach (var contact in ViewBag.ListContacts)
-            {
-                if (@contact.FLogin == "2")
-                {
-                    <li class="users__item users__item--active">
-                        <div class="users__item-wrapper">
-                            <img class="users__avatar" src="~/img/default_avatar.png" />
-                            <div class="users__name-message">
-                                <span class="users__name">@contact.FLogin</span>
-                                <div class="users__last-text">
-                                    <span>@contact.FLastMessage</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                }
-                else
-                {
-                    <li class="users__item">
-                        <div class="users__item-wrapper">
-                            <img class="users__avatar" src="~/img/default_avatar.png" />
-                            <div class="users__name-message">
-                                <span class="users__name">@contact.FLogin</span>
-                                <div class="users__last-text">
-                                    <span>@contact.FLastMessage</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                }
-
-            }
-        </ul>
-            }
-        </section>
-    
-        <section class="messages">
-            <div class="messages__header notmaster-header">
-                <button class="messages__icon-btn-back" type="button">
-                    <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
-                        <use xlink:href="build/symbol/sprite.svg#back"></use>
-                    </svg>
-                </button>
-                <img class="messages__avatar" src="~/img/default_avatar.png" />
-                <span class="messages__username">
-                    Имя юзера
-                </span>
-                <button class="messages__icon-btn-set" type="button">
-                    <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
-                        <use xlink:href="build/symbol/sprite.svg#dots"></use>
-                    </svg>
-                </button>
-            </div>
-            <div class="messages__block block">
-                <ul class="messages__list">
-                    <li class="message messages__item">
-                        <div class="message__user">
-                            <img src="~/img/default_avatar.png" />
-                            <span class="message__name">Sasha</span>
-                        </div>
-                        <div class="message__content">
-                            <span>gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</span>
-                        </div>
-                    </li>
-
-                    <li class="message message--my messages__item">
-                        <div class="message__content">gsdgdsgggggjjhgggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
-                    </li>
-
-                    <li class="message messages__item">
-                        <div class="message__user">
-                            <img src="~/img/default_avatar.png" />
-                            <span class="message__name">Sasha</span>
-                        </div>
-                        <div class="message__content">
-                            <span>gsdg</span>
-                        </div>
-                    </li>
-                </ul>
-                <form class="messages__send-form">
-                    <button class="button-icon messages__smile-btn" type="button">
-                        <svg class="button-icon__svg" widht="23" height="23" aria-label="Смайл">
-                            <use xlink:href="build/symbol/sprite.svg#face"></use>
-                        </svg>
-                    </button>
-                    <div class="messages__typeArea" contenteditable="true"></div>
-                    <button class="button-icon messages__send-btn" type="submit">
-                        <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
-                            <use xlink:href="build/symbol/sprite.svg#send"></use>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-        </section>
-    </div>
-
-    <div style="display:none">
-        <div id="loginBlock">
-            Введите логин:<br />
-            <input id="userName" type="text" />
-            <input id="loginBtn" type="button" value="Войти" />
-        </div><br />
-
-        <div id="header"></div><br />
-
-        <div id="inputForm">
-            <input type="text" id="message" />
-            <input type="button" id="sendBtn" value="Отправить" />
+<div class="messenger">
+    <section class="users">
+        <div class="messages__header messages__header--users notmaster-header">
+            <span>Диалоги</span>
         </div>
-        <div id="chatroom"></div>
+        @if (ViewBag.ListContacts.Count == 0)
+        {
+            <span class="user-list__no-dialog">У вас пока нет диалогов</span>
+        }
+        else
+        {
+            <ul class="users__list">
+                @foreach (var contact in ViewBag.ListContacts)
+                {
+                    if (@contact.FLogin == "2")
+                    {
+                        <li class="users__item users__item--active">
+                            <div class="users__item-wrapper">
+                                <img class="users__avatar" src="~/img/default_avatar.png" />
+                                <div class="users__name-message">
+                                    <span class="users__name">@contact.FLogin</span>
+                                    <div class="users__last-text">
+                                        <span>@contact.FLastMessage</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="users__item">
+                            <div class="users__item-wrapper">
+                                <img class="users__avatar" src="~/img/default_avatar.png" />
+                                <div class="users__name-message">
+                                    <span class="users__name">@contact.FLogin</span>
+                                    <div class="users__last-text">
+                                        <span>@contact.FLastMessage</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
 
-        <script src="lib/signalr/dist/browser/signalr.min.js"></script>
+                }
+            </ul>
+        }
+    </section>
 
-        <script>
-            const hubConnection = new signalR.HubConnectionBuilder()
-                .withUrl("/chat")
-                .build();
+    <section class="messages">
+        <div class="messages__header notmaster-header">
+            <button class="messages__icon-btn-back" type="button">
+                <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
+                    <use xlink:href="build/symbol/sprite.svg#back"></use>
+                </svg>
+            </button>
+            <img class="messages__avatar" src="~/img/default_avatar.png" />
+            <span class="messages__username">
+                Имя юзера
+            </span>
+            <button class="messages__icon-btn-set" type="button">
+                <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
+                    <use xlink:href="build/symbol/sprite.svg#dots"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="messages__block block">
+            <ul class="messages__list">
+                <li class="message messages__item">
+                    <div class="message__user">
+                        <img src="~/img/default_avatar.png" />
+                        <span class="message__name">Sasha</span>
+                    </div>
+                    <div class="message__content">
+                        <span>gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</span>
+                    </div>
+                </li>
 
-            let userName = '';
-            // получение сообщения от сервера
-            hubConnection.on("Send", function (message, userName) {
+                <li class="message message--my messages__item">
+                    <div class="message__content">gsdgdsgggggjjhgggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
+                </li>
 
-                // создаем элемент <b> для имени пользователя
-                let userNameElem = document.createElement("b");
-                userNameElem.appendChild(document.createTextNode(userName + ': '));
+                <li class="message messages__item">
+                    <div class="message__user">
+                        <img src="~/img/default_avatar.png" />
+                        <span class="message__name">Sasha</span>
+                    </div>
+                    <div class="message__content">
+                        <span>gsdg</span>
+                    </div>
+                </li>
+            </ul>
+            <form class="messages__send-form">
+                <button class="button-icon messages__smile-btn" type="button">
+                    <svg class="button-icon__svg" widht="23" height="23" aria-label="Смайл">
+                        <use xlink:href="build/symbol/sprite.svg#face"></use>
+                    </svg>
+                </button>
+                <div class="messages__typeArea" contenteditable="true"></div>
+                <button class="button-icon messages__send-btn" type="submit">
+                    <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
+                        <use xlink:href="build/symbol/sprite.svg#send"></use>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+</div>
 
-                // создаем элемент <p> для сообщения пользователя
-                let elem = document.createElement("p");
-                elem.appendChild(userNameElem);
-                elem.appendChild(document.createTextNode(message));
+<!--<div style="display:none">-->
 
-                let firstElem = document.getElementById("chatroom").firstChild;
-                document.getElementById("chatroom").insertBefore(elem, firstElem);
 
-            });
+<div>
+    <div id="loginBlock">
+        Введите логин:<br />
+        <input id="userName" type="text" />
+        <input id="loginBtn" type="button" value="Войти" />
+    </div><br />
 
-            // установка имени пользователя
-            document.getElementById("loginBtn").addEventListener("click", function (e) {
-                userName = document.getElementById("userName").value;
-                document.getElementById("header").innerHTML = '<h3>Welcome ' + userName + '</h3>';
-            });
-            // отправка сообщения на сервер
-            document.getElementById("sendBtn").addEventListener("click", function (e) {
-                let message = document.getElementById("message").value;
-                hubConnection.invoke("Send", message, userName);
-            });
+    <div id="header"></div><br />
 
-            hubConnection.start();
-        </script>
+    <div id="inputForm">
+        <input type="text" id="message" />
+        <input type="button" id="sendBtn" value="Отправить" />
     </div>
+    <div id="chatroom"></div>
 
-    
+    <script src="lib/signalr/dist/browser/signalr.min.js"></script>
+
+    <script>
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
+        let userName = '';
+        // получение сообщения от сервера
+        hubConnection.on("Send", function (message, userName) {
+
+            // создаем элемент <b> для имени пользователя
+            let userNameElem = document.createElement("b");
+            userNameElem.appendChild(document.createTextNode(userName + ': '));
+
+            // создаем элемент <p> для сообщения пользователя
+            let elem = document.createElement("p");
+            elem.appendChild(userNameElem);
+            elem.appendChild(document.createTextNode(message));
+
+            let firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+
+        });
+
+        // установка имени пользователя
+        document.getElementById("loginBtn").addEventListener("click", function (e) {
+            userName = document.getElementById("userName").value;
+            document.getElementById("header").innerHTML = '<h3>Welcome ' + userName + '</h3>';
+            hubConnection.invoke("JoinGroup", userName);
+        });
+        // отправка сообщения на сервер
+        document.getElementById("sendBtn").addEventListener("click", function (e) {
+            let message = document.getElementById("message").value;
+            hubConnection.invoke("Send", message, userName);
+        });
+
+        hubConnection.start();
+    </script>
+</div>
+
