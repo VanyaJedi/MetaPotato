@@ -40,5 +40,3 @@ if (mediaService.mqlmobile.matches || mediaService.mqltablet.matches) {
     whenMobileChat()
 }
 mediaService.subscribe('mobileChat', 'mobileTablet', whenMobileChat, whenNotMobileChat);
-
-console.log(mediaService);
