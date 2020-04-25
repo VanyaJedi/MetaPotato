@@ -12,18 +12,20 @@ const messagesContainer = document.querySelector('.messages__list');
 const sendBtn = document.querySelector('.messages__send-btn');
 const typeArea = document.querySelector('.messages__typeArea');
 
-hubConnection.on('send', function () {
-    render(messagesContainer, new Message());
+hubConnection.on('send', function (message, username) {
+    const messageComponent = new Message(message, username);
+    render(messagesContainer, messageComponent);
 });
 
 const sendMessageHandler = () => {
+    console.log(typeArea.innerText);
     const textMessage = typeArea.innerText;
-    if (textMessage) {
+    if (!textMessage) {
         return;
     }
     hubConnection.invoke('JoinGroup', '1');
     hubConnection.invoke('Send', textMessage, '1');
-    textMessage.innerText = '';
+    typeArea.innerText = '';
 }
 
 sendBtn.addEventListener('click', sendMessageHandler);
