@@ -10,13 +10,20 @@ import Message from "./modules/message.js";
 
 const messagesContainer = document.querySelector('.messages__list');
 const sendBtn = document.querySelector('.messages__send-btn');
+const typeArea = document.querySelector('.messages__typeArea');
+
 hubConnection.on('send', function () {
     render(messagesContainer, new Message());
 });
 
 const sendMessageHandler = () => {
+    const textMessage = typeArea.innerText;
+    if (textMessage) {
+        return;
+    }
     hubConnection.invoke('JoinGroup', '1');
-    hubConnection.invoke('Send', 'тестовое сообщение', '1');
+    hubConnection.invoke('Send', textMessage, '1');
+    textMessage.innerText = '';
 }
 
 sendBtn.addEventListener('click', sendMessageHandler);
