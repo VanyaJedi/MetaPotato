@@ -15,6 +15,7 @@ hubConnection.on('send', function () {
 });
 
 const sendMessageHandler = () => {
+    console.log(`1`);
     hubConnection.invoke('JoinGroup', '1');
     hubConnection.invoke('Send', 'тестовое сообщение', '1');
 }
