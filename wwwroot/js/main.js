@@ -17,14 +17,10 @@ hubConnection.on('send', function () {
 });
 
 const sendMessageHandler = () => {
-<<<<<<< HEAD
-    console.log(`1`);
-=======
     const textMessage = typeArea.innerText;
-    if (textMessage) {
+    if (!textMessage) {
         return;
     }
->>>>>>> 20416814edd8ea1f291f3d31cf157de0fab54d81
     hubConnection.invoke('JoinGroup', '1');
     hubConnection.invoke('Send', textMessage, '1');
     textMessage.innerText = '';
