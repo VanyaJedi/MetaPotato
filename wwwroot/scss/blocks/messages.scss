@@ -73,7 +73,7 @@
     padding: 28px 15px;
     flex-grow: 1;
     max-height: calc(100% - 50px);
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .messages__send-form {
