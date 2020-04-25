@@ -15,35 +15,17 @@
             <ul class="users__list">
                 @foreach (var contact in ViewBag.ListContacts)
                 {
-                    if (@contact.FLogin == "2")
-                    {
-                        <li class="users__item users__item--active">
-                            <div class="users__item-wrapper">
-                                <img class="users__avatar" src="~/img/default_avatar.png" />
-                                <div class="users__name-message">
-                                    <span class="users__name">@contact.FLogin</span>
-                                    <div class="users__last-text">
-                                        <span>@contact.FLastMessage</span>
-                                    </div>
+                    <li data-chatroom="@contact.FChatRoom" class="users__item">
+                        <div class="users__item-wrapper">
+                            <img class="users__avatar" src="~/img/default_avatar.png" />
+                            <div class="users__name-message">
+                                <span class="users__name">@contact.FLogin</span>
+                                <div class="users__last-text">
+                                    <span>@contact.FLastMessage</span>
                                 </div>
                             </div>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="users__item">
-                            <div class="users__item-wrapper">
-                                <img class="users__avatar" src="~/img/default_avatar.png" />
-                                <div class="users__name-message">
-                                    <span class="users__name">@contact.FLogin</span>
-                                    <div class="users__last-text">
-                                        <span>@contact.FLastMessage</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    }
-
+                        </div>
+                    </li>
                 }
             </ul>
         }
@@ -99,7 +81,7 @@
                     </svg>
                 </button>
                 <div class="messages__typeArea" contenteditable="true"></div>
-                <button class="button-icon messages__send-btn" type="submit">
+                <button class="button-icon messages__send-btn" type="button">
                     <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
                         <use xlink:href="build/symbol/sprite.svg#send"></use>
                     </svg>
@@ -109,10 +91,7 @@
     </section>
 </div>
 
-<!--<div style="display:none">-->
-
-
-<div>
+<!--<div style="display:none">
     <div id="loginBlock">
         Введите логин:<br />
         <input id="userName" type="text" />
@@ -166,5 +145,4 @@
 
         hubConnection.start();
     </script>
-</div>
-
+</div>-->

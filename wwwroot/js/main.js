@@ -1,42 +1,24 @@
 ﻿
-//import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
-//import 'simplebar/dist/simplebar.css';
-
-const users = document.querySelector('.users');
-const userList = document.querySelector('.users__list');
-const messages = document.querySelector('.messages');
-const closeChatMobileBtn = messages.querySelector('.messages__icon-btn-back');
+import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+import 'simplebar/dist/simplebar.css';
 
 import "./modules/visual.js";
 import { mediaService } from "./modules/mediaService.js";
+import hubConnection from "./modules/signalR.js";
+import { render } from "./utils/manipulateDOM.js";
+import Message from "./modules/message.js";
 
+const messagesContainer = document.querySelector('.messages__list');
+const sendBtn = document.querySelector('.messages__send-btn');
+hubConnection.on('send', function () {
+    render(messagesContainer, new Message());
+});
 
-
-const showMessagesHandlerMobile = function (evt) {
-    if (evt.target.closest('.users__item')) {
-        messages.classList.add('messages--show');
-        users.classList.add('users--hide');
-    }
+const sendMessageHandler = () => {
+    hubConnection.invoke('JoinGroup', '1');
+    hubConnection.invoke('Send', 'тестовое сообщение', '1');
 }
 
-const hideMessagesHandlerMobile = function () {
-    messages.classList.remove('messages--show');
-    users.classList.remove('users--hide');
-}
+sendBtn.addEventListener('click', sendMessageHandler);
 
-const whenMobileChat = () => {
-    users.addEventListener('click', showMessagesHandlerMobile);
-    closeChatMobileBtn.addEventListener('click', hideMessagesHandlerMobile); 
-}
-
-const whenNotMobileChat = () => {
-    messages.classList.remove('messages--show');
-    users.classList.remove('users--hide');
-    users.removeEventListener('click', showMessagesHandlerMobile);
-    closeChatMobileBtn.removeEventListener('click', hideMessagesHandlerMobile); 
-}
-
-if (mediaService.mqlmobile.matches || mediaService.mqltablet.matches) {
-    whenMobileChat()
-}
-mediaService.subscribe('mobileChat', 'mobileTablet', whenMobileChat, whenNotMobileChat);
+hubConnection.start();
