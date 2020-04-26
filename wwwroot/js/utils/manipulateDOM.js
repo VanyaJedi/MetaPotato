@@ -6,7 +6,6 @@
 };
 
 export const render = (container, component, place = `beforeend`) => {
-    console.log(1);
     switch (place) {
         case `afterbegin`:
             container.prepend(component.getElement());
