@@ -26,6 +26,8 @@ const sendMessageHandler = () => {
     hubConnection.invoke('JoinGroup', '1');
     hubConnection.invoke('Send', textMessage, '1');
     typeArea.innerText = '';
+    const messageComponent = new Message(textMessage, "Это я");
+    render(messagesContainer, messageComponent);
 }
 
 sendBtn.addEventListener('click', sendMessageHandler);
