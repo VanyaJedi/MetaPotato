@@ -8,9 +8,14 @@ import hubConnection from "./modules/signalR.js";
 import { render } from "./utils/manipulateDOM.js";
 import Message from "./modules/message.js";
 
+import requestToSever from "./utils/ajax.js";
+
 const messagesContainer = document.querySelector('.messages__list');
 const sendBtn = document.querySelector('.messages__send-btn');
 const typeArea = document.querySelector('.messages__typeArea');
+const userList = document.querySelectorAll('.users__item');
+
+const URL_TEST_MESSAGES = 'https://localhost:44395/Messages/Messages';
 
 hubConnection.on('send', function (message, username) {
     const messageComponent = new Message(message, username);
@@ -18,7 +23,6 @@ hubConnection.on('send', function (message, username) {
 });
 
 const sendMessageHandler = () => {
-    console.log(typeArea.innerText);
     const textMessage = typeArea.innerText;
     if (!textMessage) {
         return;
@@ -31,3 +35,22 @@ const sendMessageHandler = () => {
 sendBtn.addEventListener('click', sendMessageHandler);
 
 hubConnection.start();
+
+const renderMessages = function (messages) {
+    messagesContainer.innerHTML = '';
+    messages.forEach((message) => {
+        const messageComponent = new Message(message.MessageText, message.UserName);
+        render(messagesContainer, messageComponent);
+    });
+}
+
+const showMessagesHandler = function (evt) {
+    const chatRoomId = this.dataset.chatroom;
+    const url = `${URL_TEST_MESSAGES}?${chatRoomId}`;
+    requestToSever(url, 'GET', 'json',  {}, 10000, renderMessages);
+}
+
+Array.from(userList).forEach((userItem) => {
+    userItem.addEventListener('click', showMessagesHandler);
+})
+
