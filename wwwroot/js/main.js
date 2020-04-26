@@ -15,7 +15,7 @@ const sendBtn = document.querySelector('.messages__send-btn');
 const typeArea = document.querySelector('.messages__typeArea');
 const userList = document.querySelectorAll('.users__item');
 
-const URL_TEST_MESSAGES = 'https://localhost:44395/Messages/Messages';
+const URL_TEST_MESSAGES = 'Messages/Messages';
 
 hubConnection.on('send', function (message, username) {
     const messageComponent = new Message(message, username);
