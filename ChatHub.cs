@@ -19,18 +19,22 @@ namespace MetaPotato
 
         public async Task JoinGroup(string roomName)
         {
+            if (FChatRommConnectionId.ContainsKey(Context.ConnectionId))
+                FChatRommConnectionId.Remove(Context.ConnectionId);
+            FChatRommConnectionId.Add(Context.ConnectionId, roomName);
             await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
         }
 
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
-           return base.OnConnectedAsync();
+           // await Groups.AddToGroupAsync(Context.ConnectionId, "SignalR Users");
+            await base.OnConnectedAsync();
         }
 
-     /*   public override Task OnDisconnectedAsync(bool stopCalled)
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
-            return base.OnDisconnectedAsync(stopCalled);
+           // await Groups.RemoveFromGroupAsync(Context.ConnectionId, "SignalR Users");
+            await base.OnDisconnectedAsync(exception);
         }
-        */
     }
 }

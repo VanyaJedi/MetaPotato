@@ -15,7 +15,7 @@ const sendBtn = document.querySelector('.messages__send-btn');
 const typeArea = document.querySelector('.messages__typeArea');
 const userList = document.querySelectorAll('.users__item');
 
-const URL_TEST_MESSAGES = 'Messages/Messages';
+const URL_TEST_MESSAGES = 'Messages/Messages/';
 
 hubConnection.on('send', function (message, username) {
     const messageComponent = new Message(message, username);
@@ -27,8 +27,7 @@ const sendMessageHandler = () => {
     if (!textMessage) {
         return;
     }
-    hubConnection.invoke('JoinGroup', '1');
-    hubConnection.invoke('Send', textMessage, '1');
+    hubConnection.invoke('Send', textMessage, savechatRoomId);
     typeArea.innerText = '';
     const messageComponent = new Message(textMessage, "Это я");
     render(messagesContainer, messageComponent);
@@ -46,9 +45,13 @@ const renderMessages = function (messages) {
     });
 }
 
-const showMessagesHandler = function (evt) {
+let savechatRoomId = "";
+
+const showMessagesHandler = function (evt) {    
     const chatRoomId = this.dataset.chatroom;
-    const url = `${URL_TEST_MESSAGES}?${chatRoomId}`;
+    savechatRoomId = chatRoomId;
+    hubConnection.invoke('JoinGroup', chatRoomId);
+    const url = `${URL_TEST_MESSAGES}?chatRoomId=${chatRoomId}`;
     requestToSever(url, 'GET', 'json',  {}, 10000, renderMessages);
 }
 
