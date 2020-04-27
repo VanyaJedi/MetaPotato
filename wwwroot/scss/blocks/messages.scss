@@ -98,6 +98,7 @@
     min-height: 30px;
     word-wrap: break-word;
     overflow-y: auto;
+    font-family: "Fira Mono", Roboto, sans-serif;
 
     &:empty::before {
         content: "Введите текст сообщения...";
