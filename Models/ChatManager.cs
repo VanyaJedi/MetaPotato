@@ -23,25 +23,26 @@ namespace MetaPotato.Models
     // Элемент списка контактов
     public class MessageItem
     {
-        //public string FLogin;
-        //public string FLastMessage;
-        //public byte[] FPhoto;
+        public string MessageText;
+        public string UserName;
+        public bool IsFriend;
     }
 
 
     // Менеджер чата сообщений
     public class ChatManager
     {
-        private UserContext FContext;
-        public ChatManager(UserContext AContext)
+        private static UserContext FDB;
+        public ChatManager(UserContext ADB)
         {
-           FContext = AContext;
+            FDB = ADB;           
         }
 
-        public List<ContactItem> BuildContactList(string ALogin)
+        // Построить список контактов
+        public  List<ContactItem> BuildContactList(string ALogin)
         {
             // Это классический вариант загрузки связанных данных
-            var xContacts = FContext.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выбор пользователя с заданным Login
             var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
             // Список ChatRoom для текущего пользователя
@@ -77,27 +78,53 @@ namespace MetaPotato.Models
             return xContactList;
         }
 
-        public  List<MessageItem> RecieveMessages(tblChatRoom room)
+        // Получить сообщения из БД
+        public  List<MessageItem> RecieveMessages(string AMyLogin, string AChatRoom)
         {
+            List<MessageItem> result = new List<MessageItem>();
             try
             {
-                List<MessageItem> result = new List<MessageItem>();
-                var xMessages = FContext.tblMessages.OrderBy(p => p.messageId);
-            //    List<tblMessage> x = (from messages in xMessages
-            //                              where messages.tblTalker.ChatRoomID == room.ChatRoomID
-            //                              select messages).ToList();
-                return null;
+                var xMessages = FDB.tblMessages.OrderBy(p => p.MessageId);
+                List<tblMessage> x = (from messages in xMessages
+                                          where messages.ChatRoom == AChatRoom
+                                      select messages).ToList();
+                if (x != null)
+                {
+                    int xBeg = (x.Count > 5) ? x.Count - 5 : 0;
+                    for (int i = xBeg; i < x.Count; i++)
+                    {
+                        MessageItem xMessageItem = new MessageItem();
+                        xMessageItem.MessageText = x[i].Message;
+                        xMessageItem.UserName = x[i].User;
+                        xMessageItem.IsFriend = (AMyLogin != x[i].User);
+                        result.Add(xMessageItem);
+                    }
+                }
+
+                return result;
             }
             catch
             {
-                return null;
+                return result;
             }
         }
 
         public bool AddUserToContacts(string ALogin, string ANewUser)
-        {
+                {
+
+            // Это классический вариант загрузки связанных данных
+            var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            // Выбор пользователя с заданным Login
+            // var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
+            // Получение его ChatRoom - ов
+            //  var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
+            // Это моя оптимизация (Связанные данные грузятся только для одного пользователя с заданным Login). Надо еще подумать
+            var u = FDB.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            var cr = u[0].tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
+
+            /*
             // Находим наш User
-            var xUser = FContext.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            var xUser = FDB.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выводим все tbChatRoom
             List<tblChatRoomUser> xChatRoomUsers = null;
             List<tblChatRoom> xChatRooms = new List<tblChatRoom>();
@@ -121,6 +148,21 @@ namespace MetaPotato.Models
                 return false;
             else
                 return true;
+                */
+            return true;
+        }
+
+        // Сохранить сообщение в БД
+        public bool AddMessageToPool(string message, string user, string chatRoom)
+        {
+            tblMessage xMessage = new tblMessage();
+            xMessage.Message = message;
+            xMessage.User = user;
+            xMessage.ChatRoom = chatRoom;
+            xMessage.SendTime = DateTime.Now;
+            FDB.tblMessages.Add(xMessage);
+            FDB.SaveChanges();
+            return true;
         }
     }
 }

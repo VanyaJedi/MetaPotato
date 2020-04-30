@@ -14,14 +14,10 @@ namespace MetaPotato.Controllers
 {
     public class HomeController : Controller
     {
-        private UserContext db;
-        private IHubContext<ChatHub> hubContext;
-        private ChatManager chatManager;
-        public HomeController(IHubContext<ChatHub> hubContext, UserContext context)
+        private ChatManager _chatManager;
+        public HomeController(ChatManager chatManager)
         {
-            this.hubContext = hubContext;
-            db = context;
-            chatManager = new ChatManager(context);
+           _chatManager = chatManager;
         }
 
 
@@ -29,11 +25,14 @@ namespace MetaPotato.Controllers
         public IActionResult Index()
         {
             // Построить список контактов (List<ContactItem>)
-            var xContactList = chatManager.BuildContactList(User.Identity.Name);
+            var xContactList = _chatManager.BuildContactList(User.Identity.Name);
 
             // Передать во вьювер
             ViewBag.ListContacts = xContactList;
             ViewBag.Username = User.Identity.Name;
+
+            _chatManager.AddUserToContacts("Ваня", "Андрей");
+
             return View();
         }
 

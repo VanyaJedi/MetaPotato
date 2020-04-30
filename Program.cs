@@ -24,7 +24,8 @@ namespace MetaPotato
                 try
                 {
                     var context = services.GetRequiredService<UserContext>();
-                    SampleData.Initialize(context);
+                    var chatManager = services.GetRequiredService<ChatManager>();
+                    SampleData.Initialize(context, chatManager);
                 }
                 catch (Exception ex)
                 {

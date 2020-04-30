@@ -28,10 +28,10 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
-                tblUser user = await db.tblUsers.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                tblUser user = await db.tblUsers.FirstOrDefaultAsync(u => u.Email == model.Login && u.Password == model.Password);
                 if (user != null)
                 {
-                    await Authenticate(model.Email); // аутентификация
+                    await Authenticate(model.Login); // аутентификация
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
@@ -50,14 +50,14 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
-                tblUser user = await db.tblUsers.FirstOrDefaultAsync(u => u.Email == model.Email);
+                tblUser user = await db.tblUsers.FirstOrDefaultAsync(u => u.Login == model.Login);
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    db.tblUsers.Add(new tblUser { Email = model.Email, Password = model.Password, Login = model.Email });
+                    db.tblUsers.Add(new tblUser { Email = model.Login, Password = model.Password, Login = model.Login });
                     await db.SaveChangesAsync();
 
-                    await Authenticate(model.Email); // аутентификация
+                    await Authenticate(model.Login); // аутентификация
 
                     return RedirectToAction("Index", "Home");
                 }

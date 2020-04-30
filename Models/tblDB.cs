@@ -56,10 +56,10 @@ namespace MetaPotato.Models
     public class tblMessage
     {
         [Key]
-        public int messageId { get; set; }
-        public string message { get; set; }
+        public int MessageId { get; set; }
+        public string Message { get; set; }
         public DateTime SendTime { get; set; }
-        public int UserId { get; set; }
-        public virtual tblUser tblUser { get; set; }
+        public string User { get; set; }
+        public string ChatRoom { get; set; }
     }
 }
