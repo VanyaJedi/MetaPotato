@@ -31,7 +31,7 @@ namespace MetaPotato.Controllers
             ViewBag.ListContacts = xContactList;
             ViewBag.Username = User.Identity.Name;
 
-            _chatManager.AddUserToContacts("Ваня", "Андрей");
+            _chatManager.AddUserToContacts("Ваня", "Саша");
 
             return View();
         }

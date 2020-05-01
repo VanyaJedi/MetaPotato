@@ -110,46 +110,33 @@ namespace MetaPotato.Models
         }
 
         public bool AddUserToContacts(string ALogin, string ANewUser)
-                {
-
-            // Это классический вариант загрузки связанных данных
-            var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
-            // Выбор пользователя с заданным Login
-            // var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
-            // Получение его ChatRoom - ов
-            //  var cr = u.tblUserChatRoom.Select(sc => sc.tblChatRoom).ToList();
+        {
+            bool xIsContact = false;
             // Это моя оптимизация (Связанные данные грузятся только для одного пользователя с заданным Login). Надо еще подумать
-            var u = FDB.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
-            var cr = u[0].tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
-
-            /*
-            // Находим наш User
-            var xUser = FDB.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
-            // Выводим все tbChatRoom
-            List<tblChatRoomUser> xChatRoomUsers = null;
-            List<tblChatRoom> xChatRooms = new List<tblChatRoom>();
-            foreach (var c in xUser)
-            {
-                // Находим ChatRoom данного User
-                xChatRoomUsers = c.tblChatRoomUser;
-                foreach (var cr in xChatRoomUsers)
-                {
-                    xChatRooms.Add(cr.tblChatRoom);
-                    //       var xUsers = c.tblChatRoomUser.Select(sc => sc.tblUser).ToList();
-                    //       foreach (tblUser user in xUsers)
-                    //           if (user != null)
-                    //               xAllUser = xAllUser + user.Login;
-                }
-            }
-
-         //   var xChatRooms = FContext.tblChatRooms.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblUser).ToList();
-         //   if (xChatRooms.Count > 0)
-            if (xChatRoomUsers != null)
-                return false;
-            else
+            var xSource = FDB.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            // Список ChatRoom для текущего пользователя
+            var cr = xSource[0].tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
+            // Есть ли уже такой контакт?
+            foreach (tblChatRoom cru in cr)
+                foreach (tblChatRoomUser x in cru.tblChatRoomUser)
+                    if (x.tblUser.Login == ANewUser)
+                    {
+                        xIsContact = true;
+                        break;
+                    }
+            if (!xIsContact)
+            {  
+                // Здесь добавляем контакт
+                var xTarget = FDB.tblUsers.Where(p => p.Login == ANewUser).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+                tblChatRoom xChatRoom = new tblChatRoom { ChatRoomName = "4", UserNumber = 2 };
+                FDB.tblChatRooms.Add(xChatRoom);
+                xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xSource[0].Id, ChatRoomId = xChatRoom.Id });
+                xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xTarget[0].Id, ChatRoomId = xChatRoom.Id });
+                FDB.SaveChanges();
                 return true;
-                */
-            return true;
+            }
+            else
+               return false;
         }
 
         // Сохранить сообщение в БД
