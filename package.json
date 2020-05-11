@@ -24,5 +24,8 @@
     "BeforeBuild": [
       "build"
     ]
+  },
+  "dependencies": {
+    "jedi-mediaservice": "^1.0.1"
   }
 }
