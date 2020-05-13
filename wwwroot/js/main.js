@@ -27,11 +27,11 @@ const sendMessageHandler = () => {
     if (!textMessage) {
         return;
     }
-    hubConnection.invoke('Send', textMessage, savechatRoomId);
+    hubConnection.invoke('Send', textMessage, this.dataset.chatroom);
     typeArea.innerText = '';
     const messageComponent = new Message(textMessage, "Это я");
     render(messagesContainer, messageComponent);
-}
+};
 
 sendBtn.addEventListener('click', sendMessageHandler);
 
@@ -43,19 +43,16 @@ const renderMessages = function (messages) {
         const messageComponent = new Message(message.MessageText, message.UserName);
         render(messagesContainer, messageComponent);
     });
-}
+};
 
-let savechatRoomId = "";
-
-const showMessagesHandler = function (evt) {    
+const showMessagesHandler = function (evt) {
     const chatRoomId = this.dataset.chatroom;
-    savechatRoomId = chatRoomId;
     hubConnection.invoke('JoinGroup', chatRoomId);
     const url = `${URL_TEST_MESSAGES}?chatRoomId=${chatRoomId}`;
-    requestToSever(url, 'GET', 'json',  {}, 10000, renderMessages);
-}
+    requestToSever(url, 'GET', 'json', {}, 10000, renderMessages);
+};
 
 Array.from(userList).forEach((userItem) => {
     userItem.addEventListener('click', showMessagesHandler);
-})
+});
 
