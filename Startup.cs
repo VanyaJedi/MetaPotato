@@ -64,10 +64,13 @@ namespace MetaPotato
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/Chat");
+                endpoints.MapHub<ChatHub>("/Chat");         
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "/Crop",
+                    pattern: "{controller=Home}/{action=Crop}/{id?}");    
             });
         }
     }

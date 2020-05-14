@@ -59,7 +59,7 @@ namespace MetaPotato.Models
                         {
                             ContactItem xContactItem = new ContactItem();
                             xContactItem.FLogin = x.tblUser.Login;
-                            xContactItem.FLastMessage = "Последнее сообщение от " + x.tblUser.Login + " (ChatRoom = " + cru.ChatRoomName + ")";
+                            xContactItem.FLastMessage = GetLatest(cru.Id.ToString());// "Последнее сообщение от " + x.tblUser.Login + " (ChatRoom = " + cru.ChatRoomName + ")";
                             xContactItem.FChatRoom = cru.Id;
                             xContactItem.FPhoto = null;
                             xContactList.Add(xContactItem);
@@ -78,16 +78,16 @@ namespace MetaPotato.Models
             return xContactList;
         }
 
-        // Получить сообщения из БД
+        // Получить сообщения из БД для AChatRoom. AMyLogin нужен для формирования признака IsFriend.
         public  List<MessageItem> RecieveMessages(string AMyLogin, string AChatRoom)
         {
             List<MessageItem> result = new List<MessageItem>();
             try
             {
                 var xMessages = FDB.tblMessages.OrderBy(p => p.MessageId);
-                List<tblMessage> x = (from messages in xMessages
-                                          where messages.ChatRoom == AChatRoom
-                                      select messages).ToList();
+                List<tblMessage> x = (from message in xMessages
+                                          where message.ChatRoom == AChatRoom
+                                      select message).ToList();
                 if (x != null)
                 {
                     int xBeg = (x.Count > 5) ? x.Count - 5 : 0;
@@ -109,6 +109,18 @@ namespace MetaPotato.Models
             }
         }
 
+        // Получить последнее сообщение для AChatRoom. 
+        public string GetLatest(string AChatRoom)
+        {
+            List<tblMessage> xMessageList = (from message in FDB.tblMessages
+                                             where message.ChatRoom == AChatRoom
+                                             select message).ToList();
+            if (xMessageList.Count > 0)
+                return xMessageList[xMessageList.Count - 1].Message;
+            else
+                return "Список сообщений пуст";
+        }
+
         public bool AddUserToContacts(string ALogin, string ANewUser)
         {
             bool xIsContact = false;
@@ -128,7 +140,7 @@ namespace MetaPotato.Models
             {  
                 // Здесь добавляем контакт
                 var xTarget = FDB.tblUsers.Where(p => p.Login == ANewUser).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
-                tblChatRoom xChatRoom = new tblChatRoom { ChatRoomName = "4", UserNumber = 2 };
+                tblChatRoom xChatRoom = new tblChatRoom { ChatRoomName = ALogin + "_" + ANewUser, UserNumber = 2 };
                 FDB.tblChatRooms.Add(xChatRoom);
                 xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xSource[0].Id, ChatRoomId = xChatRoom.Id });
                 xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xTarget[0].Id, ChatRoomId = xChatRoom.Id });
