@@ -89,6 +89,7 @@
     .menu__nav {
         display: none;
         position: absolute;
+        z-index: 9999;
         margin-top: 0;
         width: 194px;
         height: 144px;
