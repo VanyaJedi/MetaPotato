@@ -11,7 +11,7 @@
 
 .users__item {
     height: 48px;
-    margin-bottom: 5px;
+    margin-bottom: 5px; 
 }
 
 .users__item-wrapper {
@@ -23,6 +23,12 @@
     margin: 0 auto;
     border-radius: 5px;
     padding: 6px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover, &:focus {
+        background-color: $user-hover;
+    }
 }
 
 .users__avatar {

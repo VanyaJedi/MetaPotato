@@ -1,5 +1,4 @@
 ﻿import AbstractComponent from "./abstractComponent.js";
-import hubConnection from "./signalR.js"
 
 export default class Message extends AbstractComponent {
     constructor(message, username) {
@@ -7,6 +6,7 @@ export default class Message extends AbstractComponent {
         this._message = message;
         this._username = username;
     }
+
     getTemplate() {
         return (
             `<li class="message messages__item">
