@@ -28,12 +28,13 @@ export default class ChatController {
         this.setHandlers(); // hang up all handlers at initialization 
     }
 
-    setHubSendHandler(handler) {
-        this._hub.on('send', handler);
-    }
-
     startHub() {
         this._hub.start();
+
+        this._hub.on('send', (message, username) => {
+            const messageComponent = new Message(message, username);
+            render(messagesContainer, messageComponent);
+        });
     }
 
 
@@ -44,6 +45,7 @@ export default class ChatController {
             render(messagesContainer, messageComponent);
         });
     }
+
 
     getAndRenderMessagesHandler(evt) {
         const targetUserElement = evt.target.closest('.users__item');
