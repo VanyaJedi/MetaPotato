@@ -69,8 +69,8 @@ namespace MetaPotato
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
-                    name: "/Crop",
-                    pattern: "{controller=Home}/{action=Crop}/{id?}");    
+                    name: "Crop",
+                    pattern: "{controller=Crop}/{action=Index}/{id?}");    
             });
         }
     }

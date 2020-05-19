@@ -59,9 +59,9 @@ namespace MetaPotato.Models
                         {
                             ContactItem xContactItem = new ContactItem();
                             xContactItem.FLogin = x.tblUser.Login;
-                            xContactItem.FLastMessage = GetLatest(cru.Id.ToString());// "Последнее сообщение от " + x.tblUser.Login + " (ChatRoom = " + cru.ChatRoomName + ")";
+                            xContactItem.FLastMessage = GetLatest(cru.Id.ToString());
                             xContactItem.FChatRoom = cru.Id;
-                            xContactItem.FPhoto = null;
+                            xContactItem.FPhoto = x.tblUser.Photo;
                             xContactList.Add(xContactItem);
                             break;
                         }
