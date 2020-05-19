@@ -31,18 +31,22 @@ export default class ChatController {
     startHub() {
         this._hub.start();
 
-        this._hub.on('send', (message, username) => {
-            const messageComponent = new Message(message, username);
-            render(messagesContainer, messageComponent);
+         this._hub.on('send', (message, username) => {
+             this.renderMessage(message, username, true);
         });
+
     }
 
+
+    renderMessage(message, userName, isFriend) {
+        const messageComponent = new Message(message, userName, isFriend);
+        render(this._chatComponent.messagesList, messageComponent);
+    }
 
     renderMessages(messages) {
         messagesContainer.innerHTML = '';
         messages.forEach((message) => {
-            const messageComponent = new Message(message.MessageText, message.UserName);
-            render(messagesContainer, messageComponent);
+            this.renderMessage(message.MessageText, message.UserName, message.IsFriend);
         });
     }
 
@@ -51,12 +55,15 @@ export default class ChatController {
         const targetUserElement = evt.target.closest('.users__item');
         if (targetUserElement) {
             const chatRoomId = targetUserElement.dataset.chatroom;
+            const targetUserName = targetUserElement.dataset.username;
             const isSameChat = (chatRoomId === this._currentChat);
-            if (!isSameChat) {
-                messagesContainer.innerHTML = '';
+            if (!isSameChat) { 
                 this._hub.invoke('JoinGroup', chatRoomId);
                 this._api.getMessages(chatRoomId).
                     then((messages) => {
+                        this._chatComponent.setActiveUser(evt);
+                        this._chatComponent.refreshUserName(targetUserName);
+                        messagesContainer.innerHTML = '';
                         this._currentChat = chatRoomId;
                         this.renderMessages(messages);
                     })
@@ -81,8 +88,7 @@ export default class ChatController {
         this._hub.invoke('Send', textMessage, this._currentChat).
             then(() => {
                 typeArea.innerText = '';
-                const messageComponent = new Message(textMessage, "Это я");
-                render(this._chatComponent.messagesList, messageComponent);
+                this.renderMessage(textMessage, 'me', false);
             });
     }
 

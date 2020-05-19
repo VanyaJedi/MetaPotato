@@ -29,6 +29,10 @@
     &:hover, &:focus {
         background-color: $user-hover;
     }
+
+    &--active {
+        background-color: $user-active;
+    }
 }
 
 .users__avatar {

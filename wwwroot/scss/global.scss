@@ -16,7 +16,7 @@
 
 @font-face {
     font-family: "muli";
-    src: url("~/wwwwroot/fonts/Muli-Regular.woff2") format("woff2");
+    src: url("/fonts/Muli-Regular.ttf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
     font-family: "muli";
-    src: url("~/wwwwroot/fonts/Muli-Bold.woff2") format("woff2");
+    src: url("/fonts/Muli-Bold.ttf") format("opentype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -32,7 +32,7 @@
 
 @font-face {
     font-family: "muli";
-    src: url("~/wwwwroot/fonts/Muli-Light.woff2") format("woff2");
+    src: url("/fonts/Muli-Light.ttf") format("opentype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -40,7 +40,7 @@
 
 @font-face {
     font-family: "muli";
-    src: url("~/wwwwroot/fonts/Muli-Italic.woff2") format("woff2");
+    src: url("/fonts/Muli-Italic.ttf") format("opentype");
     font-weight: 400;
     font-style: italic;
     font-display: swap;

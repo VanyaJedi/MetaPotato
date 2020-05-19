@@ -33,6 +33,8 @@ export default class Menu extends AbstractComponent {
         this.whenNotMobileSearch = this.whenNotMobileSearch.bind(this);
         this.whenTabletSearch = this.whenTabletSearch.bind(this);
         this.whenNotTabletSearch = this.whenNotTabletSearch.bind(this);
+        this.whenMobileMenu = this.whenMobileMenu.bind(this);
+        this.whenNotMobileMenu = this.whenNotMobileMenu.bind(this);
         this.whenDesktopMenu = this.whenDesktopMenu.bind(this);
         this.whenNotDesktopMenu = this.whenNotDesktopMenu.bind(this);
     }
@@ -97,6 +99,16 @@ export default class Menu extends AbstractComponent {
         this.searchInput.removeEventListener('blur', this.hideSearchResultHandler)
     }
 
+    whenMobileMenu() {
+        this.openMenuBtn.addEventListener('click', this.openMenuHandler);
+        this.closeMenuBtn.addEventListener('click', this.closeMenuHandler);
+    }
+
+    whenNotMobileMenu() {
+        this.openMenuBtn.removeEventListener('click', this.openMenuHandler);
+        this.closeMenuBtn.removeEventListener('click', this.closeMenuHandler);
+    }
+
     whenDesktopMenu() {
         this.menuUser.addEventListener('click', this.showMenuDesktopHandler);
     }
@@ -117,8 +129,7 @@ export default class Menu extends AbstractComponent {
         }
 
         if (mediaService.mqlmobileTablet.matches) {
-            this.openMenuBtn.addEventListener('click', this.openMenuHandler);
-            this.closeMenuBtn.addEventListener('click', this.closeMenuHandler);
+            this.whenMobileMenu();
         }
 
         if (mediaService.mqldesktop.matches) {
@@ -128,6 +139,7 @@ export default class Menu extends AbstractComponent {
 
     subscribeMediaEvents() {
         mediaService.subscribe('mobileSearch', 'mobileTablet', this.whenMobileSearch, this.whenNotMobileSearch);
+        mediaService.subscribe('mobileMenu', 'mobileTablet', this.whenMobileMenu, this.whenNotMobileMenu);
         mediaService.subscribe('tabletSearch', 'tablet', this.whenTabletSearch, this.whenNotTabletSearch);
         mediaService.subscribe('desktopMenu', 'desktop', this.whenDesktopMenu, this.whenNotDesktopMenu);
     }
