@@ -15,7 +15,7 @@
             <ul class="users__list">
                 @foreach (var contact in ViewBag.ListContacts)
                 {
-                    <li data-chatroom="@contact.FChatRoom" class="users__item">
+                    <li data-chatroom="@contact.FChatRoom" data-username="@contact.FLogin" class="users__item">
                         <div class="users__item-wrapper">
 
                             @if (contact.FPhoto == null)

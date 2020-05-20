@@ -8,7 +8,7 @@
 
     .message__content {
         flex-basis: auto;
-        min-width:145px;
+        min-width: 145px;
         max-width: 220px;
         font-size: 12px;
         line-height: 14px;
@@ -20,6 +20,14 @@
     }
 
     &--my {
+
+        .message__user {
+            flex-direction: row-reverse;
+
+            img {
+                margin-left: 5px;
+            }
+        }
 
         .message__content {
             background: $my-message;
