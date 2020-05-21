@@ -17,7 +17,10 @@
                 {
                     <li data-chatroom="@contact.FChatRoom" data-username="@contact.FLogin" class="users__item">
                         <div class="users__item-wrapper">
-                            <img class="users__avatar" src="~/img/default_avatar.png" />
+                            <a href="/Home/UserProfile">
+                                <img class="users__avatar" src="~/img/default_avatar.png" />
+                            </a>
+                            
                             <div class="users__name-message">
                                 <span class="users__name">@contact.FLogin</span>
                                 <div class="users__last-text">

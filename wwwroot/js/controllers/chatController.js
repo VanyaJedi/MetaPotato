@@ -22,6 +22,13 @@ export default class ChatController {
 
         this._chatComponent = new Chat();
 
+        if (this._chatComponent) {
+            console.log(this._chatComponent);
+            this.isAvailable = true;
+        } else {
+            this.isAvailable = false;
+        }
+
         this.getAndRenderMessagesHandler = this.getAndRenderMessagesHandler.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
 

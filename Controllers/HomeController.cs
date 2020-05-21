@@ -34,6 +34,8 @@ namespace MetaPotato.Controllers
             return View();
         }
 
+
+
         public void Crop()
         {
             // Построить список контактов (List<ContactItem>)
@@ -45,6 +47,11 @@ namespace MetaPotato.Controllers
         }
 
         public IActionResult StartPage()
+        {
+            return View();
+        }
+
+        public IActionResult UserProfile()
         {
             return View();
         }
