@@ -17,17 +17,29 @@
                 {
                     <li data-chatroom="@contact.FChatRoom" data-username="@contact.FLogin" class="users__item">
                         <div class="users__item-wrapper">
+<<<<<<< HEAD
                             <a href="/Home/UserProfile">
                                 <img class="users__avatar" src="~/img/default_avatar.png" />
                             </a>
                             
+=======
+
+                            @if (contact.FPhoto == null)
+                            {
+                                <img class="users__avatar" src="~/img/default_avatar.png" />
+                            }
+                            else
+                            {
+                                <img class="users__avatar" src="data:image/jpeg;base64,@(Convert.ToBase64String(contact.FPhoto))" />
+                            }
+>>>>>>> 2f95ab13f3e8bb94f9f428a228cdacb9d9f784c6
                             <div class="users__name-message">
                                 <span class="users__name">@contact.FLogin</span>
                                 <div class="users__last-text">
                                     <span>@contact.FLastMessage</span>
                                 </div>
                             </div>
-                        </div>
+                            </div>
                     </li>
                 }
             </ul>
