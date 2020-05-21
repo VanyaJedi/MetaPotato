@@ -38,7 +38,8 @@ namespace MetaPotato
             services.AddSignalR();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddTransient<ChatManager>();
+           // services.AddTransient<ChatManager>();
+            services.AddScoped<ChatManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

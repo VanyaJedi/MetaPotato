@@ -32,7 +32,7 @@ namespace MetaPotato.Models
     // Менеджер чата сообщений
     public class ChatManager
     {
-        private static UserContext FDB;
+        private UserContext FDB;
         public ChatManager(UserContext ADB)
         {
             FDB = ADB;           
