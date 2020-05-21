@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MetaPotato.Models.tblUser>
+
+@{
+    ViewBag.Title = "Добавление пользователя";
+}
+<form asp-action="Create" asp-controller="Crop" method="post" enctype="multipart/form-data">
+    <p>
+        <label style="color: #fff">Имя</label>
+        <input name="Name" class="form-control" />
+    </p>
+    <p>
+        <label style="color: #fff">Аватар</label>
+        <input name="Avatar" type="file" class="form-control" />
+    </p>
+    <p>
+        <input type="submit" value="Добавить" />
+    </p>
+</form>
+<h3 style="color: #fff">Все пользователи</h3>
+@foreach (var p in Model)
+{
+    <div style="color: #fff">
+        <h4>@p.Login</h4>
+        @if (p.Photo != null)
+        {
+            <img style='width:80px; height:60px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Photo))" />
+        }
+    </div>
+}
