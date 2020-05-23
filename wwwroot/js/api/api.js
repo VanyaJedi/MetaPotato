@@ -1,5 +1,6 @@
 ﻿
-const URL_TEST_MESSAGES = 'Messages/Messages/'
+const URL_GET_MESSAGES = 'Messages/Messages/';
+const URL_GET_INITIAL_DATA = 'Messages/InitialData/'
 
 export default class Api {
 
@@ -28,10 +29,18 @@ export default class Api {
     }
 
     getMessages(chatRoomId) {
-        return this._load({ url: `${URL_TEST_MESSAGES}?chatRoomId=${chatRoomId}`})
+        return this._load({ url: `${URL_GET_MESSAGES}?chatRoomId=${chatRoomId}`})
             .then((response) => response.json())
             .catch(this._onError);
     }
+
+    getInitialData() {
+        return this._load({ url: URL_GET_INITIAL_DATA })
+            .then((response) => response.json())
+            .catch(this._onError);
+    }
+
+
 
 
 }

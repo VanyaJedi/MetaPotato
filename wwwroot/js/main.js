@@ -12,7 +12,6 @@ import Api from "./api/api.js";
 const api = new Api();
 const messagesModel = new MessagesModel();
 
-
 const menuController = new MenuController();
 menuController.setMenuHandlers();
 menuController.subsribeMenuMediaEvents();
