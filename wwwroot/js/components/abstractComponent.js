@@ -1,4 +1,4 @@
-﻿import { createElement } from "../utils/manipulateDOM.js";
+﻿import { createElement, hideElement, showElement } from "../utils/manipulateDOM.js";
 
 export default class AbstractComponent {
     constructor() {
@@ -23,5 +23,13 @@ export default class AbstractComponent {
 
     removeElement() {
         this._element = null;
+    }
+
+    hide() {
+        hideElement(this.getElement());
+    }
+
+    show() {
+        showElement(this.getElement());
     }
 }

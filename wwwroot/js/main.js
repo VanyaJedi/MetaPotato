@@ -8,13 +8,17 @@ import MenuController from "./controllers/menuController.js";
 import Api from "./api/api.js";
 
 const api = new Api();
-const chatController = new ChatController(hubConnection, api);
-const menuController = new MenuController();
 
+const menuController = new MenuController();
 menuController.setMenuHandlers();
 menuController.subsribeMenuMediaEvents();
 
- chatController.subscribeChatMediaEvents();
- chatController.startHub();
+const isChatPage = !!document.querySelector('.messenger');
+if (isChatPage) {
+    const chatController = new ChatController(hubConnection, api);
+    chatController.subscribeChatMediaEvents();
+    chatController.startHub();
+}
+
 
 

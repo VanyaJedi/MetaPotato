@@ -34,8 +34,6 @@ namespace MetaPotato.Controllers
             return View();
         }
 
-<<<<<<< HEAD
-
 
         public void Crop()
         {
@@ -47,8 +45,6 @@ namespace MetaPotato.Controllers
             ViewBag.Username = User.Identity.Name;
         }
 
-=======
->>>>>>> 2f95ab13f3e8bb94f9f428a228cdacb9d9f784c6
         public IActionResult StartPage()
         {
             return View();
