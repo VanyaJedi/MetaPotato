@@ -13,18 +13,21 @@
 }
 
 .messages__header {
-    background-color: $background-dark;
     display: flex;
     align-items: center;
-    height: 41px;
-    width: 100%;
+    font-family: "muli", Roboto, sans-serif;
+    font-size: 24px;
+
+    &--users {
+        letter-spacing: 3px;
+    }
 }
 
 .messages__icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    fill: $text-purple-dark;
+    fill: $top-menu-icon;
 
     &--dots {
         transform: rotate(90deg);
@@ -46,7 +49,8 @@
     margin-left: 21px;
     font-size: 18px;
     font-weight: 700;
-    font-family: "mukta";
+    font-family: "mukta", "Arial", sans-serif;
+    color: $top-menu-icon;
 }
 
 .messages__avatar {
@@ -67,23 +71,31 @@
     display: flex;
     flex-direction: column;
     height: calc(100vh - 41px);
+    padding-bottom: 10px;
 }
 
 .messages__list {
+    list-style: none;
+    padding: 28px 15px;
     flex-grow: 1;
     max-height: calc(100% - 50px);
-    overflow: scroll;
+    overflow: auto;
 }
 
 .messages__send-form {
-    height: 50px;
-    flex-grow: 1;
-    width: 100%;
+    overflow: auto;
+    min-height: 50px;
+    flex-grow: 0;
+    width: 97.86%;
+    margin: 0 auto;
     max-height: 250px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-self: end;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    background-color: $type-area;
 }
 
 .messages__typeArea {
@@ -91,10 +103,129 @@
     padding: 8px 16px;
     min-height: 30px;
     word-wrap: break-word;
-    overflow-y: scroll;
+    overflow-y: auto;
+    font-family: "Fira Mono", Roboto, sans-serif;
 
     &:empty::before {
-        content: "Введите текст сообщения";
+        content: "Введите текст сообщения...";
         color: $light-color;
     }
+}
+
+.messages__header {
+
+    &--users {
+        display: none;
+    }
+}
+
+.messages__send-btn {
+   
+    svg {
+        fill: $background-dark;
+    }
+}
+
+
+@media (min-width: $tablet-width) {
+
+    .messages__list {
+        padding: 54px 30px;
+    }
+
+    .messages__block {
+        padding-bottom: 32px;
+    }
+
+    .messages__send-form {
+        width: 707px;
+        margin: 0 auto;
+    }
+
+    .messages__smile-btn {
+        margin-right: 30px;
+    }
+
+    .messages__send-btn {
+        margin-left: 30px;
+    }
+
+}
+
+@media (min-width: $desktop-width) {
+
+    .messages {
+        display: block;
+        position: relative;
+        z-index: 0;
+    }
+
+    .messages__block {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 51px);
+        margin: 0 auto;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .messages__header {
+        box-shadow: none;
+        padding: 0px 49px;
+
+        &--users {
+            color: #fff;
+            padding: 9px 31px;
+            display: flex;
+            height: 47px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .messages__username {
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+        margin-left: 20px;
+    }
+
+    .messages__icon-btn-back {
+        display: none;
+    }
+
+    .messages__list {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 calc((100% - 988px) / 2);
+
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: rgba(169,160,182, 0.8);
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+
+        &::-webkit-scrollbar-thumb:window-inactive {
+            background: rgba(169,160,182, 0.4);
+        }
+    }
+
+    .messages__send-form {
+        width: 830px;
+        min-height: 66px;
+        border-radius: 15px;
+    }
+
+
+
 }

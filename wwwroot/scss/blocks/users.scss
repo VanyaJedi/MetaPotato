@@ -1,6 +1,8 @@
 ﻿.users {
     height: 100%;
     width: 100%;
+    color: #fff;
+    font-family: "mukta", Arial, sans-serif;
 
     &--hide {
         display: none;
@@ -9,13 +11,28 @@
 
 .users__item {
     height: 48px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.19);
+    margin-bottom: 5px; 
 }
 
 .users__item-wrapper {
     display: flex;
     align-items: center;
     height: 100%;
+    width: 97.86%;
+    background-color: $user-item;
+    margin: 0 auto;
+    border-radius: 5px;
+    padding: 6px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover, &:focus {
+        background-color: $user-hover;
+    }
+
+    &--active {
+        background-color: $user-active;
+    }
 }
 
 .users__avatar {
@@ -27,22 +44,38 @@
 
 .users__name-message {
     width: calc(100% - 36px - 23px);
-    height: 100%;
-    padding-top: 5px;
 }
 
 .users__name {
     font-size: 14px;
     font-weight: 500;
-    color: $background-dark;
 }
 
 .users__last-text {
     width: 100%;
     font-size: 12px;
-    color: #000;
     margin-top: -3px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+
+@media (min-width: $desktop-width) {
+
+    .users {
+        width: 375px;
+    }
+
+    .users__item {
+        height: 48px;
+        width: 336px;
+        margin-bottom: 3px;
+
+        &--active {
+            .users__item-wrapper {
+                background-color: #663951;
+            }       
+        }
+    }
 }

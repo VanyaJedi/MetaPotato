@@ -38,6 +38,8 @@
     font-size: 12px;
     line-height: 12px;
     color: #fff;
+    font-family: "Fira Mono", Roboto, sans-serif;
+    font-weight: 700;
 
     &::placeholder {
         color: #fff;
@@ -115,13 +117,13 @@
 @media (min-width: $desktop-width) {
 
     .search__header {
-        width: 270px;
-        height: 34px;
+        width: 349px;
+        height: 22px;
     }
 
     .search__result {
-        width: 270px;
-        top: 53px;
+        width: 349px;
+        top: 41px;
     }
 
 }

@@ -4,7 +4,13 @@
     justify-content: center;
     width: 45px;
     height: 100%;
+    max-height: 45px;
     border: none;
-    background: none;   
+    background: none;
     flex-shrink: 0;
+    //margin-top: auto;
+}
+
+.button-icon__svg {
+    fill: $background-dark;
 }

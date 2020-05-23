@@ -38,6 +38,8 @@ namespace MetaPotato
             services.AddSignalR();
             services.AddControllersWithViews();
             services.AddRazorPages();
+           // services.AddTransient<ChatManager>();
+            services.AddScoped<ChatManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,10 +65,13 @@ namespace MetaPotato
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/Chat");
+                endpoints.MapHub<ChatHub>("/Chat");         
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "Crop",
+                    pattern: "{controller=Crop}/{action=Index}/{id?}");    
             });
         }
     }

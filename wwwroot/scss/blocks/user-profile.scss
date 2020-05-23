@@ -1,0 +1,186 @@
+﻿.user-profile {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: $background-dark;
+}
+
+.user-profile__close-btn {
+    border: none;
+    background: none;
+
+    svg {
+        width: 17px;
+        height: 17px;
+        fill: $top-menu-icon;
+    }
+    margin-bottom: 35px;
+}
+
+.user-profile__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 345px;
+    margin: 0 auto;
+    padding-top: 21px;
+}
+
+.user-profile__user {
+    display: flex;
+    margin-bottom: 27px;
+    padding-left: 25px;
+}
+
+.user-profile__avatar {
+    width: 95px;
+    height: 95px;
+}
+
+.user-profile__user-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 29px;
+    margin-top: 13px;
+}
+
+.user-profile__user-name,
+.user-profile__user-mail {
+    color: #fff;
+}
+
+.user-profile__user-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 19px;
+}
+
+.user-profile__user-mail {
+    font-size: 14px;
+}
+
+.user-profile__text-msg-btn {
+    cursor: pointer;
+    display: flex;
+    width: 221px;
+    height: 52px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    color: $text-purple-dark;
+    border: none;
+    border-radius: 25px;
+    background-color: rgba(25, 27, 46, 0.47);
+    font-size: 13px;
+    transition: all 0.3s ease-in-out;
+    svg {
+        fill: $text-purple-dark;
+    }
+
+    &:hover, &:focus {
+        background-color: rgba(25, 27, 46, 0.2);
+        //border: 1px solid rgba(25, 27, 46, 0.47);
+        box-shadow: 0 0 7px -1px $text-purple-dark, 0 0 6px -1px #fff inset;
+    }
+}
+
+
+
+@media (min-width: $tablet-width) {
+
+    .user-profile__wrapper {
+        width: 707px;
+        padding-top: 25px;
+    }
+
+    .user-profile__close-btn {
+
+        svg {
+            width: 25px;
+            height: 25px;
+        }
+
+        margin-bottom: 68px;
+    }
+
+    .user-profile__user {
+        margin-bottom: 67px;
+    }
+
+    .user-profile__user-info {
+        margin-left: 53px;
+        margin-top: 28px;
+    }
+
+
+    .user-profile__avatar {
+        width: 125px;
+        height: 125px;
+    }
+
+    .user-profile__user-name {
+        margin-bottom: 23px;
+        font-size: 26px;
+    }
+
+    .user-profile__user-mail {
+        font-size: 16px;
+    }
+
+}
+
+
+
+@media (min-width: $desktop-width) {
+
+
+    .user-profile {
+        position: relative;
+        top: auto;
+    }
+
+    .user-profile__close-btn {
+
+        margin-left: auto;
+        margin-right: 100px;
+
+        svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        margin-bottom: 15px;
+    }
+
+    .user-profile__wrapper {
+        width: 1406px;
+        padding-top: 57px;
+        padding-left: 119px;
+    }
+
+    .user-profile__user-info {
+        margin-left: 52px;
+        margin-top: 27px;
+    }
+
+    .user-profile__user {
+        margin-bottom: 87px;
+    }
+
+    .user-profile__avatar {
+        width: 125px;
+        height: 125px;
+    }
+
+    .user-profile__user-name {
+        margin-bottom: 50px;
+        font-size: 32px;
+    }
+
+    .user-profile__user-mail {
+        font-size: 20px;
+    }
+
+}

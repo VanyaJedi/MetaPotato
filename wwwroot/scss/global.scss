@@ -1,14 +1,14 @@
 ﻿@font-face {
-    font-family: "muli";
-    src: url("../fonts/Muli-Regular.woff2") format("woff2");
+    font-family: "Fira Mono";
+    src: url("/fonts/FiraMono-Regular.ttf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "muli";
-    src: url("../fonts/Muli-Bold.woff2") format("woff2");
+    font-family: "Fira Mono";
+    src: url("/fonts/FiraMono-Bold.ttf") format("opentype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -16,7 +16,23 @@
 
 @font-face {
     font-family: "muli";
-    src: url("../fonts/Muli-Light.woff2") format("woff2");
+    src: url("/fonts/Muli-Regular.ttf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "muli";
+    src: url("/fonts/Muli-Bold.ttf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "muli";
+    src: url("/fonts/Muli-Light.ttf") format("opentype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -24,7 +40,7 @@
 
 @font-face {
     font-family: "muli";
-    src: url("../fonts/Muli-Italic.woff2") format("woff2");
+    src: url("/fonts/Muli-Italic.ttf") format("opentype");
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -32,7 +48,7 @@
 
 @font-face {
     font-family: "mukta";
-    src: url("../fonts/Mukta-Regular.woff2") format("woff2");
+    src: url("/fonts/Mukta-Regular.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -40,7 +56,7 @@
 
 @font-face {
     font-family: "mukta";
-    src: url("../fonts/Mukta-Bold.woff2") format("woff2");
+    src: url("/fonts/Mukta-Bold.woff2") format("woff2");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -48,7 +64,7 @@
 
 @font-face {
     font-family: "mukta";
-    src: url("../fonts/Mukta-Light.woff2") format("woff2");
+    src: url("/fonts/Mukta-Light.woff2") format("woff2");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -56,11 +72,36 @@
 
 @font-face {
     font-family: "mukta";
-    src: url("../fonts/Mukta-Medium.woff2") format("woff2");
+    src: url("/wwwwroot/fonts/Mukta-Medium.woff2") format("woff2");
     font-weight: 500;
     font-style: italic;
     font-display: swap;
 }
+
+@font-face {
+    font-family: "noto-sans";
+    src: url("/fonts/NotoSans-Regular.ttf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "noto-sans";
+    src: url("/fonts/NotoSans-Bold.ttf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "noto-sans";
+    src: url("/fonts/NotoSans-Italic.ttf") format("opentype");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
 
 
 

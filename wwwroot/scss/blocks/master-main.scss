@@ -1,3 +1,16 @@
 ﻿.master-main {
     height: calc(100vh - 41px);
+    background-color: $background-dark;
+}
+
+@media (min-width: $tablet-width) {
+    .master-main {
+        height: calc(100vh - 51px);
+    }
+}
+
+@media (min-width: $desktop-width) {
+    .master-main {
+        height: calc(100vh - 48px);
+    }
 }

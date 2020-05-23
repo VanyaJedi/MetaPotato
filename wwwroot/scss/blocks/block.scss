@@ -1,0 +1,9 @@
+﻿.block {
+    height: calc(100vh - 41px);
+}
+
+@media (min-width: $tablet-width) {
+    .block {
+        height: calc(100vh - 51px);
+    }
+}

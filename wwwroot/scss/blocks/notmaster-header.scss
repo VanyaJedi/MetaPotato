@@ -1,0 +1,17 @@
+﻿.notmaster-header {
+    background-color: $background-dark;
+    height: 41px;
+    width: 100%;
+}
+
+@media (min-width: $tablet-width) {
+    .notmaster-header {
+        height: 51px;
+    }
+}
+
+@media (min-width: $desktop-width) {
+    .notmaster-header {
+        height: 47px;
+    }
+}

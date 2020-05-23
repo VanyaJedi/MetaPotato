@@ -1,8 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<div class="messenger">
     <section class="users">
+        <div class="messages__header messages__header--users notmaster-header">
+            <span>Диалоги</span>
+        </div>
         @if (ViewBag.ListContacts.Count == 0)
         {
             <span class="user-list__no-dialog">У вас пока нет диалогов</span>
@@ -12,9 +15,19 @@
             <ul class="users__list">
                 @foreach (var contact in ViewBag.ListContacts)
                 {
-                    <li class="users__item">
-                        <div class="users__item-wrapper wrapper">
-                            <img class="users__avatar" src="~/img/default_avatar.png" />
+                    <li data-chatroom="@contact.FChatRoom" data-username="@contact.FLogin" class="users__item">
+                        <div class="users__item-wrapper">
+
+                                @if (contact.FPhoto == null)
+                                {
+
+                                    <img class="users__avatar" src="~/img/default_avatar.png" />
+                                }
+                                else
+                                {
+                                    <img class="users__avatar" src="data:image/jpeg;base64,@(Convert.ToBase64String(contact.FPhoto))" />
+                                }
+                      
                             <div class="users__name-message">
                                 <span class="users__name">@contact.FLogin</span>
                                 <div class="users__last-text">
@@ -26,133 +39,40 @@
                 }
             </ul>
         }
+    </section>
 
-        <div id="loginBlock">
-            Введите логин:<br />
-            <input id="userName" type="text" />
-            <input id="loginBtn" type="button" value="Войти" />
-        </div><br />
-
-        <div id="header"></div><br />
-
-        <div id="inputForm">
-            <input type="text" id="message" />
-            <input type="button" id="sendBtn" value="Отправить" />
+    <section class="messages">
+        <div class="messages__header notmaster-header">
+            <button class="messages__icon-btn-back" type="button">
+                <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
+                    <use xlink:href="build/symbol/sprite.svg#back"></use>
+                </svg>
+            </button>
+            <img class="messages__avatar" src="~/img/default_avatar.png" />
+            <span class="messages__username">
+            </span>
+            <button class="messages__icon-btn-set" type="button">
+                <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
+                    <use xlink:href="build/symbol/sprite.svg#dots"></use>
+                </svg>
+            </button>
         </div>
-        <div id="chatroom"></div>
-
-        <script src="lib/signalr/dist/browser/signalr.min.js"></script>
-
-        <script>
-            const hubConnection = new signalR.HubConnectionBuilder()
-                .withUrl("/chat")
-                .build();
-
-            let userName = '';
-            // получение сообщения от сервера
-            hubConnection.on("Send", function (message, userName) {
-
-                // создаем элемент <b> для имени пользователя
-                let userNameElem = document.createElement("b");
-                userNameElem.appendChild(document.createTextNode(userName + ': '));
-
-                // создаем элемент <p> для сообщения пользователя
-                let elem = document.createElement("p");
-                elem.appendChild(userNameElem);
-                elem.appendChild(document.createTextNode(message));
-
-                let firstElem = document.getElementById("chatroom").firstChild;
-                document.getElementById("chatroom").insertBefore(elem, firstElem);
-
-            });
-
-            // установка имени пользователя
-            document.getElementById("loginBtn").addEventListener("click", function (e) {
-                userName = document.getElementById("userName").value;
-                document.getElementById("header").innerHTML = '<h3>Welcome ' + userName + '</h3>';
-            });
-            // отправка сообщения на сервер
-            document.getElementById("sendBtn").addEventListener("click", function (e) {
-                let message = document.getElementById("message").value;
-                hubConnection.invoke("Send", message, userName);
-            });
-
-            hubConnection.start();
-            </script>
-            </section >
-
-                <section class="messages">
-                    <div class="messages__header">
-                        <button class="messages__icon-btn-back" type="button">
-                            <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
-                                <use xlink: href="build/symbol/sprite.svg#back"></use>
+        <div class="messages__block block">
+            <ul class="messages__list">
+            </ul>
+            <form class="messages__send-form">
+                <button class="button-icon messages__smile-btn" type="button">
+                    <svg class="button-icon__svg" widht="23" height="23" aria-label="Смайл">
+                        <use xlink:href="build/symbol/sprite.svg#face"></use>
                     </svg>
                 </button>
-                    <img class="messages__avatar" src="~/img/default_avatar.png" />
-                    <span class="messages__username">
-                        Имя юзера
-                </span>
-                    <button class="messages__icon-btn-set" type="button">
-                        <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
-                            <use xlink: href="build/symbol/sprite.svg#dots"></use>
+                <div class="messages__typeArea" contenteditable="true"></div>
+                <button class="button-icon messages__send-btn" type="button">
+                    <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
+                        <use xlink:href="build/symbol/sprite.svg#send"></use>
                     </svg>
                 </button>
-            </div >
-                <div class="messages__block">
-                    <ul class="messages__list">
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                        <li>какое то сообщение</li>
-                    </ul>
-                    <form class="messages__send-form">
-                        <button class="button-icon" type="button">
-                            <svg class="button-icon__svg" widht="23" height="23" aria-label="Смайл">
-                                <use xlink: href="build/symbol/sprite.svg#face"></use>
-                        </svg>
-                    </button>
-                    <div class="messages__typeArea" contenteditable="true"></div>
-                    <button class="button-icon" type="submit">
-                        <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
-                            <use xlink: href="build/symbol/sprite.svg#send"></use>
-                        </svg>
-                    </button>
-                </form >
-            </div >
-</section >
+            </form>
+        </div>
+    </section>
+</div>
