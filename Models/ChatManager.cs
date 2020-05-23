@@ -11,6 +11,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MetaPotato.Models
 {
+    // Текущая информация при загрузке страницы
+    public class InitialDataItem
+    {
+        public string FMyLogin;
+        public string FUser;
+        public string FChatRoom;
+    }
     // Элемент списка контактов
     public class ContactItem : IComparable
     {
@@ -25,7 +32,7 @@ namespace MetaPotato.Models
         public byte[] FPhoto;
     }
 
-    // Элемент списка контактов
+    // Элемент списка сообщений
     public class MessageItem
     {
         public string MessageText;
@@ -175,6 +182,43 @@ namespace MetaPotato.Models
             FDB.tblMessages.Add(xMessage);
             FDB.SaveChanges();
             return true;
+        }
+
+        // Текущая информация при загрузке страницы
+        public InitialDataItem GetInitialData(string ALogin)
+        {
+            // Это классический вариант загрузки связанных данных
+            var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            // Выбор пользователя с заданным Login
+            var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
+            // Список ChatRoom для текущего пользователя
+            var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
+
+            // Формировать список контактов
+            List<ContactItem> xContactList = new List<ContactItem>();
+            foreach (tblChatRoom cru in cr)
+            {
+                if (cru.UserNumber <= 2)
+                    foreach (tblChatRoomUser x in cru.tblChatRoomUser)
+                    {
+                        if (x.tblUser.Login != ALogin)
+                        {
+                            ContactItem xContactItem = new ContactItem();
+                            xContactItem.FLogin = x.tblUser.Login;
+                            xContactItem.FLastMessage = GetLatest(cru.Id.ToString(), out xContactItem.FLastDateTime);
+                            xContactItem.FChatRoom = cru.Id;
+                            xContactItem.FPhoto = x.tblUser.Photo;
+                            xContactList.Add(xContactItem);
+                            break;
+                        }
+                    }
+            }
+            xContactList.Sort();
+            InitialDataItem xInitialDataItem = new InitialDataItem();
+            xInitialDataItem.FMyLogin = ALogin;
+            xInitialDataItem.FUser = xContactList[0].FLogin;
+            xInitialDataItem.FChatRoom = xContactList[0].FChatRoom.ToString();
+            return xInitialDataItem;
         }
     }
 }
