@@ -23,8 +23,16 @@ namespace MetaPotato.Controllers
 
         public string Messages(string chatRoomId)
         {
+            string xVal = InitialData();
+
             var messages = FChatManager.RecieveMessages(User.Identity.Name, chatRoomId);
             return JsonConvert.SerializeObject(messages);
+        }
+
+        // Текущая информация при загрузке страницы
+        public string InitialData()
+        {
+            return JsonConvert.SerializeObject(FChatManager.GetInitialData(User.Identity.Name));
         }
     }
 }
