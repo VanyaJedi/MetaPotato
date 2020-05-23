@@ -10,6 +10,7 @@ export default class Chat extends AbstractComponent {
         this._element = chat;
         this._usersBlock = this._element.querySelector('.users');
         this._userList = this._element.querySelector('.users__list');
+        this._userListItems = this._userList.querySelectorAll('.users__item');
         this._messagesBlock = this._element.querySelector('.messages');
         this._messagesList = this._element.querySelector('.messages__list');
         this._closeChatMobileBtn = this._messagesBlock.querySelector('.messages__icon-btn-back');
@@ -29,6 +30,10 @@ export default class Chat extends AbstractComponent {
         return this._element;
     }
 
+
+    setActiceUserInitial() {
+        this._userListItems[0].classList.add('users__item--active');
+    }
     //handlers
 
     refreshUserName(userName) {
@@ -36,8 +41,7 @@ export default class Chat extends AbstractComponent {
     }
 
     setActiveUser(evt) {
-        const userNodes = this._userList.querySelectorAll('.users__item');
-        removeAllClasses(userNodes, 'users__item--active');
+        removeAllClasses(this._userListItems, 'users__item--active');
         evt.target.closest('.users__item').classList.add('users__item--active');
     }
 
