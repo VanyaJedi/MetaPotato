@@ -16,7 +16,7 @@ const chatController = new ChatController(hubConnection, api, messagesModel);
 
 api.getInitialData().
     then((data) => {
-        messagesModel.currentChatLogin = data.FMyLogin;
+        messagesModel.currentChatLogin = data.FUser;
         messagesModel.currentChatRoom = data.FChatRoom;
         messagesModel.myLogin = data.FMyLogin;
 
