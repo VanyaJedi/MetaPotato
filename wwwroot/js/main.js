@@ -11,14 +11,29 @@ import Api from "./api/api.js";
 
 const api = new Api();
 const messagesModel = new MessagesModel();
-
 const menuController = new MenuController();
-menuController.setMenuHandlers();
-menuController.subsribeMenuMediaEvents();
-
 const chatController = new ChatController(hubConnection, api, messagesModel);
-chatController.subscribeChatMediaEvents();
-chatController.startHub();
+
+api.getInitialData().
+    then((data) => {
+        messagesModel.currentChatLogin = data.FMyLogin;
+        messagesModel.currentChatRoom = data.FChatRoom;
+        messagesModel.myLogin = data.FMyLogin;
+
+        menuController.setMenuHandlers();
+        menuController.subsribeMenuMediaEvents();
+
+        chatController.renderInitialData();
+        chatController.subscribeChatMediaEvents();
+        chatController.startHub();
+    })
+
+
+
+
+
+
+
 
 
 

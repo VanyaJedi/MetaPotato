@@ -23,7 +23,7 @@ export default class ChatController {
         this._api = api;
         this._messagesModel = messagesModel;
 
-        this._currentChat = 1; //временный дефолтный чатрум, далее нужно брать при загрузки с сервера последний чат
+        this._currentChat = this._messagesModel.currentChatLogin; //временный дефолтный чатрум, далее нужно брать при загрузки с сервера последний чат
 
         this._chatComponent = new Chat();
         this._userProfile = null;
@@ -59,6 +59,14 @@ export default class ChatController {
 
     }
 
+    renderInitialData() {
+        this._api.getMessages(this._messagesModel.currentChatRoom).
+            then((messages) => {
+                this._chatComponent.setActiceUserInitial();
+                this._chatComponent.refreshUserName(this._messagesModel.currentChatLogin);
+                this._messagesModel.updateMessages(messages);
+            })
+    }
 
     renderMessage(message, userName, isFriend) {
         const messageComponent = new Message(message, userName, isFriend);

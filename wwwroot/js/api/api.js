@@ -37,7 +37,7 @@ export default class Api {
     getInitialData() {
         return this._load({ url: URL_GET_INITIAL_DATA })
             .then((response) => response.json())
-            .catch(this._onError);
+            .catch(this._onErrorMessages);
     }
 
 
