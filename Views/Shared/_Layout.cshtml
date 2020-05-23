@@ -17,10 +17,21 @@
                 </div>
                 <ul class="menu__nav">
                     <li class="menu__nav-item">
-                        <svg class="menu__icon" width="19" height="20">
-                            <use xlink:href="/build/symbol/sprite.svg#settings"></use>
-                        </svg>
-                        <span>Настройки</span>
+                        <a href="#profile" class="menu__nav-item-profile">
+                            <svg class="menu__icon" width="19" height="20">
+                                <use xlink:href="/build/symbol/sprite.svg#user"></use>
+                            </svg>
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="menu__nav-item">
+                        <a href="#settings" class="menu__nav-item-settings">
+                            <svg class="menu__icon" width="19" height="20">
+                                <use xlink:href="/build/symbol/sprite.svg#settings"></use>
+                            </svg>
+                            <span>Настройки</span>
+                        </a>
+                        
                     </li>
                     <li class="menu__nav-item" asp-action="logout">
                         <form asp-action="Logout" asp-controller="Account">

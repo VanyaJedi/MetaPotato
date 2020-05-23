@@ -18,9 +18,10 @@ const URL_TEST_MESSAGES = 'Messages/Messages/'
 
 export default class ChatController {
 
-    constructor(hub, api) {
+    constructor(hub, api, messagesModel) {
         this._hub = hub;
         this._api = api;
+        this._messagesModel = messagesModel;
 
         this._currentChat = 1; //временный дефолтный чатрум, далее нужно брать при загрузки с сервера последний чат
 
@@ -32,6 +33,8 @@ export default class ChatController {
         this.closeUserProfile = this.closeUserProfile.bind(this);
 
         this.setHandlers(); // hang up all handlers at initialization 
+
+        this._messagesModel.addDataChangeHandler(this.renderMessagesEvent.bind(this));
     }
 
     startHub() {
@@ -69,26 +72,34 @@ export default class ChatController {
         });
     }
 
+
+    renderMessagesEvent() {
+        messagesContainer.innerHTML = '';
+        this.renderMessages(this._messagesModel.messages);
+    }
+
     getAndRenderMessagesHandler(evt) {
-        //const isIncorrectTargetElement = evt.target.classList.contains('users__name') || evt.target.classList.contains('users__avatar');
         if (this._chatComponent.isClickTargetMeansToShowChat(evt)) {
             const targetUserElement = evt.target.closest('.users__item');
             const chatRoomId = targetUserElement.dataset.chatroom;
             const targetUserName = targetUserElement.dataset.username;
-            const isSameChat = (chatRoomId === this._currentChat);
+            const isSameChat = (chatRoomId === this._messagesModel.currentChat);
             if (!isSameChat) {
                 this._hub.invoke('JoinGroup', chatRoomId);
                 this._api.getMessages(chatRoomId).
                     then((messages) => {
+                        this._messagesModel.updateMessages(messages);
                         this._chatComponent.setActiveUser(evt);
                         this._chatComponent.refreshUserName(targetUserName);
-                        messagesContainer.innerHTML = '';
                         this._currentChat = chatRoomId;
-                        this.renderMessages(messages);
                     })
             }
         }
     }
+
+
+
+
 
     closeUserProfile() {
         if (this._userProfile) {
