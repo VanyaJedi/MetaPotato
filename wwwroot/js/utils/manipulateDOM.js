@@ -32,3 +32,11 @@ export const remove = (component) => {
     component.getElement().remove();
     component.removeElement();
 };
+
+export const hideElement = (element) => {
+    element.classList.add('visually-hidden');
+}
+
+export const showElement = (element) => {
+    element.classList.remove('visually-hidden');
+}

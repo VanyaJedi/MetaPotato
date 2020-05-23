@@ -31,11 +31,16 @@
     list-style: none;
 }
 
-.menu__nav-item, .menu__logout {
+.menu__nav-item:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.menu__nav-item a, .menu__logout {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
     font-size: 14px;
+    text-decoration: none;
+    color: $text-gold;
 }
 
 .menu__icon--triangle {
@@ -68,8 +73,15 @@
         height: 100%;
 
         &--openlist {
+
+            .menu__user {
+                background-color: $drop-menu-desktop;
+                transition: all 0.3s ease-in-out;
+            }
+
             .menu__nav {
                 display: block;
+                background-color: $drop-menu-desktop;
             }
 
             .menu__icon--triangle {
@@ -84,6 +96,7 @@
         display: flex;
         align-items: center;
         margin-bottom: 0;
+        padding-left: 13px;
     }
 
     .menu__nav {
@@ -92,8 +105,8 @@
         z-index: 9999;
         margin-top: 0;
         width: 194px;
-        height: 144px;
-        padding: 30px 22px;
+        height: auto;
+        padding: 22px 22px 30px 22px;
         border-radius: 0 0 14px 14px;
         background-color: $background-dark;
     }
@@ -102,10 +115,9 @@
         margin-right: 21px;
     }
 
-    .menu__nav-item, .menu__logout {
+    .menu__nav-item:not(:last-child) {
         margin-bottom: 31px;
     }
-
     .menu__icon--triangle {
         margin-left: auto;
         display: block;

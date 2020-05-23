@@ -78,6 +78,31 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: "noto-sans";
+    src: url("/fonts/NotoSans-Regular.ttf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "noto-sans";
+    src: url("/fonts/NotoSans-Bold.ttf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "noto-sans";
+    src: url("/fonts/NotoSans-Italic.ttf") format("opentype");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+
 
 
 

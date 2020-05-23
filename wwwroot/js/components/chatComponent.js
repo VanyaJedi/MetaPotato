@@ -11,6 +11,7 @@ export default class Chat extends AbstractComponent {
         this._usersBlock = this._element.querySelector('.users');
         this._userList = this._element.querySelector('.users__list');
         this._messagesBlock = this._element.querySelector('.messages');
+        this._messagesList = this._element.querySelector('.messages__list');
         this._closeChatMobileBtn = this._messagesBlock.querySelector('.messages__icon-btn-back');
         this.typeArea = this._element.querySelector('.messages__typeArea');
         this._sendBtn = this._element.querySelector('.messages__send-btn');
@@ -37,7 +38,6 @@ export default class Chat extends AbstractComponent {
     setActiveUser(evt) {
         const userNodes = this._userList.querySelectorAll('.users__item');
         removeAllClasses(userNodes, 'users__item--active');
-        console.log(evt.target.closest('.users__item'));
         evt.target.closest('.users__item').classList.add('users__item--active');
     }
 
@@ -50,7 +50,7 @@ export default class Chat extends AbstractComponent {
     }
 
     showMessagesMobileHandler(evt) {
-        if (evt.target.closest('.users__item')) {
+        if (this.isClickTargetMeansToShowChat(evt)) {
             this._messagesBlock.classList.add('messages--show');
             this._usersBlock.classList.add('users--hide');
         }
@@ -60,6 +60,11 @@ export default class Chat extends AbstractComponent {
         this._messagesBlock.classList.remove('messages--show');
         this._usersBlock.classList.remove('users--hide');
     }
+
+    isClickTargetMeansToShowChat(evt) {
+        return !(evt.target.classList.contains('users__name') || evt.target.classList.contains('users__avatar'));
+    }
+
 
      // define change screen handlers
 
@@ -86,6 +91,9 @@ export default class Chat extends AbstractComponent {
     }
 
 
+    scrollDownMessages() {
+        this._messagesList.scrollTop = this._messagesList.scrollHeight;
+    }
 
 
 }

@@ -18,14 +18,16 @@
                     <li data-chatroom="@contact.FChatRoom" data-username="@contact.FLogin" class="users__item">
                         <div class="users__item-wrapper">
 
-                            @if (contact.FPhoto == null)
-                            {
-                                <img class="users__avatar" src="~/img/default_avatar.png" />
-                            }
-                            else
-                            {
-                                <img class="users__avatar" src="data:image/jpeg;base64,@(Convert.ToBase64String(contact.FPhoto))" />
-                            }
+                                @if (contact.FPhoto == null)
+                                {
+
+                                    <img class="users__avatar" src="~/img/default_avatar.png" />
+                                }
+                                else
+                                {
+                                    <img class="users__avatar" src="data:image/jpeg;base64,@(Convert.ToBase64String(contact.FPhoto))" />
+                                }
+                      
                             <div class="users__name-message">
                                 <span class="users__name">@contact.FLogin</span>
                                 <div class="users__last-text">
@@ -48,7 +50,6 @@
             </button>
             <img class="messages__avatar" src="~/img/default_avatar.png" />
             <span class="messages__username">
-                Имя юзера
             </span>
             <button class="messages__icon-btn-set" type="button">
                 <svg class="messages__icon messages__icon--dots" width="17" height="17" aria-label="Настройки диалога">
@@ -58,29 +59,6 @@
         </div>
         <div class="messages__block block">
             <ul class="messages__list">
-                <li class="message messages__item">
-                    <div class="message__user">
-                        <img src="~/img/default_avatar.png" />
-                        <span class="message__name">Sasha</span>
-                    </div>
-                    <div class="message__content">
-                        <span>gsdgdsgggggggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</span>
-                    </div>
-                </li>
-
-                <li class="message message--my messages__item">
-                    <div class="message__content">gsdgdsgggggjjhgggggggggggggggggggggggggggggggggggsdggggggggggggggggggg</div>
-                </li>
-
-                <li class="message messages__item">
-                    <div class="message__user">
-                        <img src="~/img/default_avatar.png" />
-                        <span class="message__name">Sasha</span>
-                    </div>
-                    <div class="message__content">
-                        <span>gsdg</span>
-                    </div>
-                </li>
             </ul>
             <form class="messages__send-form">
                 <button class="button-icon messages__smile-btn" type="button">

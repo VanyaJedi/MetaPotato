@@ -6,28 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewData["Title"] - MetaPotato</title>
     <link rel="stylesheet" href="~/build/css/style.css" />
-    <!--<link rel="preload" href="/fonts/FiraMono-Regular.ttf" as="font">-->
 </head>
 <body>
     <header class="master-header master-header--close-menu">
         <div class="master-header__wrapper wrapper">
             <div class="master-header__menu menu">
                 <div class="menu__user">
-                    <img src="img/default_avatar.png" class="menu__avatar" />
+                    <img src="~/img/default_avatar.png" class="menu__avatar" />
                     <span class="menu__username">@ViewBag.Username</span>
                 </div>
                 <ul class="menu__nav">
                     <li class="menu__nav-item">
-                        <svg class="menu__icon" width="19" height="20">
-                            <use xlink:href="build/symbol/sprite.svg#settings"></use>
-                        </svg>
-                        <span>Настройки</span>
+                        <a href="#profile" class="menu__nav-item-profile">
+                            <svg class="menu__icon" width="19" height="20">
+                                <use xlink:href="/build/symbol/sprite.svg#user"></use>
+                            </svg>
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="menu__nav-item">
+                        <a href="#settings" class="menu__nav-item-settings">
+                            <svg class="menu__icon" width="19" height="20">
+                                <use xlink:href="/build/symbol/sprite.svg#settings"></use>
+                            </svg>
+                            <span>Настройки</span>
+                        </a>
+                        
                     </li>
                     <li class="menu__nav-item" asp-action="logout">
                         <form asp-action="Logout" asp-controller="Account">
                             <button class="menu__logout">
                                 <svg class="menu__icon" width="17" height="22">
-                                    <use xlink:href="build/symbol/sprite.svg#logout"></use>
+                                    <use xlink:href="/build/symbol/sprite.svg#logout"></use>
                                 </svg>
                                 <span>Выйти</span>
                             </button>
