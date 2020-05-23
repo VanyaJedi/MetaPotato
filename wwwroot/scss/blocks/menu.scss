@@ -106,7 +106,7 @@
         margin-top: 0;
         width: 194px;
         height: auto;
-        padding: 22px 22px 30px 22px;
+        padding: 14px 0 30px 0;
         border-radius: 0 0 14px 14px;
         background-color: $background-dark;
     }
@@ -115,8 +115,19 @@
         margin-right: 21px;
     }
 
+
+    .menu__nav-item {
+        padding: 8px 22px;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+
+        &:hover, &:focus {
+            background-color: $user-hover;
+        }
+    }
+
     .menu__nav-item:not(:last-child) {
-        margin-bottom: 31px;
+        margin-bottom: 23px;
     }
     .menu__icon--triangle {
         margin-left: auto;
