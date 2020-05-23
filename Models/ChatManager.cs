@@ -12,10 +12,15 @@ using Microsoft.EntityFrameworkCore;
 namespace MetaPotato.Models
 {
     // Элемент списка контактов
-    public class ContactItem
+    public class ContactItem : IComparable
     {
+        public int CompareTo(object o)
+        {            
+          return (this.FLastDateTime < ((ContactItem)o).FLastDateTime) ? 1: 0;
+        }
         public string FLogin;
         public string FLastMessage;
+        public DateTime FLastDateTime;
         public int FChatRoom;
         public byte[] FPhoto;
     }
@@ -59,7 +64,7 @@ namespace MetaPotato.Models
                         {
                             ContactItem xContactItem = new ContactItem();
                             xContactItem.FLogin = x.tblUser.Login;
-                            xContactItem.FLastMessage = GetLatest(cru.Id.ToString());
+                            xContactItem.FLastMessage = GetLatest(cru.Id.ToString(), out xContactItem.FLastDateTime);
                             xContactItem.FChatRoom = cru.Id;
                             xContactItem.FPhoto = x.tblUser.Photo;
                             xContactList.Add(xContactItem);
@@ -75,6 +80,7 @@ namespace MetaPotato.Models
                     xContactList.Add(xContactItem);
                 }
              }
+            xContactList.Sort();
             return xContactList;
         }
 
@@ -110,15 +116,22 @@ namespace MetaPotato.Models
         }
 
         // Получить последнее сообщение для AChatRoom. 
-        public string GetLatest(string AChatRoom)
+        public string GetLatest(string AChatRoom, out DateTime ASendDateTime)
         {
             List<tblMessage> xMessageList = (from message in FDB.tblMessages
                                              where message.ChatRoom == AChatRoom
                                              select message).ToList();
             if (xMessageList.Count > 0)
-                return xMessageList[xMessageList.Count - 1].Message;
+            {
+                ASendDateTime = xMessageList[xMessageList.Count - 1].SendTime;
+                string xVal = xMessageList[xMessageList.Count - 1].Message;
+                return (xVal.Length < 30) ? xVal : xVal.Substring(0, 27) + "...";
+            }
             else
+            {
+                ASendDateTime = new DateTime(1, 1, 1, 0, 0, 0);
                 return "Список сообщений пуст";
+            }
         }
 
         public bool AddUserToContacts(string ALogin, string ANewUser)
