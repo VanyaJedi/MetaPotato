@@ -39,7 +39,6 @@ export default class ChatController {
 
     startHub() {
         this._hub.start();
-
         this._hub.on('send', (message, username) => {
             this.renderMessage(message, username, true);
         });
@@ -130,9 +129,12 @@ export default class ChatController {
         this._hub.invoke('Send', textMessage, this._currentChat).
             then(() => {
                 typeArea.innerText = '';
-                this.renderMessage(textMessage, 'me', false);
+                this.renderMessage(textMessage, this._messagesModel.myLogin, false);
                 this._chatComponent.scrollDownMessages();
-            });
+            }).
+            catch((err) => {
+                console.log(err);
+            })
     }
 
 
