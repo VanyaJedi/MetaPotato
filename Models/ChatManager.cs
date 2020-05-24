@@ -15,8 +15,7 @@ namespace MetaPotato.Models
     public class InitialDataItem
     {
         public string FMyLogin;
-        public string FUser;
-        public string FChatRoom;
+        public List<ContactItem> ContactItems;
     }
     // Элемент списка контактов
     public class ContactItem : IComparable
@@ -216,8 +215,7 @@ namespace MetaPotato.Models
             xContactList.Sort();
             InitialDataItem xInitialDataItem = new InitialDataItem();
             xInitialDataItem.FMyLogin = ALogin;
-            xInitialDataItem.FUser = xContactList[0].FLogin;
-            xInitialDataItem.FChatRoom = xContactList[0].FChatRoom.ToString();
+            xInitialDataItem.ContactItems = xContactList;
             return xInitialDataItem;
         }
     }
