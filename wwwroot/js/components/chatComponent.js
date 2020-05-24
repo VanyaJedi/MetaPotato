@@ -40,18 +40,18 @@ export default class Chat extends AbstractComponent {
         this.getElement().querySelector('.messages__username').innerText = userName;
     }
 
-    setActiveUser(evt) {
+   /* setActiveUser(evt) {
         removeAllClasses(this._userListItems, 'users__item--active');
         evt.target.closest('.users__item').classList.add('users__item--active');
-    }
+    }*/
 
     setUserItemClickHandler(handler) {
         this._userList.addEventListener('click', handler);
     }
 
-    setSendMessageHandler(handler) {
+    /*setSendMessageHandler(handler) {
         this._sendBtn.addEventListener('click', handler);
-    }
+    }*/
 
     showMessagesMobileHandler(evt) {
         if (this.isClickTargetMeansToShowChat(evt)) {

@@ -26,6 +26,7 @@
     padding: 6px 15px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
+    font-family: "noto-sans", Roboto, sans-serif;
 
     &:hover, &:focus {
         background-color: $user-hover;
@@ -34,6 +35,12 @@
     &--active {
         background-color: $user-active;
     }
+}
+
+.users__time {
+    font-family: "Fira Mono", Roboto, sans-serif;
+    font-size: 10px;
+    align-self: flex-start;
 }
 
 .users__avatar {

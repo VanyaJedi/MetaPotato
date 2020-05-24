@@ -25,5 +25,8 @@
     "BeforeBuild": [
       "build"
     ]
+  },
+  "dependencies": {
+    "moment": "2.26.0"
   }
 }

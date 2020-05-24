@@ -25,7 +25,8 @@ export default class Api {
     }
 
     _onErrorMessages() {
-        return [];
+        //return [];
+        return 'error';
     }
 
     getMessages(chatRoomId) {

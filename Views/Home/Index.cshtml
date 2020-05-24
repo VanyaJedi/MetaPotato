@@ -12,32 +12,32 @@
         }
         else
         {
-            <ul class="users__list">
-                @foreach (var contact in ViewBag.ListContacts)
-                {
-                    <li data-chatroom="@contact.FChatRoom" data-username="@contact.FLogin" class="users__item">
-                        <div class="users__item-wrapper">
+    <ul class="users__list">
+        <!--  @foreach (var contact in ViewBag.ListContacts)
+      {
+          <li data-chatroom="@contact.FChatRoom" data-username="@contact.FLogin" class="users__item">
+              <div class="users__item-wrapper">
 
-                                @if (contact.FPhoto == null)
-                                {
+                      @if (contact.FPhoto == null)
+                      {
 
-                                    <img class="users__avatar" src="~/img/default_avatar.png" />
-                                }
-                                else
-                                {
-                                    <img class="users__avatar" src="data:image/jpeg;base64,@(Convert.ToBase64String(contact.FPhoto))" />
-                                }
-                      
-                            <div class="users__name-message">
-                                <span class="users__name">@contact.FLogin</span>
-                                <div class="users__last-text">
-                                    <span>@contact.FLastMessage</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
+                          <img class="users__avatar" src="~/img/default_avatar.png" />
+                      }
+                      else
+                      {
+                          <img class="users__avatar" src="data:image/jpeg;base64,@(Convert.ToBase64String(contact.FPhoto))" />
+                      }
+
+                  <div class="users__name-message">
+                      <span class="users__name">@contact.FLogin</span>
+                      <div class="users__last-text">
+                          <span>@contact.FLastMessage</span>
+                      </div>
+                  </div>
+              </div>
+          </li>
+      }-->
+    </ul>
         }
     </section>
 
@@ -60,19 +60,8 @@
         <div class="messages__block block">
             <ul class="messages__list">
             </ul>
-            <form class="messages__send-form">
-                <button class="button-icon messages__smile-btn" type="button">
-                    <svg class="button-icon__svg" widht="23" height="23" aria-label="Смайл">
-                        <use xlink:href="build/symbol/sprite.svg#face"></use>
-                    </svg>
-                </button>
-                <div class="messages__typeArea" contenteditable="true"></div>
-                <button class="button-icon messages__send-btn" type="button">
-                    <svg class="button-icon__svg" widht="23" height="23" aria-label="Отправить">
-                        <use xlink:href="build/symbol/sprite.svg#send"></use>
-                    </svg>
-                </button>
-            </form>
+
+            <!--type area-->
         </div>
     </section>
 </div>
