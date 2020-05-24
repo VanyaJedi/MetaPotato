@@ -12,10 +12,11 @@ import Api from "./api/api.js";
 const api = new Api();
 const messagesModel = new MessagesModel();
 const menuController = new MenuController();
-const chatController = new ChatController(hubConnection, api, messagesModel);
 
 api.getInitialData().
     then((data) => {
+
+
         messagesModel.currentChatLogin = data.FUser;
         messagesModel.currentChatRoom = data.FChatRoom;
         messagesModel.myLogin = data.FMyLogin;
@@ -23,13 +24,12 @@ api.getInitialData().
         menuController.setMenuHandlers();
         menuController.subsribeMenuMediaEvents();
 
+        const chatController = new ChatController(hubConnection, api, messagesModel);
         chatController.renderInitialData();
         chatController.subscribeChatMediaEvents();
         chatController.startHub();
-    })
-
-
-
+        
+    });
 
 
 

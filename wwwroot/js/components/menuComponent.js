@@ -77,6 +77,11 @@ export default class Menu extends AbstractComponent {
         this.menuBlock.classList.toggle('menu--openlist');
     }
 
+    showMyProfile(handler) {
+        this.menuBlock.querySelector('.menu__nav-item-profile').addEventListener('click', handler);
+    }
+
+
     // define change screen handlers
 
     whenMobileSearch() {
