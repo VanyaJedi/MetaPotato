@@ -3,9 +3,10 @@
 export default class MessagesModel {
 
     constructor() {
+        this._usersList = null;
         this.myLogin = null;
         this.currentChatLogin = null;
-        this.currentChatRoom = 1;
+        this.currentChatRoom = null;
 
         this._messagesList = [];
 
@@ -18,6 +19,23 @@ export default class MessagesModel {
 
     set messages(arr) {
         this._messagesList = arr;
+    }
+
+    get users() {
+        return this._usersList;
+    }
+
+    set users(arr) {
+        this._usersList = arr;
+    }
+
+    getDefaultChatRoomAndUser() {
+        const defaultData = {};
+        if (this.users[0]) {
+            defaultData['chatRoom'] = this.users[0].FChatRoom;
+            defaultData['userName'] = this.users[0].FLogin;
+        }
+        return defaultData;
     }
 
     addDataChangeHandler(handler) {
@@ -33,6 +51,10 @@ export default class MessagesModel {
     updateMessages(messagesList) {
         this.messages = messagesList;
         this._executeAllHandlers(this._dataChangeHandlers);
+    }
+
+    updateUsers(usersList) {
+        this._usersList = usersList;
     }
 
 

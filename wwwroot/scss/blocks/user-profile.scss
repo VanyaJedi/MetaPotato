@@ -5,11 +5,57 @@
     height: 100vh;
     width: 100%;
     background-color: $background-dark;
+
+    &--my {
+
+        .user-profile__avatar-block {
+            position: relative;
+        }
+
+        .user-profile__user {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0;
+        }
+
+
+        .user-profile__avatar-block {
+            margin: 0 auto;
+            width: auto;
+            margin-bottom: 36px;
+        }
+
+        .user-profile__avatar {
+            width: 225px;
+            height: 225px;
+        }
+
+        .user-profile__change-avatar-btn {
+            position: absolute;
+            display: block;
+            transition: opacity 0.2s ease-in-out;
+            border: none;
+            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #969696;
+            padding: 8px 20px;
+            font-size: 14px;
+            top: 158px;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        .user-profile__user-name {
+            margin-bottom: 36px;
+        }
+    }
 }
 
 .user-profile__close-btn {
     border: none;
     background: none;
+    cursor: pointer;
 
     svg {
         width: 17px;
@@ -89,6 +135,31 @@
 
 
 @media (min-width: $tablet-width) {
+
+    .user-profile {
+        &--my {
+            .user-profile__user {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                padding: 0;
+            }
+
+            .user-profile__avatar-block {
+                margin: 0;
+            }
+
+            .user-profile__avatar {
+                width: 290px;
+                height: 290px;
+            }
+
+            .user-profile__user-info {
+                margin-top: 51px;
+                margin-left: 60px;
+            }
+        }
+    }
 
     .user-profile__wrapper {
         width: 707px;
