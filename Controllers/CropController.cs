@@ -27,7 +27,7 @@ namespace MetaPotato.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View(FDB.tblUsers.ToList());
+            return View(FDB.tblUsers.Where(p => p.Login == User.Identity.Name).ToList());
         }
 
         [HttpPost]
@@ -44,7 +44,8 @@ namespace MetaPotato.Controllers
                 }
                 // установка массива байтов
                 xUser.Photo = imageData;
-                FDB.SaveChanges();
+              //  ViewBag.Photo = imageData;
+               FDB.SaveChanges();
             }
             return RedirectToAction("Index");
         }
