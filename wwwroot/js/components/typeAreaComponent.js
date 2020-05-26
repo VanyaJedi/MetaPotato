@@ -3,7 +3,6 @@
 export default class Message extends AbstractComponent {
 
     getTemplate() {
-
         return (
             `<form class="messages__send-form">
                 <button class="button-icon messages__smile-btn" type="button">
@@ -33,5 +32,12 @@ export default class Message extends AbstractComponent {
     clearTypeArea() {
         this.getElement().querySelector('.messages__typeArea').innerText = '';
     }
-}
 
+    setFocusHandler(handler) {
+        this.getElement().querySelector('.messages__typeArea').addEventListener('focus', handler);
+    }
+
+    setBlurHandler(handler) {
+        this.getElement().querySelector('.messages__typeArea').addEventListener('blur', handler);
+    }
+}
