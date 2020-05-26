@@ -1,7 +1,7 @@
 ﻿
 export default class UserAdapter {
     constructor(user) {
-        this.userLogin  = user.FLogin;
+        this.userLogin = user.FLogin;
         this.lastMessage = user.FLastMessage;
         this.lastMessageDateTime = user.FLastDateTime;
         this.userAvatar = user.FPhoto;
@@ -11,6 +11,4 @@ export default class UserAdapter {
     static parseUser(user) {
         return new UserAdapter(user);
     }
-
-
 }

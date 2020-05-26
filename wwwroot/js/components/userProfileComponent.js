@@ -1,8 +1,8 @@
-﻿import AbstractComponent from "./abstractComponent.js";
+﻿import AbstractComponent from './abstractComponent';
 
 
 
-/*createUserProfileTemplate = (isMyProfile) => {
+/*  createUserProfileTemplate = (isMyProfile) => {
 
     if (isMyProfile) {
 
@@ -66,19 +66,18 @@
             `)
 
 
-};*/
+};  */
 
 
 export default class UserProfile extends AbstractComponent {
-    constructor(userName, myLogin) {
+    constructor(userName, chatRoom) {
         super();
         this._userName = userName;
-        this._isMyProfile = (userName === myLogin);
+        this._chatRoom = chatRoom;
     }
 
 
     getTemplate() {
-
         return (
             `<section class="user-profile">
               <div class="user-profile__wrapper">
@@ -118,4 +117,3 @@ export default class UserProfile extends AbstractComponent {
         this.getElement().querySelector('.user-profile__close-btn').addEventListener('click', handler);
     }
 }
-

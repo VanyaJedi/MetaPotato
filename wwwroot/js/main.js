@@ -1,51 +1,37 @@
-﻿
-//import "./modules/visual.js";
-import hubConnection from "./modules/signalR.js";
-
-import MessagesModel from "./models/messagesModel.js";
-
-import ChatController from "./controllers/chatController.js";
-import MenuController from "./controllers/menuController.js";
-
-import Api from "./api/api.js";
+﻿import hubConnection from './modules/signalR';
+import MessagesModel from './models/messagesModel';
+import ChatController from './controllers/chatController';
+import MenuController from './controllers/menuController';
+import Api from './api/api';
 
 const api = new Api();
 const messagesModel = new MessagesModel();
-const menuController = new MenuController();
 
-const renderInitial = (chatController) => {
-    //const chatController = new ChatController(hubConnection, api, messagesModel);
-    console.log(chatController._hub);
-    chatController.renderUsers();
-    chatController.renderInitialData();
-}
 
-api.getInitialData().
-    then((data) => {
-        console.log(data);
+api.getInitialData()
+    .then((data) => {
         messagesModel.users = data.ContactItems;
-        console.log(messagesModel.users);
-          
-        /*messagesModel.currentChatLogin = data.FUser;
-        messagesModel.currentChatRoom = data.FChatRoom;*/
-       // messagesModel.myLogin = data.FMyLogin;
+        messagesModel.myLogin = data.FMyLogin;
 
-       // menuController.setMenuHandlers();
-       // menuController.subsribeMenuMediaEvents();
+        const menuController = new MenuController(messagesModel);
+        menuController.setMenuHandlers();
+        menuController.subsribeMenuMediaEvents();
 
         const chatController = new ChatController(hubConnection, api, messagesModel);
         chatController.startHub();
-        renderInitial(chatController);
-        //chatController.renderUsers();
-        //  chatController.renderInitialData();
-        //chatController.subscribeChatMediaEvents();
-        
+        chatController.renderInitialData();
+        chatController.subscribeChatMediaEvents();
+
+        const closeMyProfileHandler = () => {
+            chatController.showChat();
+            menuController.closeMyProfile();
+        };
+
+        const openMyProfileHandler = () => {
+            menuController.renderMyProfile();
+            chatController.hideChat();
+            menuController.setCloseProfileHandler(closeMyProfileHandler);
+        };
+
+        menuController.setOpenProfileHandler(openMyProfileHandler);
     });
-
-
-
-
-
-
-
-

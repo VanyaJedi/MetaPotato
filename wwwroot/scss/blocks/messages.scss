@@ -15,12 +15,24 @@
 .messages__header {
     display: flex;
     align-items: center;
-    font-family: "muli", Roboto, sans-serif;
+    font-family: "Fira Mono", Roboto, sans-serif;
     font-size: 24px;
 
     &--users {
         letter-spacing: 3px;
     }
+}
+
+.messages__user {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.messages__user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .messages__icon {
@@ -49,7 +61,7 @@
     margin-left: 21px;
     font-size: 18px;
     font-weight: 700;
-    font-family: "mukta", "Arial", sans-serif;
+    font-family: "Fira Mono", Roboto, sans-serif;
     color: $top-menu-icon;
 }
 
@@ -80,6 +92,27 @@
     flex-grow: 1;
     max-height: calc(100% - 50px);
     overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: rgba(169,160,182, 0.8);
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+
+    &::-webkit-scrollbar-thumb:window-inactive {
+        background: rgba(169,160,182, 0.4);
+    }
 }
 
 .messages__send-form {
@@ -185,7 +218,6 @@
     }
 
     .messages__username {
-        font-size: 14px;
         font-weight: 500;
         color: #fff;
         margin-left: 20px;
@@ -199,27 +231,6 @@
         width: 100%;
         margin: 0 auto;
         padding: 0 calc((100% - 988px) / 2);
-
-        &::-webkit-scrollbar {
-            width: 7px;
-        }
-
-        &::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            -webkit-border-radius: 10px;
-            border-radius: 10px;
-        }
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-            -webkit-border-radius: 10px;
-            border-radius: 10px;
-            background: rgba(169,160,182, 0.8);
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-        }
-
-        &::-webkit-scrollbar-thumb:window-inactive {
-            background: rgba(169,160,182, 0.4);
-        }
     }
 
     .messages__send-form {

@@ -1,6 +1,5 @@
-﻿import AbstractComponent from "./abstractComponent.js";
-import mediaService from "../modules/mediaService.js";
-import { removeAllClasses } from "../utils/other.js";
+﻿import AbstractComponent from './abstractComponent';
+import mediaService from '../modules/mediaService';
 const chat = document.querySelector('.messenger');
 
 
@@ -19,7 +18,7 @@ export default class Chat extends AbstractComponent {
 
         this.messagesList = this._element.querySelector('.messages__list');
 
-        //bind handlers
+        // bind handlers
         this.showMessagesMobileHandler = this.showMessagesMobileHandler.bind(this);
         this.hideMessagesMobileHandler = this.hideMessagesMobileHandler.bind(this);
         this.whenMobileChat = this.whenMobileChat.bind(this);
@@ -30,34 +29,23 @@ export default class Chat extends AbstractComponent {
         return this._element;
     }
 
-
     setActiceUserInitial() {
         this._userListItems[0].classList.add('users__item--active');
     }
-    //handlers
+    // handlers
 
     refreshUserName(userName) {
         this.getElement().querySelector('.messages__username').innerText = userName;
     }
 
-   /* setActiveUser(evt) {
-        removeAllClasses(this._userListItems, 'users__item--active');
-        evt.target.closest('.users__item').classList.add('users__item--active');
-    }*/
-
     setUserItemClickHandler(handler) {
         this._userList.addEventListener('click', handler);
     }
 
-    /*setSendMessageHandler(handler) {
-        this._sendBtn.addEventListener('click', handler);
-    }*/
 
-    showMessagesMobileHandler(evt) {
-        if (this.isClickTargetMeansToShowChat(evt)) {
-            this._messagesBlock.classList.add('messages--show');
-            this._usersBlock.classList.add('users--hide');
-        }
+    showMessagesMobileHandler() {
+        this._messagesBlock.classList.add('messages--show');
+        this._usersBlock.classList.add('users--hide');
     }
 
     hideMessagesMobileHandler() {
@@ -65,12 +53,7 @@ export default class Chat extends AbstractComponent {
         this._usersBlock.classList.remove('users--hide');
     }
 
-    isClickTargetMeansToShowChat(evt) {
-        return !(evt.target.classList.contains('users__name') || evt.target.classList.contains('users__avatar'));
-    }
-
-
-     // define change screen handlers
+    // define change screen handlers
 
     whenMobileChat() {
         this._usersBlock.addEventListener('click', this.showMessagesMobileHandler);

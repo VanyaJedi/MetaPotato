@@ -1,14 +1,14 @@
 ﻿
 const URL_GET_MESSAGES = 'Messages/Messages/';
-const URL_GET_INITIAL_DATA = 'Messages/InitialData/'
+const URL_GET_INITIAL_DATA = 'Messages/InitialData/';
 
 export default class Api {
 
-    _load({ url, method = `GET`, body = null, headers = new Headers() }, auth = null) {
+    _load({ url, method = 'GET', body = null, headers = new Headers() }, auth = null) {
         if (auth) {
-            headers.append(`Authorization`, auth);
+            headers.append('Authorization', auth);
         }
-        
+
         return fetch(url, { method, body, headers })
             .then(this._checkStatus)
             .catch((err) => {

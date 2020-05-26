@@ -15,6 +15,7 @@ export default class UserItem extends AbstractComponent {
         super();
         this._userItem = userItem;
         this._container = container;
+        this._clickHandler = null;
     }
 
     getTemplate() {
@@ -42,6 +43,7 @@ export default class UserItem extends AbstractComponent {
     }
 
     setUserItemClick(handler) {
+        this._clickHandler = handler;
         this.getElement().addEventListener('click', handler);
     }
 
