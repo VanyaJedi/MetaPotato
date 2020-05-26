@@ -31,9 +31,13 @@ export default class ChatController {
         this._chatComponent = new Chat();
         this._userProfile = null;
         this._userInfo = null;
+        this._typeArea = null;
 
         this.showUserProfileHandler = this.showUserProfileHandler.bind(this);
         this.closeUserProfile = this.closeUserProfile.bind(this);
+        this.sendMessageHandler = this.sendMessageHandler.bind(this);
+        this.focusTypeAreaHandler = this.focusTypeAreaHandler.bind(this);
+        this.blurTypeAreaHandler = this.blurTypeAreaHandler.bind(this);
 
         this._messagesModel.addDataChangeHandler(this.renderMessages.bind(this));
     }
@@ -49,13 +53,16 @@ export default class ChatController {
         this._userProfile = new UserProfile(this._currentUser, this._currentChat);
         this.hideChat();
         render(mainElement, this._userProfile);
-        this._userProfile.setCloseUserProfileHandler(this.closeUserProfile);
+        this._userProfile.setCloseUserProfileHandler(() => {
+            this.closeUserProfile();
+            this.showChat();
+        });
     }
 
     closeUserProfile() {
         if (this._userProfile) {
             remove(this._userProfile);
-            this._chatComponent.show();
+            this._userProfile = null;
         }
     }
 
@@ -87,25 +94,25 @@ export default class ChatController {
         });
     }
 
-
     renderTypeArea() {
-        const typeArea = new TypeArea();
-        render(messagesBlock, typeArea);
+        this._typeArea = new TypeArea();
+        render(messagesBlock, this._typeArea);
+        this._typeArea.setSendMessageHandler(this.sendMessageHandler);
+        this._typeArea.setFocusHandler(this.focusTypeAreaHandler);
+        this._typeArea.setBlurHandler(this.blurTypeAreaHandler);
+    }
 
-        const sendMessageHandler = () => {
-            const textMessage = typeArea.getMessageContent();
-            if (!textMessage) {
-                return;
-            }
-            this._hub.invoke('Send', textMessage, this._currentChat.toString())
-                .then(() => {
-                    typeArea.clearTypeArea();
-                    this.renderMessage(textMessage, this._messagesModel.myLogin, false);
-                    this._chatComponent.scrollDownMessages();
-                });
-        };
-
-        typeArea.setSendMessageHandler(sendMessageHandler);
+    sendMessageHandler() {
+        const textMessage = this._typeArea.getMessageContent();
+        if (!textMessage) {
+            return;
+        }
+        this._hub.invoke('Send', textMessage, this._currentChat.toString())
+            .then(() => {
+                this._typeArea.clearTypeArea();
+                this.renderMessage(textMessage, this._messagesModel.myLogin, false);
+                this._chatComponent.scrollDownMessages();
+            });
     }
 
     renderUserInfo() {
@@ -119,7 +126,6 @@ export default class ChatController {
             render(messagesUser, this._userInfo);
         }
     }
-
 
     renderInitialData() {
         this._api.getMessages(this._currentChat)
@@ -156,5 +162,20 @@ export default class ChatController {
 
     showChat() {
         this._chatComponent.show();
+    }
+
+    focusTypeAreaHandler() {
+        this._sendByEnterKeyHandler = (evt) => {
+            const isEnter = (evt.key === 'Enter');
+            if (isEnter) {
+                evt.preventDefault();
+                this.sendMessageHandler();
+            }
+        };
+        document.addEventListener('keydown', this._sendByEnterKeyHandler);
+    }
+
+    blurTypeAreaHandler() {
+        document.removeEventListener('keydown', this._sendByEnterKeyHandler);
     }
 }

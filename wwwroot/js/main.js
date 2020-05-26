@@ -30,6 +30,7 @@ api.getInitialData()
         const openMyProfileHandler = () => {
             menuController.renderMyProfile();
             chatController.hideChat();
+            chatController.closeUserProfile();
             menuController.setCloseProfileHandler(closeMyProfileHandler);
         };
 
