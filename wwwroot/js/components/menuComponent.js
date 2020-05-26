@@ -1,10 +1,10 @@
-﻿import AbstractComponent from "./abstractComponent.js";
-import mediaService from "../modules/mediaService.js";
+﻿import AbstractComponent from './abstractComponent';
+import mediaService from '../modules/mediaService';
+
 const header = document.querySelector('.master-header');
 
 
 export default class Menu extends AbstractComponent {
-
     constructor() {
         super();
 
@@ -15,11 +15,11 @@ export default class Menu extends AbstractComponent {
         this.showSearchBtn = this._element.querySelector('.master-header__show-search');
         this.searchBackBtn = this._element.querySelector('.search__icon-btn-back');
         this.searchInput = this.search.querySelector('.search__input');
-        this.searchResult = this.search.querySelector('.search__result')
+        this.searchResult = this.search.querySelector('.search__result');
         this.menuBlock = this._element.querySelector('.menu');
         this.menuUser = this.menuBlock.querySelector('.menu__user');
 
-        //bind handlers
+        // bind handlers
         this.openMenuHandler = this.openMenuHandler.bind(this);
         this.closeMenuHandler = this.closeMenuHandler.bind(this);
         this.showMobileSearchHandler = this.showMobileSearchHandler.bind(this);
@@ -37,6 +37,7 @@ export default class Menu extends AbstractComponent {
         this.whenNotMobileMenu = this.whenNotMobileMenu.bind(this);
         this.whenDesktopMenu = this.whenDesktopMenu.bind(this);
         this.whenNotDesktopMenu = this.whenNotDesktopMenu.bind(this);
+        this.setMyProfileOpenHandler = this.setMyProfileOpenHandler.bind(this);
     }
 
     getElement() {
@@ -96,12 +97,12 @@ export default class Menu extends AbstractComponent {
 
     whenTabletSearch() {
         this.searchInput.addEventListener('focus', this.showSearchResultHandler);
-        this.searchInput.addEventListener('blur', this.hideSearchResultHandler)
+        this.searchInput.addEventListener('blur', this.hideSearchResultHandler);
     }
 
     whenNotTabletSearch() {
         this.searchInput.removeEventListener('focus', this.showSearchResultHandler);
-        this.searchInput.removeEventListener('blur', this.hideSearchResultHandler)
+        this.searchInput.removeEventListener('blur', this.hideSearchResultHandler);
     }
 
     whenMobileMenu() {
@@ -148,5 +149,8 @@ export default class Menu extends AbstractComponent {
         mediaService.subscribe('tabletSearch', 'tablet', this.whenTabletSearch, this.whenNotTabletSearch);
         mediaService.subscribe('desktopMenu', 'desktop', this.whenDesktopMenu, this.whenNotDesktopMenu);
     }
-}
 
+    setMyProfileOpenHandler(handler) {
+        this.getElement().querySelector('.menu__nav-item-profile').addEventListener('click', handler);
+    }
+}

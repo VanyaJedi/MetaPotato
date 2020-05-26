@@ -1,40 +1,41 @@
-﻿import hubConnection from "../modules/signalR.js";
-import { render, remove } from "../utils/manipulateDOM.js";
-import Message from "../components/messageComponent.js";
-import Chat from "../components/chatComponent.js";
-import UserProfile from "../components/userProfileComponent";
-import Api from "../api/api.js";
+﻿import { render, remove, replace } from '../utils/manipulateDOM';
+import Message from '../components/messageComponent';
+import Chat from '../components/chatComponent';
+import UserItem from '../components/userItemComponent';
+import UserProfile from '../components/userProfileComponent';
+import TypeArea from '../components/typeAreaComponent';
+import UserInfo from '../components/userInfoComponent';
+
+import userAdapter from '../models/userAdapter';
 
 
 const mainElement = document.querySelector('.master-main');
 
-const usersElement = document.querySelector('.users');
+const messagesUser = document.querySelector('.messages__user');
+const messagesBlock = document.querySelector('.messages__block');
 const messagesContainer = document.querySelector('.messages__list');
-const sendBtn = document.querySelector('.messages__send-btn');
-const typeArea = document.querySelector('.messages__typeArea');
 const userList = document.querySelector('.users__list');
 
-const URL_TEST_MESSAGES = 'Messages/Messages/'
 
 export default class ChatController {
-
     constructor(hub, api, messagesModel) {
         this._hub = hub;
         this._api = api;
         this._messagesModel = messagesModel;
+        this._usersComponents = [];
 
-        this._currentChat = this._messagesModel.currentChatLogin; //временный дефолтный чатрум, далее нужно брать при загрузки с сервера последний чат
+        this._defaultData = this._messagesModel.getDefaultChatRoomAndUser();
+        this._currentChat = this._defaultData.chatRoom;
+        this._currentUser = this._defaultData.userName;
 
         this._chatComponent = new Chat();
         this._userProfile = null;
-        this.getAndRenderMessagesHandler = this.getAndRenderMessagesHandler.bind(this);
-        this.sendMessage = this.sendMessage.bind(this);
+        this._userInfo = null;
+
         this.showUserProfileHandler = this.showUserProfileHandler.bind(this);
         this.closeUserProfile = this.closeUserProfile.bind(this);
 
-        this.setHandlers(); // hang up all handlers at initialization 
-
-        this._messagesModel.addDataChangeHandler(this.renderMessagesEvent.bind(this));
+        this._messagesModel.addDataChangeHandler(this.renderMessages.bind(this));
     }
 
     startHub() {
@@ -42,29 +43,95 @@ export default class ChatController {
         this._hub.on('send', (message, username) => {
             this.renderMessage(message, username, true);
         });
-
     }
 
-    showUserProfileHandler(evt) {
-        //const isCorrectTargetElement = evt.target.classList.contains('users__name') || evt.target.classList.contains('users__avatar');
-        if (!this._chatComponent.isClickTargetMeansToShowChat(evt)) {
-            const targetUserElement = evt.target.closest('.users__item');
-            const userName = targetUserElement.dataset.username;
-            this._userProfile = new UserProfile(userName);
-            this._chatComponent.hide();
-            render(mainElement, this._userProfile);
-            this._userProfile.setCloseUserProfileHandler(this.closeUserProfile);
+    showUserProfileHandler() {
+        this._userProfile = new UserProfile(this._currentUser, this._currentChat);
+        this.hideChat();
+        render(mainElement, this._userProfile);
+        this._userProfile.setCloseUserProfileHandler(this.closeUserProfile);
+    }
+
+    closeUserProfile() {
+        if (this._userProfile) {
+            remove(this._userProfile);
+            this._chatComponent.show();
         }
-
     }
+
+    renderUsers() {
+        this._messagesModel.users.forEach((user) => {
+            const userItemParsed = userAdapter.parseUser(user);
+            const userItem = new UserItem(userItemParsed, userList);
+
+            const clickHandler = () => {
+                const { chatRoom, userLogin } = userItemParsed;
+                const isSameChat = (this._currentChat === chatRoom);
+                if (!isSameChat) {
+                    this._hub.invoke('JoinGroup', chatRoom.toString());
+                    this._api.getMessages(chatRoom)
+                        .then((messages) => {
+                            this._messagesModel.updateMessages(messages);
+                            userItem.clearAllActive();
+                            userItem.makeActive();
+                            this._currentChat = chatRoom;
+                            this._currentUser = userLogin;
+                            this.renderUserInfo();
+                        });
+                }
+            };
+
+            userItem.setUserItemClick(clickHandler);
+            this._usersComponents.push(userItem);
+            render(userList, userItem);
+        });
+    }
+
+
+    renderTypeArea() {
+        const typeArea = new TypeArea();
+        render(messagesBlock, typeArea);
+
+        const sendMessageHandler = () => {
+            const textMessage = typeArea.getMessageContent();
+            if (!textMessage) {
+                return;
+            }
+            this._hub.invoke('Send', textMessage, this._currentChat.toString())
+                .then(() => {
+                    typeArea.clearTypeArea();
+                    this.renderMessage(textMessage, this._messagesModel.myLogin, false);
+                    this._chatComponent.scrollDownMessages();
+                });
+        };
+
+        typeArea.setSendMessageHandler(sendMessageHandler);
+    }
+
+    renderUserInfo() {
+        this._oldUserInfo = this._userInfo;
+        this._userInfo = new UserInfo(this._currentUser, this._currentChat);
+        this._userInfo.setOpenProfileHandler(this.showUserProfileHandler);
+
+        if (this._oldUserInfo) {
+            replace(this._userInfo, this._oldUserInfo);
+        } else {
+            render(messagesUser, this._userInfo);
+        }
+    }
+
 
     renderInitialData() {
-        this._api.getMessages(this._messagesModel.currentChatRoom).
-            then((messages) => {
-                this._chatComponent.setActiceUserInitial();
-                this._chatComponent.refreshUserName(this._messagesModel.currentChatLogin);
+        this._api.getMessages(this._currentChat)
+            .then((messages) => {
+                this.renderUsers();
                 this._messagesModel.updateMessages(messages);
-            })
+                this._chatComponent.scrollDownMessages();
+                this._usersComponents[0].makeActive();
+                this.renderUserInfo();
+                this.renderTypeArea();
+                this._chatComponent.setScreenHandlers();
+            });
     }
 
     renderMessage(message, userName, isFriend) {
@@ -72,78 +139,22 @@ export default class ChatController {
         render(this._chatComponent.messagesList, messageComponent);
     }
 
-    renderMessages(messages) {
+    renderMessages() {
         messagesContainer.innerHTML = '';
-        messages.forEach((message) => {
+        this._messagesModel.messages.forEach((message) => {
             this.renderMessage(message.MessageText, message.UserName, message.IsFriend);
         });
     }
-
-
-    renderMessagesEvent() {
-        messagesContainer.innerHTML = '';
-        this.renderMessages(this._messagesModel.messages);
-    }
-
-    getAndRenderMessagesHandler(evt) {
-        if (this._chatComponent.isClickTargetMeansToShowChat(evt)) {
-            const targetUserElement = evt.target.closest('.users__item');
-            const chatRoomId = targetUserElement.dataset.chatroom;
-            const targetUserName = targetUserElement.dataset.username;
-            const isSameChat = (chatRoomId === this._messagesModel.currentChat);
-            if (!isSameChat) {
-                this._hub.invoke('JoinGroup', chatRoomId);
-                this._api.getMessages(chatRoomId).
-                    then((messages) => {
-                        this._messagesModel.updateMessages(messages);
-                        this._chatComponent.setActiveUser(evt);
-                        this._chatComponent.refreshUserName(targetUserName);
-                        this._currentChat = chatRoomId;
-                    })
-            }
-        }
-    }
-
-
-
-
-
-    closeUserProfile() {
-        if (this._userProfile) {
-            remove(this._userProfile);
-            this._chatComponent.show();
-        }    
-    }
-
 
     subscribeChatMediaEvents() {
         this._chatComponent.subscribeMediaEvents();
     }
 
-
-    sendMessage() {
-        const textMessage = this._chatComponent.typeArea.innerText;
-        if (!textMessage) {
-            return;
-        }
-        this._hub.invoke('Send', textMessage, this._currentChat).
-            then(() => {
-                typeArea.innerText = '';
-                this.renderMessage(textMessage, this._messagesModel.myLogin, false);
-                this._chatComponent.scrollDownMessages();
-            }).
-            catch((err) => {
-                console.log(err);
-            })
+    hideChat() {
+        this._chatComponent.hide();
     }
 
-
-    setHandlers() {
-        this._chatComponent.setScreenHandlers();
-        this._chatComponent.setUserItemClickHandler(this.getAndRenderMessagesHandler);
-        this._chatComponent.setUserItemClickHandler(this.showUserProfileHandler);
-        this._chatComponent.setSendMessageHandler(this.sendMessage);
+    showChat() {
+        this._chatComponent.show();
     }
-
-
 }

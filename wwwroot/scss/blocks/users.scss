@@ -10,30 +10,55 @@
     }
 }
 
-.users__item {
-    height: 48px;
-    margin-bottom: 5px; 
+.users__list {
+    display: flex;
+    flex-direction: column;
 }
 
-.users__item-wrapper {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    width: 97.86%;
-    background-color: $user-item;
-    margin: 0 auto;
-    border-radius: 5px;
-    padding: 6px 15px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+.users__list--first {
+    order: 1;
+}
 
-    &:hover, &:focus {
-        background-color: $user-hover;
+
+.users__item {
+    height: 48px;
+    margin-bottom: 5px;
+
+    .users__item-wrapper {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 97.86%;
+        background-color: $user-item;
+        margin: 0 auto;
+        border-radius: 5px;
+        padding: 6px 15px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+        font-family: "noto-sans", Roboto, sans-serif;
+
+        &:hover, &:focus {
+            background-color: $user-hover;
+        }
     }
 
     &--active {
-        background-color: $user-active;
+        .users__item-wrapper {
+            background-color: #A6A4B8;
+            color: #000;
+
+            &:hover, &:focus {
+                background-color: #A6A4B8;
+            }
+        }
     }
+}
+
+
+.users__time {
+    font-family: "Fira Mono", Roboto, sans-serif;
+    font-size: 10px;
+    align-self: flex-start;
 }
 
 .users__avatar {
@@ -73,10 +98,16 @@
         width: 336px;
         margin-bottom: 3px;
 
+        .users__item-wrapper {
+            margin: 0;
+            margin-left: auto;
+            border-radius: 15px 0 0 15px;
+        }
+
         &--active {
             .users__item-wrapper {
-                background-color: #663951;
-            }       
+                // background-color: #663951;
+            }
+        }
         }
     }
-}
