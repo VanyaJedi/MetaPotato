@@ -44,7 +44,7 @@ namespace MetaPotato.Controllers
                 }
                 // установка массива байтов
                 xUser.Photo = imageData;
-              //  ViewBag.Photo = imageData;
+                ViewData["Photo"] = imageData;
                FDB.SaveChanges();
             }
             return RedirectToAction("Index");
