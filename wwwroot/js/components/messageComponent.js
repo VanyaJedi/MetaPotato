@@ -1,9 +1,11 @@
 ﻿import AbstractComponent from './abstractComponent';
+import { createAvatarTemplate } from '../utils/other';
 
-const createMessageUserInfoTemplate = (userName, isFriend) => {
+const createMessageUserInfoTemplate = (userName, userAvatar, isFriend) => {
     if (isFriend) {
+        const avatar = createAvatarTemplate(userAvatar);
         return (`<div class="message__user">
-                    <img src="img/default_avatar.png" />
+                    ${avatar}
                     <span class="message__name">${userName}</span>
                 </div>`);
     }
@@ -12,15 +14,16 @@ const createMessageUserInfoTemplate = (userName, isFriend) => {
 };
 
 export default class Message extends AbstractComponent {
-    constructor(message, username, isFriend = null) {
+    constructor(message, username, userAvatar, isFriend = null) {
         super();
         this._message = message;
         this._username = username;
+        this._userAvatar = userAvatar;
         this._isFriend = isFriend;
     }
 
     getTemplate() {
-        const userInfoTemplate = createMessageUserInfoTemplate(this._username, this._isFriend);
+        const userInfoTemplate = createMessageUserInfoTemplate(this._username, this._userAvatar, this._isFriend);
 
         return (
             `<li class="message messages__item ${this._isFriend ? '' : 'message--my'}">

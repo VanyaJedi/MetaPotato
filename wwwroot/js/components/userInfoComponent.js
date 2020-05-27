@@ -1,18 +1,20 @@
 ﻿import AbstractComponent from './abstractComponent';
-
+import { createAvatarTemplate } from '../utils/other';
 export default class UserInfo extends AbstractComponent {
-    constructor(userName, chatRoom) {
+    constructor(userName, userAvatar, chatRoom) {
         super();
         this._userName = userName;
         this._chatRoom = chatRoom;
+        this._userAvatar = userAvatar;
 
         this.setOpenProfileHandler = this.setOpenProfileHandler.bind(this);
     }
 
     getTemplate() {
+        const avatarTemplate = createAvatarTemplate(this._userAvatar);
         return (
             `<div class="messages__user-info">
-                    <img class="messages__avatar" src="/img/default_avatar.png" />
+                    ${avatarTemplate}
                     <span class="messages__username">${this._userName}</span>
                 </div>
 
