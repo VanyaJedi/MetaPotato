@@ -24,9 +24,10 @@ export default class ChatController {
         this._messagesModel = messagesModel;
         this._usersComponents = [];
 
-        this._defaultData = this._messagesModel.getDefaultChatRoomAndUser();
+        this._defaultData = this._messagesModel.getDefaultData();
         this._currentChat = this._defaultData.chatRoom;
         this._currentUser = this._defaultData.userName;
+        this._currentPhoto = this._defaultData.userAvatar;
 
         this._chatComponent = new Chat();
         this._userProfile = null;
@@ -50,7 +51,7 @@ export default class ChatController {
     }
 
     showUserProfileHandler() {
-        this._userProfile = new UserProfile(this._currentUser, this._currentChat);
+        this._userProfile = new UserProfile(this._currentUser, this._currentPhoto, this._currentChat);
         this.hideChat();
         render(mainElement, this._userProfile);
         this._userProfile.setCloseUserProfileHandler(() => {
@@ -72,17 +73,18 @@ export default class ChatController {
             const userItem = new UserItem(userItemParsed, userList);
 
             const clickHandler = () => {
-                const { chatRoom, userLogin } = userItemParsed;
+                const { chatRoom, userLogin, userAvatar } = userItemParsed;
                 const isSameChat = (this._currentChat === chatRoom);
                 if (!isSameChat) {
                     this._hub.invoke('JoinGroup', chatRoom.toString());
                     this._api.getMessages(chatRoom)
                         .then((messages) => {
+                            this._currentPhoto = userAvatar;
+                            this._currentChat = chatRoom;
+                            this._currentUser = userLogin;
                             this._messagesModel.updateMessages(messages);
                             userItem.clearAllActive();
                             userItem.makeActive();
-                            this._currentChat = chatRoom;
-                            this._currentUser = userLogin;
                             this.renderUserInfo();
                         });
                 }
@@ -117,7 +119,7 @@ export default class ChatController {
 
     renderUserInfo() {
         this._oldUserInfo = this._userInfo;
-        this._userInfo = new UserInfo(this._currentUser, this._currentChat);
+        this._userInfo = new UserInfo(this._currentUser, this._currentPhoto, this._currentChat);
         this._userInfo.setOpenProfileHandler(this.showUserProfileHandler);
 
         if (this._oldUserInfo) {
@@ -140,15 +142,15 @@ export default class ChatController {
             });
     }
 
-    renderMessage(message, userName, isFriend) {
-        const messageComponent = new Message(message, userName, isFriend);
+    renderMessage(message, userName, userAvatar, isFriend) {
+        const messageComponent = new Message(message, userName, userAvatar, isFriend);
         render(this._chatComponent.messagesList, messageComponent);
     }
 
     renderMessages() {
         messagesContainer.innerHTML = '';
         this._messagesModel.messages.forEach((message) => {
-            this.renderMessage(message.MessageText, message.UserName, message.IsFriend);
+            this.renderMessage(message.MessageText, message.UserName, this._currentPhoto, message.IsFriend);
         });
     }
 

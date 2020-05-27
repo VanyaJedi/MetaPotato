@@ -1,14 +1,6 @@
-﻿import AbstractComponent from "./abstractComponent.js";
-import moment from 'moment';
-import { removeAllClasses } from "../utils/other.js";
-
-const createAvatarTemplate = (photo) => {
-    if (!photo) {
-        return '<img class="users__avatar" src="img/default_avatar.png" />';
-    } else {
-        return `<img class="users__avatar" src="${photo}" />`;
-    }
-};
+﻿import moment from 'moment';
+import AbstractComponent from './abstractComponent';
+import { removeAllClasses, createAvatarTemplate } from '../utils/other';
 
 export default class UserItem extends AbstractComponent {
     constructor(userItem, container) {
@@ -19,9 +11,14 @@ export default class UserItem extends AbstractComponent {
     }
 
     getTemplate() {
-        const { userLogin, lastMessage, lastMessageDateTime, userAvatar } = this._userItem;
+        const {
+            userLogin,
+            lastMessage,
+            lastMessageDateTime,
+            userAvatar,
+        } = this._userItem;
         const lastMessageTime = moment(lastMessageDateTime).format('HH:mm');
-        const avatarTemplate = createAvatarTemplate(userAvatar);
+        const avatarTemplate = createAvatarTemplate(userAvatar, 'users__avatar');
         return (
             `<li class="users__item">
               <div class="users__item-wrapper">
@@ -55,4 +52,3 @@ export default class UserItem extends AbstractComponent {
         removeAllClasses(this._container.querySelectorAll('.users__item'), 'users__item--active');
     }
 }
-
