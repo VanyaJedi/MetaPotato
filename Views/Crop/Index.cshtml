@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MetaPotato.Models.tblUser>
+﻿@model MetaPotato.Controllers.ViewModelItem;
 
 @{
     ViewBag.Title = "Добавление пользователя";
@@ -18,17 +18,15 @@
     </p>
 </form>
 <h3 style="color: #fff">Все пользователи</h3>
-@foreach (var p in Model)
-{
 <div style="color: #fff">
-    <h4>@p.Login</h4>
-    @if (p.Photo != null)
-    {
-        <img id="dcropimage1" size=auto src="data:image/jpeg;base64,@(Convert.ToBase64String(p.Photo))" />
+    <h4>@Model.Name</h4>
+    @if (Model.Photo != null)
+    { 
+        <img id="dcropimage1" size=auto src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Photo))" />
         <script type="text/javascript">
             $(function () {
                 $("#dcropimage1").Jcrop({
-                    onSelect: croparea,
+                onSelect: croparea,
                     aspectRatio: 1
                 });
 
@@ -36,7 +34,7 @@
         </script>
     }
 </div>
-}
+
 
 <script type="text/javascript">
 
@@ -83,7 +81,7 @@
     /* Имиируем click на кнопке Submit */
     /***********************************/
     function LoadFile() {
-        document.getElementById('loadfile').click();       
+       document.getElementById('loadfile').click();       
     };
   //   function AfterLoadFile() {
    //     document.getElementById('loadfile').click();

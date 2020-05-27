@@ -15,6 +15,7 @@ namespace MetaPotato.Models
     public class InitialDataItem
     {
         public string FMyLogin;
+        public byte[] FPhoto;
         public List<ContactItem> ContactItems;
     }
     // Элемент списка контактов
@@ -215,6 +216,7 @@ namespace MetaPotato.Models
             xContactList.Sort();
             InitialDataItem xInitialDataItem = new InitialDataItem();
             xInitialDataItem.FMyLogin = ALogin;
+            xInitialDataItem.FPhoto = u.Photo;
             xInitialDataItem.ContactItems = xContactList;
             return xInitialDataItem;
         }
