@@ -1,7 +1,5 @@
 ﻿
-
 export default class MessagesModel {
-
     constructor() {
         this._usersList = null;
         this.myLogin = null;
@@ -29,11 +27,12 @@ export default class MessagesModel {
         this._usersList = arr;
     }
 
-    getDefaultChatRoomAndUser() {
+    getDefaultData() {
         const defaultData = {};
         if (this.users[0]) {
-            defaultData['chatRoom'] = this.users[0].FChatRoom;
-            defaultData['userName'] = this.users[0].FLogin;
+            defaultData.chatRoom = this.users[0].FChatRoom;
+            defaultData.userName = this.users[0].FLogin;
+            defaultData.userAvatar = this.users[0].FPhoto;
         }
         return defaultData;
     }
@@ -41,7 +40,7 @@ export default class MessagesModel {
     addDataChangeHandler(handler) {
         this._dataChangeHandlers.push(handler);
     }
-  
+
     _executeAllHandlers(handlers) {
         handlers.forEach((handler) => {
             handler();
