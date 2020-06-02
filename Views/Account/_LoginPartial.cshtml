@@ -4,6 +4,9 @@
     <form class="start-auth__login" asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
         <div class="validation" asp-validation-summary="ModelOnly" />
         <input class="start-auth__input" type="text" placeholder="login" asp-for="Login" />
+        <input class="start-auth__input" type="text" placeholder="e-mail" asp-for="Email" />
         <input class="start-auth__input start-auth__input--last" type="password" placeholder="password" asp-for="Password" />
+        <input class="start-auth__remember" type="checkbox" id="remember" checked asp-for="RememberMe">
+        <label class="start-auth__remember-lable" for="remember" asp-for="RememberMe">Запомнить меня</label>
         <button class="start-auth__button button-shadow">Войти</button>
     </form>
