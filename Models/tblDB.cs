@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace MetaPotato.Models
 {
     // Таблица пользователей 
-    public class tblUser
+    public class tblUser : IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
-        public string Email { get; set; }
+        //[Key]
+        //public int Id { get; set; }
+        //public string Email { get; set; }
         public string Password { get; set; }
         public string Login { get; set; }
         public int Status { get; set; }
@@ -46,7 +47,8 @@ namespace MetaPotato.Models
     {
         public int ChatRoomId { get; set; }
         public tblChatRoom tblChatRoom { get; set; }
-        public int UserId { get; set; }
+        //public int UserId { get; set; }
+        public string UserId { get; set; }
         public tblUser tblUser { get; set; }
         
         

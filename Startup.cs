@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
 
 namespace MetaPotato
 {
@@ -40,6 +41,10 @@ namespace MetaPotato
             services.AddRazorPages();
            // services.AddTransient<ChatManager>();
             services.AddScoped<ChatManager>();
+
+            services.AddIdentity<tblUser, IdentityRole>()
+                .AddEntityFrameworkStores<UserContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
