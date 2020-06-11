@@ -1,6 +1,6 @@
 /**
  * jquery.Jcrop.js v0.9.12
- * jQuery Image Cropping Plugin - released under MIT License 
+ * jQuery Image Cropping Plugin - released under MIT License
  * Author: Kelly Hallman <khallman@gmail.com>
  * http://github.com/tapmodo/Jcrop
  * Copyright (c) 2008-2013 Tapmodo Interactive LLC {{{
@@ -1672,8 +1672,8 @@
 
     shade: null,
 
-    boxWidth: 0,
-    boxHeight: 0,
+    boxWidth: 500,
+    boxHeight: 500,
     boundary: 2,
     fadeTime: 400,
     animationDelay: 20,
