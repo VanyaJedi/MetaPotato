@@ -55,7 +55,7 @@ namespace MetaPotato.Models
             // Это классический вариант загрузки связанных данных
             var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выбор пользователя с заданным Login
-            var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
+            var u = xContacts.FirstOrDefault(t => ALogin == t.UserName);
             // Список ChatRoom для текущего пользователя
             var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
 
@@ -189,7 +189,7 @@ namespace MetaPotato.Models
             // Это классический вариант загрузки связанных данных
             var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выбор пользователя с заданным Login
-            var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
+            var u = xContacts.FirstOrDefault(t => ALogin == t.UserName);
             // Список ChatRoom для текущего пользователя
             var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
 

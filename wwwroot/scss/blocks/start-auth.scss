@@ -18,6 +18,10 @@
             display: none;
         }
     }
+
+    span {
+        color: red;
+    }
  }
 
 .start-auth__title {
@@ -57,12 +61,12 @@
     border: none;
     font-weight: bold;
 
-    &::placeholder {
-        color: rgba(0, 0, 0, 0.3);
+    &--last {
+        margin-bottom: 15px;
     }
 
-    &--last {
-        margin-bottom: 26px;
+    &::placeholder {
+        color: rgba(0, 0, 0, 0.3);
     }
 }
 
@@ -77,3 +81,43 @@
 .start-auth__reg-btn {
     margin-bottom: 26px;
 }
+
+.start-auth__remember-lable {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-start;
+    color: #fff;
+    margin-bottom: 26px;
+    margin-left: 15px;
+
+    &::before {
+        content: "";
+        display: inline-block;
+        vertical-align: bottom;
+        margin-right: 9px;
+        background-color: #ffffff;
+        border-radius: 4px;
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover,
+    &:focus {
+        opacity: 0.7;
+    }
+}
+
+.start-auth__remember:checked + .start-auth__remember-lable::before {
+    background-image: url("/img/icons/tick.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 9px 9px;
+}
+
+.start-auth__validation {
+    ul {
+        list-style: none;
+        color: red;
+    }
+} 

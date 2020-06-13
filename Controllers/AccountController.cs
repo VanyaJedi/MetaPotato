@@ -33,18 +33,18 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email);
+                var user = await _userManager.FindByNameAsync(model.UserName);
                 if (user != null)
                 {
                     // проверяем, подтвержден ли email
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
                         ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
-                        return View(model);
+                        return View("~/Views/Home/StartPage.cshtml", model);
                     }
                 }
 
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
@@ -67,7 +67,7 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
-                tblUser user = new tblUser { Email = model.Email, UserName = model.Email };
+                tblUser user = new tblUser { Email = model.Email, UserName = model.UserName };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

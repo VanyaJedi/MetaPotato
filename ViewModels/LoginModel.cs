@@ -9,11 +9,7 @@ namespace MetaPotato.ViewModels
     public class LoginModel
     {
         [Required(ErrorMessage = "Не указан Login")]
-        public string Login { get; set; }
-
-        [Required(ErrorMessage = "Не указан Email")]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]
