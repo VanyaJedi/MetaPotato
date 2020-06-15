@@ -225,31 +225,6 @@ namespace MetaPotato.Models
             return xInitialDataItem;
         }
 
-        /*
-              public byte[] CroppedPicture(string AFileName, int AX, int AY, int AW, int AH)
-              {
-                  byte[] xSource = null;
-                  using (BinaryReader reader = new BinaryReader(File.Open(AFileName, FileMode.Open)))
-                  {
-                      FileInfo file = new FileInfo(AFileName);
-                      long size = file.Length;
-                      xSource = reader.ReadBytes((int)size);
-                      if ((AX == 0) && (AY == 0) && (AW == 0) && (AH == 0))
-                          return xSource;
-
-                      MemoryStream ms = new MemoryStream(xSource);
-                      Image outputfile = Image.FromStream(ms);
-                      Rectangle cropcoordinate = new Rectangle(Convert.ToInt32(AX), Convert.ToInt32(AY), Convert.ToInt32(AW), Convert.ToInt32(AH));
-                      Bitmap bitmap = new Bitmap(cropcoordinate.Width, cropcoordinate.Height, outputfile.PixelFormat);
-                      Graphics graphics = Graphics.FromImage(bitmap);
-                      graphics.DrawImage(outputfile, new Rectangle(0, 0, bitmap.Width, bitmap.Height), cropcoordinate, GraphicsUnit.Pixel);
-  
-                      MemoryStream ms1 = new MemoryStream();
-                      bitmap.Save(ms1, System.Drawing.Imaging.ImageFormat.Jpeg);
-                      return ms1.ToArray();
-                  }
-              }
-        */        
           public byte[] CroppedPicture(string AFileName, int AX, int AY, int AW, int AH)
           {
               byte[] xSource = null;
@@ -291,8 +266,6 @@ namespace MetaPotato.Models
                   resized.Save(ms1, System.Drawing.Imaging.ImageFormat.Jpeg);
                   return ms1.ToArray();
               }
-
-              return xSource;
           }
 
         public void SaveBytes(Byte[] AIn, string AFileName)

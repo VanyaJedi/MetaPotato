@@ -17,10 +17,10 @@
 </form>
 <form action="/Crop/CropSave" controller="Crop" method="post" >
     <input type="submit" id="loadfile1" value="Сохранить" />
-    <input name="X"  id="dcoordinate_x" />
-    <input name="Y"  id="dcoordinate_y" />
-    <input name="W"  id="dcoordinate_w" />
-    <input name="H"  id="dcoordinate_h" />
+    <input name="X" type="hidden" id="dcoordinate_x" />
+    <input name="Y" type="hidden" id="dcoordinate_y" />
+    <input name="W" type="hidden" id="dcoordinate_w" />
+    <input name="H" type="hidden" id="dcoordinate_h" />
     <img name="Photo" id="dcropimage1"  src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Photo))" />
     <div style="color: #fff">
         @if (Model.Photo != null)
@@ -40,107 +40,13 @@
 
 <script type="text/javascript">
 
-    /*  function GetIsPostBack() {
-          $.ajax({
-              type: "POST",
-              url: "upload_form.aspx/GetIsPostBack",
-              data: '{name: "1111" }',
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              success: OnSuccess,
-              failure: function (response) {
-                  alert(response.d);
-              }
-          });
-      };
-      function OnSuccess(response) {
-          if (response.d == "true")
-              LoadCrop();
-      }
-  */
-    /*********************************/
-    /* Признак нажатия кнопки Submit */
-    /*********************************/
-    /*  function SetLoadFile() {
-           $.ajax({
-               type: "POST",
-               url: "upload_form.aspx/SetLoadFile",
-               data: '{name: "1111" }',
-               contentType: "application/json; charset=utf-8",
-               dataType: "json",
-               success: AfterLoadFile(),
-               failure: function (response) {
-                   alert(response.d);
-               }
-           });
-       };
-   */
-    // $(document).ready(function () {
-    //      GetIsPostBack();
-    //  });
-
     /***********************************/
     /* Имиируем click на кнопке Submit */
     /***********************************/
     function LoadFile() {
         document.getElementById('loadfile').click();
     };
-    //   function AfterLoadFile() {
-    //     document.getElementById('loadfile').click();
-    /*  var file = document.getElementById('uploadbtn');
-       var xPhoto = file.files[0];
-       myImage = document.querySelector("#dcropimage1");
-       FR = new FileReader();
-       FR.readAsDataURL(xPhoto);
-
-       FR.onload = function (event) {
-           contents = event.target.result;
-           myImage.src = contents;
-       //    csaspnetajaxwebchat.transition.SourceCrop(file.files[0]);
-            LoadCrop();
-           //  setTimeout(LoadCrop, 10000);
-
-       };*/
-
-    //  };
-
-    /***************************/
-    /* click на кнопке Button1 */
-    /***************************/
-    /*   function SaveCrop() {
-           csaspnetajaxwebchat.transition.SaveCrop($("#dcoordinate_x").val(), $("#dcoordinate_y").val(),
-               $("#dcoordinate_w").val(), $("#dcoordinate_h").val(),
-               SaveCropSuccessCallBack);
-       };
-
-       function SaveCropSuccessCallBack(AResult) {
-           $("#dcropdiv").dialog("close");
-           //  location.reload();
-       }
-   */
-
-    /*********************/
-    /* Отображаем диалог */
-    /*********************/
-    /*  function LoadCrop() {
-          $("#dcropdiv").dialog({
-              modal: true, show: 'slide', title: 'Обрезка картинки',
-              resizable: false,
-              width: 'auto', height: 'auto', draggable: true
-          });//.siblings('.ui-dialog-titlebar').remove();
-      }
-    */
-    /**********************/
-    /* Обрезание картинки */
-    /**********************/
-    /* (function () {
-          $("#dcropimage1").Jcrop({
-              onSelect: croparea,
-              aspectRatio: 1
-          });
-
-      });
-    */
+   
     function croparea(c) {
         $("#dcoordinate_x").val(c.x);
         $("#dcoordinate_y").val(c.y);
