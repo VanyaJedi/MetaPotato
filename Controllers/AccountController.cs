@@ -25,6 +25,7 @@ namespace MetaPotato.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.isResetPassword = false;
             return View("~/Views/Home/StartPage.cshtml");
         }
         [HttpPost]
@@ -54,11 +55,13 @@ namespace MetaPotato.Controllers
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
+            ViewBag.isResetPassword = false;
             return View("~/Views/Home/StartPage.cshtml", model);
         }
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.isResetPassword = false;
             return View("~/Views/Home/StartPage.cshtml");
         }
         [HttpPost]
@@ -93,6 +96,7 @@ namespace MetaPotato.Controllers
                     }
                 }
             }
+            ViewBag.isResetPassword = false;
             return View("~/Views/Home/StartPage.cshtml",model);
         }
 
@@ -122,5 +126,76 @@ namespace MetaPotato.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("StartPage", "Home");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<string> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // пользователь с данным email может отсутствовать в бд
+                    // тем не менее мы выводим стандартное сообщение, чтобы скрыть 
+                    // наличие или отсутствие пользователя в бд
+                    return "Не существует";
+                }
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                EmailService emailService = new EmailService();
+                await emailService.SendEmailAsync(model.Email, "Reset Password",
+                    $"Для сброса пароля пройдите по ссылке: <a href='{callbackUrl}'>link</a>");
+                    return "Все успешно";
+            }
+            return "";
+        }
+
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string code = null)
+        {
+            ViewBag.isResetPassword = true;
+            return code == null ? View("Error") : View("~/Views/Home/StartPage.cshtml");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            ViewBag.isResetPassword = false;
+            if (!ModelState.IsValid)
+            {
+                ViewBag.isResetPassword = true;
+                return View("~/Views/Home/StartPage.cshtml");
+            }
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return View("~/Views/Home/StartPage.cshtml");
+            }
+            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return View("~/Views/Home/StartPage.cshtml");
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View("~/Views/Home/StartPage.cshtml");
+        }
+
     }
 }

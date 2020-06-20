@@ -7,7 +7,11 @@
         <span asp-validation-for="UserName"></span>
         <input class="start-auth__input start-auth__input--last" type="password" placeholder="password" asp-for="Password" />
         <span asp-validation-for="Password"></span>
-        <input class="start-auth__remember visually-hidden" type="checkbox" id="remember" asp-for="RememberMe">
-        <label class="start-auth__remember-lable" for="remember" asp-for="RememberMe">Запомнить меня</label>
+        <div class="start-auth__remember-forgot">
+            <input class="start-auth__remember visually-hidden" type="checkbox" id="remember" asp-for="RememberMe">
+            <label class="start-auth__remember-lable" for="remember" asp-for="RememberMe">Запомнить меня</label>
+            <button type="button" class="start-auth__forgot-pass-btn">Забыли пароль</button>
+        </div>
+        
         <button class="start-auth__button button-shadow">Войти</button>
     </form>
