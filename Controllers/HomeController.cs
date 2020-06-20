@@ -47,6 +47,7 @@ namespace MetaPotato.Controllers
 
         public IActionResult StartPage()
         {
+            ViewBag.isResetPassword = false;
             return View();
         }
 

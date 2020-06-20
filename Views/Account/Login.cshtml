@@ -3,8 +3,8 @@
 
     <form class="start-auth__login" asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
         <div class="start-auth__validation" asp-validation-summary="ModelOnly"></div>
-        <input class="start-auth__input" type="text" placeholder="login" asp-for="UserName" />
-        <span asp-validation-for="UserName"></span>
+        <input class="start-auth__input" type="text" placeholder="login" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
         <input class="start-auth__input start-auth__input--last" type="password" placeholder="password" asp-for="Password" />
         <span asp-validation-for="Password"></span>
         <div class="start-auth__remember-forgot">

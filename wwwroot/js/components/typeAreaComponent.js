@@ -1,7 +1,6 @@
-﻿import AbstractComponent from "./abstractComponent.js";
+﻿import AbstractComponent from './abstractComponent';
 
 export default class Message extends AbstractComponent {
-
     getTemplate() {
         return (
             `<form class="messages__send-form">
