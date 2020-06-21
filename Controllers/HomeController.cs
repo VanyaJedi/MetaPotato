@@ -34,17 +34,6 @@ namespace MetaPotato.Controllers
             return View();
         }
 
-
-        public void Crop()
-        {
-            // Построить список контактов (List<ContactItem>)
-            var xContactList = _chatManager.BuildContactList(User.Identity.Name);
-
-            // Передать во вьювер
-            ViewBag.ListContacts = xContactList;
-            ViewBag.Username = User.Identity.Name;
-        }
-
         public IActionResult StartPage()
         {
             ViewBag.isResetPassword = false;
