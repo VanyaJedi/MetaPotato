@@ -36,6 +36,7 @@ namespace MetaPotato.Controllers
 
         public IActionResult StartPage()
         {
+            ViewBag.isResetPassword = false;
             return View();
         }
 
@@ -55,5 +56,6 @@ namespace MetaPotato.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

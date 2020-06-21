@@ -9,7 +9,11 @@ namespace MetaPotato.ViewModels
     public class RegisterModel
     {
         [Required(ErrorMessage = "Не указан Login")]
-        public string Login { get; set; }
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Не указан e-mail")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]

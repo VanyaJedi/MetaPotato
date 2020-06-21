@@ -8,8 +8,10 @@ export default class Chat extends AbstractComponent {
         super();
         this._element = chat;
         this._usersBlock = this._element.querySelector('.users');
-        this._userList = this._element.querySelector('.users__list');
-        this._userListItems = this._userList.querySelectorAll('.users__item');
+        if (this._element.querySelector('.users__list')) {
+            this._userList = this._element.querySelector('.users__list');
+            this._userListItems = this._userList.querySelectorAll('.users__item');
+        }
         this._messagesBlock = this._element.querySelector('.messages');
         this._messagesList = this._element.querySelector('.messages__list');
         this._closeChatMobileBtn = this._messagesBlock.querySelector('.messages__icon-btn-back');
