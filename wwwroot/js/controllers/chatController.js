@@ -135,7 +135,9 @@ export default class ChatController {
                 this.renderUsers();
                 this._messagesModel.updateMessages(messages);
                 this._chatComponent.scrollDownMessages();
-                this._usersComponents[0].makeActive();
+                if (this._usersComponents.length) {
+                    this._usersComponents[0].makeActive();
+                }
                 this.renderUserInfo();
                 this.renderTypeArea();
                 this._chatComponent.setScreenHandlers();

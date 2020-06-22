@@ -40,6 +40,7 @@ namespace MetaPotato
                 AChatManager.AddUserToContacts("Андрей", "Дима");
 
             }
+            AChatManager.AddUserToContacts("Nikolay", "Marina");
         }
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace MetaPotato.Models
 {
-    public class UserContext : DbContext
+    public class UserContext : IdentityDbContext<tblUser>
     {
         public DbSet<tblUser> tblUsers { get; set; }
         public DbSet<tblChatRoom> tblChatRooms { get; set; }
@@ -18,6 +19,8 @@ namespace MetaPotato.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<tblChatRoomUser>()
                 .HasKey(t => new { t.ChatRoomId, t.UserId });
 

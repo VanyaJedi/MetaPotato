@@ -15,17 +15,47 @@
         <h1 class="start-auth__title">
             MetaPotato
         </h1>
-        <div class="start-auth__auth-block">
-            @Html.Partial("/Views/Account/_LoginPartial.cshtml", new MetaPotato.ViewModels.LoginModel())
-            <button type="button" class="start-auth__button start-auth__register-btn button-shadow">Регистрация</button>
-        </div>
-        <div class="start-auth__regist-block">
-            @Html.Partial("/Views/Account/_RegisterPartial.cshtml", new MetaPotato.ViewModels.RegisterModel())
-            <button type="button" class="start-auth__back-btn button-shadow">Назад</button>
-        </div>
-        
-        
+        @if (!ViewBag.isResetPassword)
+        {
+            <div class="start-auth__auth-block">
+                @Html.Partial("/Views/Account/Login.cshtml", new MetaPotato.ViewModels.LoginModel())
+                <button type="button" class="start-auth__button start-auth__register-btn button-shadow">Регистрация</button>
+            </div>
+            <div class="start-auth__regist-block visually-hidden">
+                @Html.Partial("/Views/Account/Register.cshtml", new MetaPotato.ViewModels.RegisterModel())
+                <button type="button" class="start-auth__back-btn button-shadow">Назад</button>
+            </div>
+            <div class="start-auth__forgot-pass-block visually-hidden">
+                @Html.Partial("/Views/Account/ForgotPassword.cshtml", new MetaPotato.ViewModels.ForgotPasswordViewModel())
+                <button type="button" class="start-auth__back-btn-forgot button-shadow">Назад</button>
+            </div>
+            <div class="start-auth__forgot-pass-block visually-hidden">
+                @Html.Partial("/Views/Account/ResetPassword.cshtml", new MetaPotato.ViewModels.ResetPasswordViewModel())
+                <button type="button" class="start-auth__back-btn-forgot button-shadow">Назад</button>
+            </div>
+        }
+        else
+        {
+            <div class="start-auth__auth-block visually-hidden">
+                @Html.Partial("/Views/Account/Login.cshtml", new MetaPotato.ViewModels.LoginModel())
+                <button type="button" class="start-auth__button start-auth__register-btn button-shadow">Регистрация</button>
+            </div>
+            <div class="start-auth__regist-block visually-hidden">
+                @Html.Partial("/Views/Account/Register.cshtml", new MetaPotato.ViewModels.RegisterModel())
+                <button type="button" class="start-auth__back-btn button-shadow">Назад</button>
+            </div>
+            <div class="start-auth__forgot-pass-block visually-hidden">
+                @Html.Partial("/Views/Account/ForgotPassword.cshtml", new MetaPotato.ViewModels.ForgotPasswordViewModel())
+                <button type="button" class="start-auth__back-btn-forgot button-shadow">Назад</button>
+            </div>
+            <div class="start-auth__forgot-pass-block">
+                @Html.Partial("/Views/Account/ResetPassword.cshtml", new MetaPotato.ViewModels.ResetPasswordViewModel())
+                <button type="button" class="start-auth__back-btn-forgot button-shadow">Назад к форме входа</button>
+            </div>
+        }
+
+
     </section>
-    <script src="~/js/auth.js"></script>
+    <script src="~/build/auth.bundle.js"></script>
 </body>
 </html>

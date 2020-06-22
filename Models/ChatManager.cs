@@ -60,7 +60,7 @@ namespace MetaPotato.Models
             // Это классический вариант загрузки связанных данных
             var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выбор пользователя с заданным Login
-            var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
+            var u = xContacts.FirstOrDefault(t => ALogin == t.UserName);
             // Список ChatRoom для текущего пользователя
             var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
 
@@ -149,7 +149,7 @@ namespace MetaPotato.Models
         {
             bool xIsContact = false;
             // Это моя оптимизация (Связанные данные грузятся только для одного пользователя с заданным Login). Надо еще подумать
-            var xSource = FDB.tblUsers.Where(p => p.Login == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            var xSource = FDB.tblUsers.Where(p => p.UserName == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Список ChatRoom для текущего пользователя
             var cr = xSource[0].tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
             // Есть ли уже такой контакт?
@@ -163,7 +163,7 @@ namespace MetaPotato.Models
             if (!xIsContact)
             {  
                 // Здесь добавляем контакт
-                var xTarget = FDB.tblUsers.Where(p => p.Login == ANewUser).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+                var xTarget = FDB.tblUsers.Where(p => p.UserName == ANewUser).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
                 tblChatRoom xChatRoom = new tblChatRoom { ChatRoomName = ALogin + "_" + ANewUser, UserNumber = 2 };
                 FDB.tblChatRooms.Add(xChatRoom);
                 xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xSource[0].Id, ChatRoomId = xChatRoom.Id });
@@ -194,7 +194,7 @@ namespace MetaPotato.Models
             // Это классический вариант загрузки связанных данных
             var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выбор пользователя с заданным Login
-            var u = xContacts.FirstOrDefault(t => ALogin == t.Login);
+            var u = xContacts.FirstOrDefault(t => ALogin == t.UserName);
             // Список ChatRoom для текущего пользователя
             var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
 

@@ -1,6 +1,4 @@
-﻿'use strict';
-
-const path = require(`path`);
+﻿const path = require('path');
 
 module.exports = {
     module: {
@@ -11,12 +9,15 @@ module.exports = {
             },
         ],
     },
-    mode: `development`,
-    entry: `./wwwroot/js/main.js`,
-    output: {
-        filename: `bundle.js`,
-        path: path.join(__dirname, `wwwroot/build`),
+    mode: 'development',
+    entry: {
+        main: './wwwroot/js/main.js',
+        auth: './wwwroot/js/auth.js',
     },
-    devtool: `source-map`,
-    watch: true
+    output: {
+        filename: '[name].bundle.js',
+        path: path.join(__dirname, 'wwwroot/build'),
+    },
+    devtool: 'source-map',
+    watch: true,
 };

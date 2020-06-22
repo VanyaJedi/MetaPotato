@@ -1,0 +1,17 @@
+﻿
+@model MetaPotato.ViewModels.LoginModel
+
+    <form class="start-auth__login" asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+        <div class="start-auth__validation" asp-validation-summary="ModelOnly"></div>
+        <input class="start-auth__input" type="text" placeholder="login" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+        <input class="start-auth__input start-auth__input--last" type="password" placeholder="password" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+        <div class="start-auth__remember-forgot">
+            <input class="start-auth__remember visually-hidden" type="checkbox" id="remember" asp-for="RememberMe">
+            <label class="start-auth__remember-lable" for="remember" asp-for="RememberMe">Запомнить меня</label>
+            <button type="button" class="start-auth__forgot-pass-btn">Забыли пароль</button>
+        </div>
+        
+        <button class="start-auth__button button-shadow">Войти</button>
+    </form>
