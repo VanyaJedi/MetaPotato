@@ -34,7 +34,11 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                var user = await _userManager.FindByNameAsync(model.Email);
+                if (user == null)
+                {
+                    user = await _userManager.FindByEmailAsync(model.Email);
+                }
                 if (user != null)
                 {
                     // проверяем, подтвержден ли email
@@ -69,7 +73,8 @@ namespace MetaPotato.Controllers
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
-            {
+            {    
+                _userManager.Options.User.RequireUniqueEmail = true;
                 tblUser user = new tblUser { Email = model.Email, UserName = model.UserName };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -95,7 +100,9 @@ namespace MetaPotato.Controllers
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
+              //  user1 = null;
             }
+            
             ViewBag.isResetPassword = false;
             return View("~/Views/Home/StartPage.cshtml",model);
         }
