@@ -20,4 +20,5 @@ module.exports = {
     },
     devtool: 'source-map',
     watch: true,
+    performance: { hints: false }
 };

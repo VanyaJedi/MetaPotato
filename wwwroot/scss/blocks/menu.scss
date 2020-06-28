@@ -8,9 +8,12 @@
 }
 
 .menu__user {
+    margin-bottom: 30px;
+}
+
+.menu__user-info {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 30px;
     cursor: pointer;
 }
 
@@ -58,9 +61,21 @@
     color: $text-gold;
 }
 
+.menu__navigation {
+    position: fixed;
+    z-index: $nav-index;
+    bottom: 34px;
+    left: 34px;
+}
+
+
 @media (min-width: $tablet-width) { 
     .menu {
         width:  65.23%;
+    }
+    .menu__navigation {
+        bottom: 84px;
+        left: 60px;
     }
 }
 
@@ -74,7 +89,7 @@
 
         &--openlist {
 
-            .menu__user {
+            .menu__user-info {
                 background-color: $drop-menu-desktop;
                 transition: all 0.3s ease-in-out;
             }
@@ -91,11 +106,15 @@
     }
 
     .menu__user {
+        display: flex;
         height: 100%;
+        margin-bottom: 0;
+    }
+
+    .menu__user-info {
         width: 193px;
         display: flex;
         align-items: center;
-        margin-bottom: 0;
         padding-left: 13px;
     }
 
@@ -149,5 +168,9 @@
         font-size: 20px;
         font-weight: 500;
         margin-top: 0;
+    }
+
+    .menu__navigation {
+        position: static;
     }
 }
