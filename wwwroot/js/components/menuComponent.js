@@ -17,7 +17,7 @@ export default class Menu extends AbstractComponent {
         this.searchInput = this.search.querySelector('.search__input');
         this.searchResult = this.search.querySelector('.search__result');
         this.menuBlock = this._element.querySelector('.menu');
-        this.menuUser = this.menuBlock.querySelector('.menu__user');
+        this.menuUser = this.menuBlock.querySelector('.menu__user-info');
 
         // bind handlers
         this.openMenuHandler = this.openMenuHandler.bind(this);

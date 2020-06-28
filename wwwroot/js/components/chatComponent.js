@@ -45,9 +45,12 @@ export default class Chat extends AbstractComponent {
     }
 
 
-    showMessagesMobileHandler() {
-        this._messagesBlock.classList.add('messages--show');
-        this._usersBlock.classList.add('users--hide');
+    showMessagesMobileHandler(evt) {
+        const userItemElement = evt.target.closest('.users__item');
+        if (userItemElement) {
+            this._messagesBlock.classList.add('messages--show');
+            this._usersBlock.classList.add('users--hide');
+        }
     }
 
     hideMessagesMobileHandler() {

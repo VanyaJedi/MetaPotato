@@ -43,6 +43,10 @@ export default class ChatController {
         this._messagesModel.addDataChangeHandler(this.renderMessages.bind(this));
     }
 
+    isInitialDataNotEmpty() {
+        return Object.keys(this._defaultData).length > 0;
+    }
+
     startHub() {
         this._hub.start();
         this._hub.on('send', (message, username) => {
@@ -132,15 +136,17 @@ export default class ChatController {
     renderInitialData() {
         this._api.getMessages(this._currentChat)
             .then((messages) => {
-                this.renderUsers();
-                this._messagesModel.updateMessages(messages);
-                this._chatComponent.scrollDownMessages();
-                if (this._usersComponents.length) {
-                    this._usersComponents[0].makeActive();
+                if (this.isInitialDataNotEmpty()) {
+                    this.renderUsers();
+                    this._messagesModel.updateMessages(messages);
+                    this._chatComponent.scrollDownMessages();
+                    if (this._usersComponents.length) {
+                        this._usersComponents[0].makeActive();
+                    }
+                    this.renderUserInfo();
+                    this.renderTypeArea();
+                    this._chatComponent.setScreenHandlers();
                 }
-                this.renderUserInfo();
-                this.renderTypeArea();
-                this._chatComponent.setScreenHandlers();
             });
     }
 
