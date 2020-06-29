@@ -11,36 +11,9 @@ namespace MetaPotato
     {
         public static void Initialize(UserContext context, ChatManager AChatManager)
         {
-            if (!context.tblUsers.Any())
-            {
-                // заполняем tblUser
-                context.tblUsers.AddRange(
-                    new tblUser
-                    {
-                        Login = "Ваня",
-                        Password = "1",
-                        Email = "Ваня"
-                    },
-                    new tblUser
-                    {
-                        Login = "Андрей",
-                        Password = "2",
-                        Email = "Андрей"
-                    },
-                   new tblUser
-                   {
-                       Login = "Дима",
-                       Password = "3",
-                       Email = "Дима"
-                   }
-                );
-                context.SaveChanges();
-                AChatManager.AddUserToContacts("Ваня", "Андрей");
-                AChatManager.AddUserToContacts("Ваня", "Дима");
-                AChatManager.AddUserToContacts("Андрей", "Дима");
-
-            }
-            AChatManager.AddUserToContacts("Nikolay", "Marina");
+            AChatManager.AddUserToContacts("Nikolay", "Nikolay1");
+            AChatManager.AddUserToContacts("Nikolay", "Nikolay2");
+            AChatManager.AddUserToContacts("Nikolay2", "Nikolay1");
         }
     }
 }

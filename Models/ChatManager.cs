@@ -57,24 +57,27 @@ namespace MetaPotato.Models
         // Построить список контактов
         public  List<ContactItem> BuildContactList(string ALogin)
         {
+            // Список контактов
+            List<ContactItem> xContactList = new List<ContactItem>();
             // Это классический вариант загрузки связанных данных
             var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
             // Выбор пользователя с заданным Login
             var u = xContacts.FirstOrDefault(t => ALogin == t.UserName);
+            if (u == null)
+                return xContactList;
             // Список ChatRoom для текущего пользователя
             var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
 
             // Формировать список контактов
-            List<ContactItem> xContactList = new List<ContactItem>();
             foreach (tblChatRoom cru in cr)
             {
                 if (cru.UserNumber <= 2)
                     foreach (tblChatRoomUser x in cru.tblChatRoomUser)
                     {                     
-                        if (x.tblUser.Login != ALogin)
+                        if (x.tblUser.UserName != ALogin)
                         {
                             ContactItem xContactItem = new ContactItem();
-                            xContactItem.FLogin = x.tblUser.Login;
+                            xContactItem.FLogin = x.tblUser.UserName;
                             xContactItem.FLastMessage = GetLatest(cru.Id.ToString(), out xContactItem.FLastDateTime);
                             xContactItem.FChatRoom = cru.Id;
                             xContactItem.FPhoto = x.tblUser.Photo;
@@ -148,28 +151,45 @@ namespace MetaPotato.Models
         public bool AddUserToContacts(string ALogin, string ANewUser)
         {
             bool xIsContact = false;
-            // Это моя оптимизация (Связанные данные грузятся только для одного пользователя с заданным Login). Надо еще подумать
-            var xSource = FDB.tblUsers.Where(p => p.UserName == ALogin).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            // Это классический вариант загрузки связанных данных (моя оптимизация оказалась неверной)
+            var xContacts = FDB.tblUsers.Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
+            if (xContacts.Count == 0)
+                return false;
+            // Выбор пользователя с заданным Login
+            var u = xContacts.FirstOrDefault(t => ALogin == t.UserName);
+            if (u == null)
+                return false;
             // Список ChatRoom для текущего пользователя
-            var cr = xSource[0].tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
+            var cr = u.tblChatRoomUser.Select(sc => sc.tblChatRoom).ToList();
+
+
             // Есть ли уже такой контакт?
             foreach (tblChatRoom cru in cr)
+            { 
                 foreach (tblChatRoomUser x in cru.tblChatRoomUser)
-                    if (x.tblUser.Login == ANewUser)
+                    if (x.tblUser.UserName == ANewUser)
                     {
                         xIsContact = true;
                         break;
                     }
+                if (xIsContact)
+                    break;
+            }
             if (!xIsContact)
             {  
                 // Здесь добавляем контакт
                 var xTarget = FDB.tblUsers.Where(p => p.UserName == ANewUser).Include(c => c.tblChatRoomUser).ThenInclude(sc => sc.tblChatRoom).ToList();
-                tblChatRoom xChatRoom = new tblChatRoom { ChatRoomName = ALogin + "_" + ANewUser, UserNumber = 2 };
-                FDB.tblChatRooms.Add(xChatRoom);
-                xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xSource[0].Id, ChatRoomId = xChatRoom.Id });
-                xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xTarget[0].Id, ChatRoomId = xChatRoom.Id });
-                FDB.SaveChanges();
-                return true;
+                if (xTarget.Count > 0)
+                {
+                    tblChatRoom xChatRoom = new tblChatRoom { ChatRoomName = ALogin + "_" + ANewUser, UserNumber = 2 };
+                    FDB.tblChatRooms.Add(xChatRoom);
+                    xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = u.Id, ChatRoomId = xChatRoom.Id });
+                    xChatRoom.tblChatRoomUser.Add(new tblChatRoomUser { UserId = xTarget[0].Id, ChatRoomId = xChatRoom.Id });
+                    FDB.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
             }
             else
                return false;
@@ -205,10 +225,10 @@ namespace MetaPotato.Models
                 if (cru.UserNumber <= 2)
                     foreach (tblChatRoomUser x in cru.tblChatRoomUser)
                     {
-                        if (x.tblUser.Login != ALogin)
+                        if (x.tblUser.UserName != ALogin)
                         {
                             ContactItem xContactItem = new ContactItem();
-                            xContactItem.FLogin = x.tblUser.Login;
+                            xContactItem.FLogin = x.tblUser.UserName;
                             xContactItem.FLastMessage = GetLatest(cru.Id.ToString(), out xContactItem.FLastDateTime);
                             xContactItem.FChatRoom = cru.Id;
                             xContactItem.FPhoto = x.tblUser.Photo;
@@ -272,7 +292,8 @@ namespace MetaPotato.Models
         {
             using (BinaryWriter writer = new BinaryWriter(File.Open(AFileName, FileMode.Create)))
             {
-                writer.Write(AIn);
+                if (AIn != null)
+                    writer.Write(AIn);
             }
         }
     }
