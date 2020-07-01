@@ -15,8 +15,23 @@
         <div class="master-header__wrapper wrapper">
             <div class="master-header__menu menu">
                 <div class="menu__user">
-                    <img src="~/img/default_avatar.png" class="menu__avatar" />
-                    <span class="menu__username">@ViewBag.Username</span>
+                    <div class="menu__user-info">
+                        <img src="~/img/default_avatar.png" class="menu__avatar" />
+                        <span class="menu__username">@ViewBag.Username</span>
+                    </div>
+
+                    <nav class="menu__navigation navigation">
+                        <button type="button" class="navigation__item navigation__item--active">
+                            <svg class="navigation__icon navigation__icon--message" aria-label="Открыть сообщения">
+                                <use xlink:href="build/symbol/sprite.svg#message"></use>
+                            </svg>
+                        </button>
+                        <button type="button" class="navigation__item navigation__item--trading">
+                            <svg class="navigation__icon navigation__icon--trading" aria-label="Открыть прогнозы">
+                                <use xlink:href="build/symbol/sprite.svg#trading"></use>
+                            </svg>
+                        </button>
+                    </nav>
                 </div>
                 <ul class="menu__nav">
                     <li class="menu__nav-item menu__nav-item-profile">
@@ -42,18 +57,22 @@
                         </form>
                     </li>
                 </ul>
+
             </div>
+            
             <div class="master-header__icon-wrapper master-header__icon-wrapper--left">
-                <button class="master-header__icon-btn master-header__menu-close" type="button">
-                    <svg class="master-header__icon " width="13" height="13" aria-label="Закрыть меню">
-                        <use xlink:href="build/symbol/sprite.svg#menu-close"></use>
-                    </svg>
-                </button>
-                <button class="master-header__icon-btn master-header__menu-open" type="button">
-                    <svg class="master-header__icon " width="17" height="14" aria-label="Открыть меню">
-                        <use xlink:href="build/symbol/sprite.svg#menu-btn"></use>
-                    </svg>
-                </button>
+                <div>
+                    <button class="master-header__icon-btn master-header__menu-close" type="button">
+                        <svg class="master-header__icon " width="13" height="13" aria-label="Закрыть меню">
+                            <use xlink:href="build/symbol/sprite.svg#menu-close"></use>
+                        </svg>
+                    </button>
+                    <button class="master-header__icon-btn master-header__menu-open" type="button">
+                        <svg class="master-header__icon " width="17" height="14" aria-label="Открыть меню">
+                            <use xlink:href="build/symbol/sprite.svg#menu-btn"></use>
+                        </svg>
+                    </button>
+                </div>       
             </div>
 
             <h2 class="master-header__title">
