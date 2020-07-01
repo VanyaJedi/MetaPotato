@@ -34,6 +34,7 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {
+                Microsoft.AspNetCore.Identity.SignInResult result;
                 var user = await _userManager.FindByNameAsync(model.Email);
                 if (user == null)
                 {
@@ -46,18 +47,21 @@ namespace MetaPotato.Controllers
                     {
                         ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
                         return View("~/Views/Home/StartPage.cshtml", model);
+                    } 
+                    result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
                     }
-                }
-
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-                }
+                }                
             }
             ViewBag.isResetPassword = false;
             return View("~/Views/Home/StartPage.cshtml", model);
@@ -74,7 +78,7 @@ namespace MetaPotato.Controllers
         {
             if (ModelState.IsValid)
             {    
-                _userManager.Options.User.RequireUniqueEmail = true;
+              //  _userManager.Options.User.RequireUniqueEmail = true;
                 tblUser user = new tblUser { Email = model.Email, UserName = model.UserName };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);

@@ -15,13 +15,16 @@
         <input style="display: none;" type="submit" id="loadfile" value="Добавить" />
     </p>
 </form>
-<form action="/Crop/CropSave" controller="Crop" method="post" >
+<form action="/Crop/CropSave" controller="Crop" method="post">
     <input type="submit" id="loadfile1" value="Сохранить" />
     <input name="X" type="hidden" id="dcoordinate_x" />
     <input name="Y" type="hidden" id="dcoordinate_y" />
     <input name="W" type="hidden" id="dcoordinate_w" />
     <input name="H" type="hidden" id="dcoordinate_h" />
-    <img name="Photo" id="dcropimage1"  src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Photo))" />
+    @if (Model.Photo != null)
+    { 
+        <img name="Photo" id="dcropimage1" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Photo))" />
+    }
     <div style="color: #fff">
         @if (Model.Photo != null)
         {

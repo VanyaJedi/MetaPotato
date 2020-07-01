@@ -13,9 +13,9 @@ namespace MetaPotato.Models
         //[Key]
         //public int Id { get; set; }
         //public string Email { get; set; }
-        public string Password { get; set; }
-        public string Login { get; set; }
-        public int Status { get; set; }
+      //  public string Password { get; set; }
+      //  public string Login { get; set; }
+     //   public int Status { get; set; }
         public byte[] Photo { get; set; }
         public List<tblChatRoomUser> tblChatRoomUser { get; set; }
 

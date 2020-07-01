@@ -34,10 +34,10 @@ namespace MetaPotato.Controllers
         public IActionResult Index()
         {
             FViewModelItem = new ViewModelItem();
-            tblUser xUser = FDB.tblUsers.FirstOrDefault(t => (t.Login == User.Identity.Name));
+            tblUser xUser = FDB.tblUsers.FirstOrDefault(t => (t.UserName == User.Identity.Name));
             if (xUser != null)
             {
-                FViewModelItem.Name = xUser.Login;
+                FViewModelItem.Name = xUser.UserName;
                 FViewModelItem.Photo = xUser.Photo;
             }
             FChatManager.SaveBytes(xUser.Photo, "C:/Metapotato/wwwroot/temp/" + User.Identity.Name + ".jpg");
@@ -52,7 +52,7 @@ namespace MetaPotato.Controllers
             if (Avatar != null)
             {
                 byte[] imageData = null;
-                var xUser = FDB.tblUsers.FirstOrDefault(t => (t.Login == User.Identity.Name));
+                var xUser = FDB.tblUsers.FirstOrDefault(t => (t.UserName == User.Identity.Name));
                 using (var binaryReader = new BinaryReader(Avatar.OpenReadStream()))
                 {
                     imageData = binaryReader.ReadBytes((int)Avatar.Length);
@@ -71,7 +71,7 @@ namespace MetaPotato.Controllers
         public IActionResult CropSave(double X, double Y, double W, double H)
         {
             byte[] cropped = FChatManager.CroppedPicture("C:/Metapotato/wwwroot/temp/" + User.Identity.Name + ".jpg", (int) X, (int) Y, (int) W, (int) H);
-            var xUser = FDB.tblUsers.FirstOrDefault(t => (t.Login == User.Identity.Name));
+            var xUser = FDB.tblUsers.FirstOrDefault(t => (t.UserName == User.Identity.Name));
             xUser.Photo = cropped;
             FDB.SaveChanges();
             return RedirectToAction("Index");
