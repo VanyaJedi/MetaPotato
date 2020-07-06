@@ -1,10 +1,15 @@
 ﻿
 const URL_GET_MESSAGES = 'Messages/Messages/';
 const URL_GET_INITIAL_DATA = 'Messages/InitialData/';
+const URL_ADD_USER_TO_CONTACT = 'Home/AddUserToContact';
 
 export default class Api {
-
-    _load({ url, method = 'GET', body = null, headers = new Headers() }, auth = null) {
+    _load({
+        url,
+        method = 'GET',
+        body = null,
+        headers = new Headers(),
+    }, auth = null) {
         if (auth) {
             headers.append('Authorization', auth);
         }
@@ -30,7 +35,7 @@ export default class Api {
     }
 
     getMessages(chatRoomId) {
-        return this._load({ url: `${URL_GET_MESSAGES}?chatRoomId=${chatRoomId}`})
+        return this._load({ url: `${URL_GET_MESSAGES}?chatRoomId=${chatRoomId}` })
             .then((response) => response.json())
             .catch(this._onError);
     }
@@ -41,7 +46,17 @@ export default class Api {
             .catch(this._onErrorMessages);
     }
 
+    addToContactList(login, user) {
+        return this._load({
+            url: `${URL_ADD_USER_TO_CONTACT}?ALogin=${login}&ANewUser=${user}`
+        }).then((response) => {
+            console.log(response);
+        });
+    }
 
-
-
+    getEmojisPack() {
+        return this._load({
+            url: 'https://unpkg.com/emoji.json/emoji.json'
+        }).then((response) => response.json());
+    }
 }

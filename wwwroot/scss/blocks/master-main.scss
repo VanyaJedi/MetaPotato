@@ -1,16 +1,21 @@
 ﻿.master-main {
-    height: calc(100vh - 41px);
+    //height: calc(100vh - 41px);
+    //height: calc(var(--vh, 1vh) * 100 - 41px);
+    height: calc(var(--vh, 1vh) * 100 - 41px);
     background-color: $background-dark;
 }
 
 @media (min-width: $tablet-width) {
     .master-main {
-        height: calc(100vh - 51px);
+        //height: calc(100vh - 51px);
+        height: calc(var(--vh, 1vh) * 100 - 51px);
     }
 }
 
 @media (min-width: $desktop-width) {
     .master-main {
-        height: calc(100vh - 48px);
+        position: relative;
+        //height: calc(100vh - 48px);
+        height: calc(var(--vh, 1vh) * 100 - 48px);
     }
 }

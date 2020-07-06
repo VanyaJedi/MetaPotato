@@ -7,11 +7,11 @@ export default class UserProfile extends AbstractComponent {
         this._userName = userName;
         this._chatRoom = chatRoom;
         this._userAvatar = userAvatar;
+        this._textMessageHandler = null;
     }
 
 
     getTemplate() {
-
         const avatar = createAvatarTemplate(this._userAvatar, 'user-profile__avatar');
         return (
             `<section class="user-profile">
@@ -50,5 +50,10 @@ export default class UserProfile extends AbstractComponent {
 
     setCloseUserProfileHandler(handler) {
         this.getElement().querySelector('.user-profile__close-btn').addEventListener('click', handler);
+    }
+
+    setTextMessageHander(handler) {
+        this._textMessageHandler = handler;
+        this.getElement().querySelector('.user-profile__text-msg-btn').addEventListener('click', handler);
     }
 }

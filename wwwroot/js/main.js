@@ -1,44 +1,23 @@
 ﻿import hubConnection from './modules/signalR';
+import PageModel from './models/PageModel';
 import MessagesModel from './models/messagesModel';
+import PageController from './controllers/PageController';
 import ChatController from './controllers/chatController';
 import MenuController from './controllers/menuController';
-//import Router from './modules/router';
+import { generateCSSVarForCorrectMobileHeight } from './utils/other';
+import router from './modules/router';
 import Api from './api/api';
 
+generateCSSVarForCorrectMobileHeight();
+window.addEventListener('resize', () => {
+    generateCSSVarForCorrectMobileHeight();
+});
+
 const api = new Api();
-//const router = new Router();
 const messagesModel = new MessagesModel();
+const pageModel = new PageModel(router.getCurrentPath());
 
+api.getEmojisPack();
 
-const renderMessagePage = () => {
-    api.getInitialData()
-        .then((data) => {
-            messagesModel.users = data.ContactItems;
-            messagesModel.myLogin = data.FMyLogin;
-
-            const menuController = new MenuController(messagesModel);
-            menuController.setMenuHandlers();
-            menuController.subsribeMenuMediaEvents();
-
-            const chatController = new ChatController(hubConnection, api, messagesModel);
-            chatController.startHub();
-            chatController.renderInitialData();
-            chatController.subscribeChatMediaEvents();
-
-            const closeMyProfileHandler = () => {
-                chatController.showChat();
-                menuController.closeMyProfile();
-            };
-
-            const openMyProfileHandler = () => {
-                menuController.renderMyProfile();
-                chatController.hideChat();
-                chatController.closeUserProfile();
-                menuController.setCloseProfileHandler(closeMyProfileHandler);
-            };
-
-            menuController.setOpenProfileHandler(openMyProfileHandler);
-        });
-};
-
-renderMessagePage();
+const pageController = new PageController(hubConnection, api, messagesModel, pageModel, router);
+pageController.getInitialDataAndInitMenu();

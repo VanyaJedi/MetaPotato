@@ -1,23 +1,26 @@
 ﻿export const createElement = (template) => {
-    const newElement = document.createElement(`div`);
+    const newElement = document.createElement('div');
     newElement.innerHTML = template;
 
     return newElement.firstChild;
 };
 
-export const render = (container, component, place = `beforeend`) => {
+export const render = (container, component, place = 'beforeend') => {
     switch (place) {
-        case `afterbegin`:
-            container.prepend(component.getElement());
-            break;
-        case `beforeend`:
-            container.append(component.getElement());
-            break;
+    case 'afterbegin':
+        container.prepend(component.getElement());
+        break;
+    case 'beforeend':
+        container.append(component.getElement());
+        break;
+    default:
+        container.append(component.getElement());
+        break;
     }
 };
 
 export const replace = (newComponent, oldComponent) => {
-    const parentElement = oldComponent.getElement().parentElement;
+    const { parentElement } = oldComponent.getElement();
     const newElement = newComponent.getElement();
     const oldElement = oldComponent.getElement();
 

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace MetaPotato
 {
@@ -87,13 +88,22 @@ namespace MetaPotato
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            //Ловим несуществующие URL
+            var options = new RewriteOptions()
+                .AddRewrite("messenger", "home/Index", skipRemainingRules: false);
+            app.UseRewriter(options);
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
 
             app.UseRouting();
 
             app.UseAuthentication();    // аутентификация
             app.UseAuthorization();     // авторизация
+
 
             app.UseEndpoints(endpoints =>
             {

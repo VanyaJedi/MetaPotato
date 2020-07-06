@@ -23,6 +23,7 @@
   "rules": {
     "indent": [ "error", 4 ],
     "linebreak-style": [ 0, "error", "windows" ],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off"
   }
 }

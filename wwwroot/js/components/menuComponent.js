@@ -38,6 +38,9 @@ export default class Menu extends AbstractComponent {
         this.whenDesktopMenu = this.whenDesktopMenu.bind(this);
         this.whenNotDesktopMenu = this.whenNotDesktopMenu.bind(this);
         this.setMyProfileOpenHandler = this.setMyProfileOpenHandler.bind(this);
+
+        this.setScreenHandlers();
+        this.subscribeMediaEvents();
     }
 
     getElement() {

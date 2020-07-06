@@ -11,9 +11,8 @@ namespace MetaPotato
     {
         public static void Initialize(UserContext context, ChatManager AChatManager)
         {
-            AChatManager.AddUserToContacts("Nikolay", "Nikolay1");
-            AChatManager.AddUserToContacts("Nikolay", "Nikolay2");
-            AChatManager.AddUserToContacts("Nikolay2", "Nikolay1");
+            AChatManager.AddUserToContacts("Sasha", "Ivan");
+            AChatManager.AddUserToContacts("Ivan", "Sasha");
         }
     }
 }
