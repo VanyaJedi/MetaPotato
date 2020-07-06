@@ -24,7 +24,7 @@ namespace MetaPotato
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.yandex.ru", 465, true);
-                await client.AuthenticateAsync("Jediinspace@yandex.ru", "Fedorchampion.");
+                await client.AuthenticateAsync("Jediinspace@yandex.ru", "Fedorchampion.123");
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);

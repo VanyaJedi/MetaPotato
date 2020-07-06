@@ -5,17 +5,12 @@ import UserItem from '../components/userItemComponent';
 import UserProfile from '../components/userProfileComponent';
 import TypeArea from '../components/typeAreaComponent';
 import UserInfo from '../components/userInfoComponent';
+import Emojis from '../components/emojisComponent';
 
 import userAdapter from '../models/userAdapter';
 
 
 const mainElement = document.querySelector('.master-main');
-
-const messagesUser = document.querySelector('.messages__user');
-const messagesBlock = document.querySelector('.messages__block');
-const messagesContainer = document.querySelector('.messages__list');
-const userList = document.querySelector('.users__list');
-
 
 export default class ChatController {
     constructor(hub, api, messagesModel) {
@@ -30,6 +25,15 @@ export default class ChatController {
         this._currentPhoto = this._defaultData.userAvatar;
 
         this._chatComponent = new Chat();
+        this._api.getEmojisPack()
+            .then((result) => {
+                this._emojis = new Emojis(result);
+            });
+        this._messagesUser = this._chatComponent.getElement().querySelector('.messages__user');
+        this._messagesBlock = this._chatComponent.getElement().querySelector('.messages__block');
+        this._messagesContainer = this._chatComponent.getElement().querySelector('.messages__list');
+        this._userList = this._chatComponent.getElement().querySelector('.users__list');
+
         this._userProfile = null;
         this._userInfo = null;
         this._typeArea = null;
@@ -39,7 +43,10 @@ export default class ChatController {
         this.sendMessageHandler = this.sendMessageHandler.bind(this);
         this.focusTypeAreaHandler = this.focusTypeAreaHandler.bind(this);
         this.blurTypeAreaHandler = this.blurTypeAreaHandler.bind(this);
+        this.showOrHideEmojisHandler = this.showOrHideEmojisHandler.bind(this);
+        this.emojiClickHandler = this.emojiClickHandler.bind(this);
 
+        this._chatComponent.subscribeMediaEvents();
         this._messagesModel.addDataChangeHandler(this.renderMessages.bind(this));
     }
 
@@ -48,9 +55,13 @@ export default class ChatController {
     }
 
     startHub() {
-        this._hub.start();
+        this._hub.start()
+            .then(() => {
+                this._hub.invoke('JoinGroup', this._currentChat.toString());
+            });
         this._hub.on('send', (message, username) => {
-            this.renderMessage(message, username, true);
+            this.renderMessage(message, username, this._currentPhoto, true);
+            this._chatComponent.scrollDownMessages();
         });
     }
 
@@ -71,10 +82,14 @@ export default class ChatController {
         }
     }
 
+    renderChatContainer() {
+        render(mainElement, this._chatComponent);
+    }
+
     renderUsers() {
         this._messagesModel.users.forEach((user) => {
             const userItemParsed = userAdapter.parseUser(user);
-            const userItem = new UserItem(userItemParsed, userList);
+            const userItem = new UserItem(userItemParsed, this._userList);
 
             const clickHandler = () => {
                 const { chatRoom, userLogin, userAvatar } = userItemParsed;
@@ -96,16 +111,17 @@ export default class ChatController {
 
             userItem.setUserItemClick(clickHandler);
             this._usersComponents.push(userItem);
-            render(userList, userItem);
+            render(this._userList, userItem);
         });
     }
 
     renderTypeArea() {
         this._typeArea = new TypeArea();
-        render(messagesBlock, this._typeArea);
+        render(this._messagesBlock, this._typeArea);
         this._typeArea.setSendMessageHandler(this.sendMessageHandler);
         this._typeArea.setFocusHandler(this.focusTypeAreaHandler);
         this._typeArea.setBlurHandler(this.blurTypeAreaHandler);
+        this._typeArea.setShowEmojiHandler(this.showOrHideEmojisHandler);
     }
 
     sendMessageHandler() {
@@ -129,13 +145,14 @@ export default class ChatController {
         if (this._oldUserInfo) {
             replace(this._userInfo, this._oldUserInfo);
         } else {
-            render(messagesUser, this._userInfo);
+            render(this._messagesUser, this._userInfo);
         }
     }
 
     renderInitialData() {
         this._api.getMessages(this._currentChat)
             .then((messages) => {
+                this.renderChatContainer();
                 if (this.isInitialDataNotEmpty()) {
                     this.renderUsers();
                     this._messagesModel.updateMessages(messages);
@@ -156,14 +173,10 @@ export default class ChatController {
     }
 
     renderMessages() {
-        messagesContainer.innerHTML = '';
+        this._messagesContainer.innerHTML = '';
         this._messagesModel.messages.forEach((message) => {
             this.renderMessage(message.MessageText, message.UserName, this._currentPhoto, message.IsFriend);
         });
-    }
-
-    subscribeChatMediaEvents() {
-        this._chatComponent.subscribeMediaEvents();
     }
 
     hideChat() {
@@ -187,5 +200,24 @@ export default class ChatController {
 
     blurTypeAreaHandler() {
         document.removeEventListener('keydown', this._sendByEnterKeyHandler);
+    }
+
+    removeChat() {
+        remove(this._chatComponent);
+    }
+
+    showOrHideEmojisHandler() {
+        if (!this._emojis.isRender) {
+            render(this._messagesBlock, this._emojis);
+            this._emojis.setEmojiClickHandler(this.emojiClickHandler);
+        } else {
+            remove(this._emojis);
+        }
+        this._emojis.isRender = !this._emojis.isRender;
+    }
+
+    emojiClickHandler(evt) {
+        const emoji = evt.target.innerHTML;
+        this._typeArea.addContent(emoji);
     }
 }

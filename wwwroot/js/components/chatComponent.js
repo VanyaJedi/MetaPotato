@@ -6,10 +6,10 @@ const chat = document.querySelector('.messenger');
 export default class Chat extends AbstractComponent {
     constructor() {
         super();
-        this._element = chat;
-        this._usersBlock = this._element.querySelector('.users');
-        if (this._element.querySelector('.users__list')) {
-            this._userList = this._element.querySelector('.users__list');
+       // this._element = chat;
+        this._usersBlock = this.getElement().querySelector('.users');
+        if (this.getElement().querySelector('.users__list')) {
+            this._userList = this.getElement().querySelector('.users__list');
             this._userListItems = this._userList.querySelectorAll('.users__item');
         }
         this._messagesBlock = this._element.querySelector('.messages');
@@ -27,9 +27,42 @@ export default class Chat extends AbstractComponent {
         this.whenNotMobileChat = this.whenNotMobileChat.bind(this);
     }
 
-    getElement() {
+    /*getElement() {
         return this._element;
+    }*/
+
+    getTemplate() {
+        return (`<div class="messenger">
+                <section class="users">
+                    <div class="messages__header messages__header--users notmaster-header">
+                        <span>Диалоги</span>
+                    </div>
+                <ul class="users__list">
+                </ul>
+                  
+                </section>
+
+                <section class="messages">
+                    <div class="messages__header notmaster-header">
+                        <button class="messages__icon-btn-back" type="button">
+                            <svg class="messages__icon messages__icon--back" widht="16" height="16" aria-label="Назад">
+                                <use xlink:href="build/symbol/sprite.svg#back"></use>
+                            </svg>
+                        </button>
+                        <div class="messages__user">
+                          <!--user info-->
+                        </div>
+                    </div>
+                    <div class="messages__block block">
+                        <ul class="messages__list">
+                        </ul>
+
+                        <!--type area-->
+                    </div>
+                </section>
+            </div>`);
     }
+
 
     setActiceUserInitial() {
         this._userListItems[0].classList.add('users__item--active');
@@ -86,6 +119,4 @@ export default class Chat extends AbstractComponent {
     scrollDownMessages() {
         this._messagesList.scrollTop = this._messagesList.scrollHeight;
     }
-
-
 }

@@ -1,14 +1,14 @@
-﻿
-export default class MessagesModel {
+﻿import AbstractModel from './abstractModel';
+
+export default class MessagesModel extends AbstractModel {
     constructor() {
+        super();
         this._usersList = null;
         this.myLogin = null;
         this.currentChatLogin = null;
         this.currentChatRoom = null;
 
         this._messagesList = [];
-
-        this._dataChangeHandlers = [];
     }
 
     get messages() {
@@ -37,19 +37,9 @@ export default class MessagesModel {
         return defaultData;
     }
 
-    addDataChangeHandler(handler) {
-        this._dataChangeHandlers.push(handler);
-    }
-
-    _executeAllHandlers(handlers) {
-        handlers.forEach((handler) => {
-            handler();
-        });
-    }
-
     updateMessages(messagesList) {
         this.messages = messagesList;
-        this._executeAllHandlers(this._dataChangeHandlers);
+        this.executeAllDataChangeHandlers();
     }
 
     updateUsers(usersList) {

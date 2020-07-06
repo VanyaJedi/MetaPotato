@@ -1,8 +1,10 @@
 ﻿
-export default class Router {
+class Router {
     constructor() {
         this.routes = [];
         this.root = '/';
+
+        this.navigate = this.navigate.bind(this);
     }
 
     add(path, cb) {
@@ -25,11 +27,23 @@ export default class Router {
         return this;
     }
 
+    getClearInputHref(href) {
+        const re = /(?:https?:\/\/)?.*\/(\w*)/;
+        const clearedHref = href.match(re);
+        return clearedHref[1];
+    }
+
     getCurrentPath() {
-       return window.location.pathname;
+        const path = window.location.pathname;
+        return path.replace('/', '');
     }
 
     navigate(path = '') {
-        window.history.pushState(null, null, this.root + path);
+        const clearPath = this.getClearInputHref(path);
+        window.history.pushState(null, null, this.root + clearPath);
+        return clearPath;
     }
 }
+
+const router = new Router();
+export default router;

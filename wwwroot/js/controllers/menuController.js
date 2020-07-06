@@ -1,6 +1,8 @@
 ﻿import Menu from '../components/menuComponent';
 import MyProfile from '../components/myProfileComponent';
+import Navigation from '../components/navigationComponent';
 import { render, remove } from '../utils/manipulateDOM';
+import router from '../modules/router';
 
 const mainElem = document.querySelector('.master-main');
 
@@ -8,31 +10,29 @@ export default class MenuController {
     constructor(messagesModel) {
         this._messagesModel = messagesModel;
         this._menuComponent = new Menu();
+        this._navigation = new Navigation();
         this._myProfile = null;
 
         this.closeMyProfile = this.closeMyProfile.bind(this);
-        this.setOpenProfileHandler = this.setOpenProfileHandler.bind(this);
-        this.setCloseProfileHandler = this.setCloseProfileHandler.bind(this);
+        this.openProfileHandler = this.openProfileHandler.bind(this);
+        this.closeProfileHandler = this.closeProfileHandler.bind(this);
+        this.init = this.init.bind(this);
     }
 
-    setMenuHandlers() {
-        this._menuComponent.setScreenHandlers();
+    getNavigationItems() {
+        return this._navigation.navItems;
     }
 
-    subsribeMenuMediaEvents() {
-        this._menuComponent.subscribeMediaEvents();
+    openProfileHandler() {
+        this.renderMyProfile();
+        this._myProfile.setCloseUserProfileHandler(this.closeProfileHandler);
     }
 
-    getProfileBtn() {
-        return this._menuComponent.getElement().querySelector('.menu__nav-item-profile');
-    }
-
-    setOpenProfileHandler(handler) {
-        this._menuComponent.setMyProfileOpenHandler(handler);
-    }
-
-    setCloseProfileHandler(handler) {
-        this._myProfile.setCloseUserProfileHandler(handler);
+    closeProfileHandler() {
+        if (this._myProfile) {
+            remove(this._myProfile);
+            this._myProfile = null;
+        }
     }
 
     renderMyProfile() {
@@ -41,7 +41,6 @@ export default class MenuController {
             this._myProfile = new MyProfile(this._messagesModel.myLogin);
             render(mainElem, this._myProfile);
         }
-        //this._myProfile.setCloseUserProfileHandler(this.closeMyProfile);
     }
 
     closeMyProfile() {
@@ -53,5 +52,10 @@ export default class MenuController {
 
     hideDropMenu() {
         this._menuComponent.showMenuDesktopHandler();
+    }
+
+    init(changePagehandler) {
+        this._menuComponent.setMyProfileOpenHandler(this.openProfileHandler);
+        this._navigation.setNavClickHandler(changePagehandler);
     }
 }

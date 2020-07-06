@@ -9,6 +9,8 @@
     <script type="text/javascript" src="~/jquery.Jcrop.js"></script>
     <link rel="stylesheet" href="~/jquery.Jcrop.css" />
     <link rel="stylesheet" href="~/build/css/style.css" />
+    <link rel="stylesheet" href="~/lib/emojionearea/emojionearea.min.css">
+    <script type="text/javascript" src="~/lib/emojionearea/emojionearea.min.js"></script>
 </head>
 <body>
     <header class="master-header master-header--close-menu">
@@ -21,16 +23,16 @@
                     </div>
 
                     <nav class="menu__navigation navigation">
-                        <button type="button" class="navigation__item navigation__item--active">
+                        <a href="/messenger" class="navigation__item">
                             <svg class="navigation__icon navigation__icon--message" aria-label="Открыть сообщения">
                                 <use xlink:href="build/symbol/sprite.svg#message"></use>
                             </svg>
-                        </button>
-                        <button type="button" class="navigation__item navigation__item--trading">
+                        </a>
+                        <a href="/" class="navigation__item navigation__item--trading">
                             <svg class="navigation__icon navigation__icon--trading" aria-label="Открыть прогнозы">
                                 <use xlink:href="build/symbol/sprite.svg#trading"></use>
                             </svg>
-                        </button>
+                        </a>
                     </nav>
                 </div>
                 <ul class="menu__nav">
@@ -59,7 +61,7 @@
                 </ul>
 
             </div>
-            
+
             <div class="master-header__icon-wrapper master-header__icon-wrapper--left">
                 <div>
                     <button class="master-header__icon-btn master-header__menu-close" type="button">
@@ -72,7 +74,7 @@
                             <use xlink:href="build/symbol/sprite.svg#menu-btn"></use>
                         </svg>
                     </button>
-                </div>       
+                </div>
             </div>
 
             <h2 class="master-header__title">
@@ -107,5 +109,11 @@
     </main>
 
     <script src="~/build/main.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log('emoji');
+            $('.test').emojioneArea();
+        })
+    </script>
 </body>
 </html>

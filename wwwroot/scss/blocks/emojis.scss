@@ -1,0 +1,34 @@
+﻿.emojis {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 73px;
+    left: 4px;
+    width: 100%;
+    height: 200px;
+    background: #fff;
+    overflow-y: auto;
+    padding: 8px 5px;
+}
+
+.emoji {
+    cursor: pointer;
+    display: flex;
+    font-size: 30px;
+    margin-bottom: 16px;
+}
+
+@media (min-width: $tablet-width) {
+    .emojis {
+        bottom: 86px;
+        width: 385px;
+        left: calc((100% - 707px) / 2);
+    }
+}
+
+@media (min-width: $desktop-width) {
+    .emojis {
+        bottom: 112px;
+        left: calc((100% - 830px) / 2);
+    }
+}

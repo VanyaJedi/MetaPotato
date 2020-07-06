@@ -1,8 +1,8 @@
 ﻿.user-profile {
     position: absolute;
-    z-index: 1000;
+    z-index: $popup-index;
     top: 0;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     width: 100%;
     background-color: $background-dark;
 
@@ -209,8 +209,8 @@
 
 
     .user-profile {
-        position: relative;
-        top: auto;
+        position: absolute;
+        //top: -;
     }
 
     .user-profile__close-btn {

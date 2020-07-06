@@ -57,5 +57,10 @@ namespace MetaPotato.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public void AddUserToContact(string ALogin, string ANewUser)
+        {
+            _chatManager.AddUserToContacts(ALogin, ANewUser);
+        }
+
     }
 }

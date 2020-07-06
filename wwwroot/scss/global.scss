@@ -109,6 +109,7 @@
 
 html {
     box-sizing: border-box;
+    height: calc(var(--vh, 1vh) * 100);
 }
 
 *,
@@ -124,4 +125,6 @@ body {
     font-weight: 300;
     font-size: 16px;
     line-height: 22px;
+    height: 100%;
+    //height: calc(var(--vh, 1vh) * 100);
 }

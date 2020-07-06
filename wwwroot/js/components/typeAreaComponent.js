@@ -16,6 +16,7 @@ export default class Message extends AbstractComponent {
                     </svg>
                 </button>
             </form>
+
             `
         );
     }
@@ -38,5 +39,14 @@ export default class Message extends AbstractComponent {
 
     setBlurHandler(handler) {
         this.getElement().querySelector('.messages__typeArea').addEventListener('blur', handler);
+    }
+
+    setShowEmojiHandler(handler) {
+        this.getElement().querySelector('.messages__smile-btn').addEventListener('click', handler);
+    }
+
+    addContent(content) {
+        console.log(content);
+        this.getElement().querySelector('.messages__typeArea').innerHTML += content;
     }
 }

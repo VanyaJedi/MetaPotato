@@ -245,56 +245,56 @@ namespace MetaPotato.Models
             return xInitialDataItem;
         }
 
-          public byte[] CroppedPicture(string AFileName, int AX, int AY, int AW, int AH)
-          {
-              byte[] xSource = null;
-              using (BinaryReader reader = new BinaryReader(File.Open(AFileName, FileMode.Open)))
-              {
-                  FileInfo file = new FileInfo(AFileName);
-                  long size = file.Length;
-                  xSource = reader.ReadBytes((int)size);
-
-
-
-                  MemoryStream ms = new MemoryStream(xSource);
-                  Image inputfile = Image.FromStream(ms);
-                  if ((AW == 0) && (AH == 0))
-                  {
-                      AW = inputfile.Width;
-                      AH = inputfile.Height;
-                  }
-                  Rectangle cropcoordinate = new Rectangle(Convert.ToInt32(AX), Convert.ToInt32(AY), Convert.ToInt32(AW), Convert.ToInt32(AH));
-                  Bitmap bitmap = new Bitmap(cropcoordinate.Width, cropcoordinate.Height, inputfile.PixelFormat);
-                  Graphics graphicsIn = Graphics.FromImage(bitmap);
-                  graphicsIn.DrawImage(inputfile, new Rectangle(0, 0, bitmap.Width, bitmap.Height), cropcoordinate, GraphicsUnit.Pixel);
-                  MemoryStream msmid = new MemoryStream();
-                  bitmap.Save(msmid, System.Drawing.Imaging.ImageFormat.Jpeg);
-                  Image mid = Image.FromStream(msmid);
-
-                  int width, height;
-                  width = 100;
-                  height = 100;
-                  var resized = new Bitmap(width, height);
-                  using (var graphics = Graphics.FromImage(resized))
-                  {
-                      graphics.CompositingQuality = CompositingQuality.HighSpeed;
-                      graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                      graphics.CompositingMode = CompositingMode.SourceCopy;
-                      graphics.DrawImage(mid, 0, 0, width, height);
-                  }
-                  MemoryStream ms1 = new MemoryStream();
-                  resized.Save(ms1, System.Drawing.Imaging.ImageFormat.Jpeg);
-                  return ms1.ToArray();
-              }
-          }
-
-        public void SaveBytes(Byte[] AIn, string AFileName)
+        public byte[] CroppedPicture(string AFileName, int AX, int AY, int AW, int AH)
         {
-            using (BinaryWriter writer = new BinaryWriter(File.Open(AFileName, FileMode.Create)))
+            byte[] xSource = null;
+            using (BinaryReader reader = new BinaryReader(File.Open(AFileName, FileMode.Open)))
             {
-                if (AIn != null)
-                    writer.Write(AIn);
+                FileInfo file = new FileInfo(AFileName);
+                long size = file.Length;
+                xSource = reader.ReadBytes((int)size);
+
+
+
+                MemoryStream ms = new MemoryStream(xSource);
+                Image inputfile = Image.FromStream(ms);
+                if ((AW == 0) && (AH == 0))
+                {
+                    AW = inputfile.Width;
+                    AH = inputfile.Height;
+                }
+                Rectangle cropcoordinate = new Rectangle(Convert.ToInt32(AX), Convert.ToInt32(AY), Convert.ToInt32(AW), Convert.ToInt32(AH));
+                Bitmap bitmap = new Bitmap(cropcoordinate.Width, cropcoordinate.Height, inputfile.PixelFormat);
+                Graphics graphicsIn = Graphics.FromImage(bitmap);
+                graphicsIn.DrawImage(inputfile, new Rectangle(0, 0, bitmap.Width, bitmap.Height), cropcoordinate, GraphicsUnit.Pixel);
+                MemoryStream msmid = new MemoryStream();
+                bitmap.Save(msmid, System.Drawing.Imaging.ImageFormat.Jpeg);
+                Image mid = Image.FromStream(msmid);
+
+                int width, height;
+                width = 100;
+                height = 100;
+                var resized = new Bitmap(width, height);
+                using (var graphics = Graphics.FromImage(resized))
+                {
+                    graphics.CompositingQuality = CompositingQuality.HighSpeed;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.CompositingMode = CompositingMode.SourceCopy;
+                    graphics.DrawImage(mid, 0, 0, width, height);
+                }
+                MemoryStream ms1 = new MemoryStream();
+                resized.Save(ms1, System.Drawing.Imaging.ImageFormat.Jpeg);
+                return ms1.ToArray();
             }
         }
+
+    public void SaveBytes(Byte[] AIn, string AFileName)
+    {
+        using (BinaryWriter writer = new BinaryWriter(File.Open(AFileName, FileMode.Create)))
+        {
+            if (AIn != null)
+                writer.Write(AIn);
+        }
+    }
     }
 }

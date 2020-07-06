@@ -31,6 +31,8 @@
 }
 
 .menu__nav {
+    position: relative;
+    z-index: 10000;
     list-style: none;
 }
 
